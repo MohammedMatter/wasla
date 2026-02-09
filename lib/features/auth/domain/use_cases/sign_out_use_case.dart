@@ -1,8 +1,10 @@
-import 'package:wasla/features/auth/data/repositories_impl/auth_repository_impl.dart';
+import 'package:wasla/features/auth/domain/repositories/auth_repository.dart';
+import 'package:wasla/features/profile/domain/repositories/profile_repository.dart';
 
 class SignOutUseCase {
-  AuthRepositoryImpl authRepositoryImpl = AuthRepositoryImpl();
-  Future<void> signOut() {
-    return authRepositoryImpl.signOut();
+  AuthRepository repository;
+  SignOutUseCase({required this.repository});
+  Future<void> call() {
+    return repository.signOut();
   }
 }

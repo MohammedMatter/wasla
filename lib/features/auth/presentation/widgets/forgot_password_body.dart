@@ -5,6 +5,7 @@ import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
+import 'package:wasla/features/auth/domain/validation/signup_validation.dart';
 import 'package:wasla/features/auth/presentation/widgets/custom_text_field.dart';
 
 class ForgotPasswordBody extends StatelessWidget {
@@ -41,6 +42,7 @@ class ForgotPasswordBody extends StatelessWidget {
                 label: 'البريد الالكتروني',
                 icon: Icons.email_outlined,
                 controller: email,
+                textFieldType: TextFieldType.email,
               ),
             ),
 

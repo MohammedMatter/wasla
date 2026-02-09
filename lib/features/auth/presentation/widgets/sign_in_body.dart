@@ -25,7 +25,6 @@ class _LoginBodyState extends State<SignInBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     name = TextEditingController();
     email = TextEditingController();
@@ -38,131 +37,145 @@ class _LoginBodyState extends State<SignInBody> {
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: layout.xl),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              SizedBox(height: layout.xl),
-              Text(
-                'أدخل بياناتك علشان تتابع أدويتك\nوتستمتع بخدماتنا بسهولة',
-                textAlign: TextAlign.center,
-                style: AppTextStyle.lightSubtitle(
-                  layout,
-                ).copyWith(fontSize: layout.fontMedium * 1.3),
-              ),
-              SizedBox(height: layout.xl * 1.5),
-              CustomTextField(
-                controller: email,
-                label: 'البريد الالكتروني',
-                icon: Icons.email_outlined,
-              ),
-              CustomTextField(
-                controller: password,
-                label: 'كلمة المرور',
-                icon: Icons.lock_outline,
-                isPassword: true,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(
-                      context,
-                    ).pushNamed(AppRouter.forgotPasswordView);
-                  },
-                  child: Text(
-                    'نسيت كلمة المرور؟',
-                    style: TextStyle(
-                      color: AppColors.lightPrimaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: layout.fontSmall * 1.2,
+      child: Consumer<AuthViewModel>(
+        builder:
+            (context, authViewModel, child) => Stack(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: layout.xl),
+                    Text(
+                      'أدخل بياناتك علشان تتابع أدويتك\nوتستمتع بخدماتنا بسهولة',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.lightSubtitle(
+                        layout,
+                      ).copyWith(fontSize: layout.fontMedium * 1.3),
                     ),
-                  ),
-                ),
-              ),
-
-              SizedBox(height: layout.lg),
-
-              Consumer<AuthViewModel>(
-                builder:
-                    (context, authViewModel, child) =>
-                        CustomElevatedButtonWidget(
-                          title: 'تسجيل دخول',
-                          onPressed: () async {
-                            await authViewModel.signIn(
-                              email: email.text,
-                              password: password.text,
-                            );
-                            if (authViewModel.errorMessage.isNotEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                    authViewModel.errorMessage,
-                                    style: AppTextStyle.lightBody(
-                                      layout,
-                                    ).copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              );
-                            }
-                          },
+                    SizedBox(height: layout.xl * 1.5),
+                    CustomTextField(
+                      isEnabled: authViewModel.isLoading ? false : true,
+                      controller: email,
+                      label: 'البريد الالكتروني',
+                      icon: Icons.email_outlined,
+                    ),
+                    CustomTextField(
+                      isEnabled: authViewModel.isLoading ? false : true,
+                      controller: password,
+                      label: 'كلمة المرور',
+                      icon: Icons.lock_outline,
+                      isPassword: true,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () {
+                          GoRouter.of(
+                            context,
+                          ).pushNamed(AppRouter.forgotPasswordView);
+                        },
+                        child: Text(
+                          'نسيت كلمة المرور؟',
+                          style: TextStyle(
+                            color: AppColors.lightPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: layout.fontSmall * 1.2,
+                          ),
                         ),
-              ),
-
-              SizedBox(height: layout.xl),
-              BuildDivider(),
-              SizedBox(height: layout.lg),
-              SocialAuthButton(
-                label: 'Google',
-                iconPath: Icons.g_mobiledata,
-                color: Colors.red,
-              ),
-              SizedBox(height: layout.md),
-              SocialAuthButton(
-                label: 'Facebook',
-                iconPath: Icons.facebook,
-                color: Colors.blue[800]!,
-              ),
-
-              SizedBox(height: layout.xl),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      GoRouter.of(
-                        context,
-                      ).pushReplacementNamed(AppRouter.signUpView);
-                    },
-                    child: const Text(
-                      'انشاء حساب جديد',
-                      style: TextStyle(
-                        color: AppColors.lightPrimaryColor,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const Text(' ؟ ليس لديك حساب'),
-                ],
-              ),
-              SizedBox(height: layout.lg),
-            ],
-          ),
-          Consumer<AuthViewModel>(
-            builder:
-                (context, authViewModel, child) => Positioned.fill(
-                  child:
-                      authViewModel.isLoading
-                          ? Center(
-                            child: CircularProgressIndicator(
-                              color: const Color.fromARGB(255, 23, 79, 82),
+
+                    SizedBox(height: layout.lg),
+
+                    Consumer<AuthViewModel>(
+                      builder:
+                          (context, authViewModel, child) =>
+                              CustomElevatedButtonWidget(
+                                title: 'تسجيل دخول',
+                                onPressed: () async {
+                                  await authViewModel.signIn(
+                                    email: email.text,
+                                    password: password.text,
+                                  );
+                                  if (authViewModel.errorMessage.isNotEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text(
+                                          authViewModel.errorMessage,
+                                          style: AppTextStyle.lightBody(
+                                            layout,
+                                          ).copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    GoRouter.of(
+                                      context,
+                                    ).goNamed(AppRouter.homeView);
+                                  }
+                                },
+                              ),
+                    ),
+
+                    SizedBox(height: layout.xl),
+                    BuildDivider(),
+                    SizedBox(height: layout.lg),
+                    SocialAuthButton(
+                      label: 'Google',
+                      iconPath: Icons.g_mobiledata,
+                      color: Colors.red,
+                    ),
+                    SizedBox(height: layout.md),
+                    SocialAuthButton(
+                      label: 'Facebook',
+                      iconPath: Icons.facebook,
+                      color: Colors.blue[800]!,
+                    ),
+
+                    SizedBox(height: layout.xl),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            GoRouter.of(
+                              context,
+                            ).pushReplacementNamed(AppRouter.signUpView);
+                          },
+                          child: const Text(
+                            'انشاء حساب جديد',
+                            style: TextStyle(
+                              color: AppColors.lightPrimaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
-                          )
-                          : SizedBox.shrink(),
+                          ),
+                        ),
+                        const Text(' ؟ ليس لديك حساب'),
+                      ],
+                    ),
+                    SizedBox(height: layout.lg),
+                  ],
                 ),
-          ),
-        ],
+                Consumer<AuthViewModel>(
+                  builder:
+                      (context, authViewModel, child) => Positioned.fill(
+                        child:
+                            authViewModel.isLoading
+                                ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      23,
+                                      79,
+                                      82,
+                                    ),
+                                  ),
+                                )
+                                : SizedBox.shrink(),
+                      ),
+                ),
+              ],
+            ),
       ),
     );
   }

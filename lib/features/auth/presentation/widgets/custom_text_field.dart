@@ -1,35 +1,74 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
+import 'package:wasla/features/auth/domain/validation/signup_validation.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
+  TextFieldType? textFieldType;
+  bool isEnabled;
+  TextEditingController? passwordController;
+  TextInputType keyboardType;
   bool isPassword;
   String label;
-  IconData icon;
+  IconData? icon;
   TextEditingController controller;
   CustomTextField({
     super.key,
+    this.textFieldType,
     required this.label,
-    required this.icon,
     required this.controller,
     this.isPassword = false,
+    this.isEnabled = true,
+    this.icon,
+    this.passwordController,
+    this.keyboardType = TextInputType.name,
   });
 
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
     return Padding(
-      padding: EdgeInsets.only(top: layout.md * 0.8),
+      padding: EdgeInsets.only(bottom: layout.sm),
       child: Directionality(
         textDirection: TextDirection.rtl,
-        child: TextField(
+        child: TextFormField(
+          validator: (value) {
+            switch (textFieldType) {
+              case TextFieldType.name:
+                return SignUpValidation.nameErrorMessage(
+                  result: SignUpValidation.nameValidation(name: value!),
+                );
+              case TextFieldType.email:
+                return SignUpValidation.emailErrorMessage(
+                  result: SignUpValidation.emailValidation(email: value!),
+                );
+              case TextFieldType.password:
+                return SignUpValidation.passwordErrorMessage(
+                  result: SignUpValidation.passwordValidation(password: value!),
+                );
+              case TextFieldType.confirmPassword:
+                return SignUpValidation.confirmPasswordErrorMessage(
+                  result: SignUpValidation.confirmPasswordValidation(
+                    confPass: value!,
+                    pass: passwordController!.text,
+                  ),
+                );
+              default:
+                TextFieldType.none;
+            }
+          },
+          enabled: isEnabled,
           controller: controller,
           obscureText: isPassword,
           decoration: InputDecoration(
             hintText: label,
-            prefixIcon: Icon(icon, color: Colors.grey),
+            hintStyle: TextStyle(color: Colors.grey[600]),
+            labelStyle: TextStyle(color: AppColors.lightPrimaryColor),
+            prefixIcon: icon != null ? Icon(icon, color: Colors.grey) : null,
             suffixIcon:
                 isPassword
                     ? const Icon(
@@ -39,14 +78,23 @@ class CustomTextField extends StatelessWidget {
                     : null,
             filled: true,
             fillColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(vertical: layout.md * 1.05),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: layout.md,
+              vertical: layout.sm,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(layout.rmd),
-              borderSide: BorderSide(color: AppColors.lightGrey),
+              borderSide: BorderSide(
+                color: AppColors.lightPrimaryColor.withOpacity(0.35),
+                width: 1.3,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(layout.rlg),
-              borderSide: BorderSide(color: AppColors.lightPrimaryColor),
+              borderSide: BorderSide(
+                color: AppColors.lightPrimaryColor,
+                width: 1.3,
+              ),
             ),
           ),
         ),

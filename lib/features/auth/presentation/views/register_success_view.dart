@@ -11,7 +11,7 @@ class RegisterSuccessView extends StatelessWidget {
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
     return Scaffold(
-      appBar: AppBar(actions: [Icon(Icons.arrow_circle_right_outlined)]),
+      appBar: AppBar(automaticallyImplyLeading: false),
       body: RegisterSuccessBody(layout: layout),
     );
   }

@@ -8,6 +8,7 @@ import 'package:wasla/features/auth/domain/use_cases/sign_up_use_case.dart';
 class AuthViewModel extends ChangeNotifier {
   String errorMessage = '';
   bool isLoading = false;
+  bool isSignout = false;
   SignOutUseCase signOutUseCase;
   SignInUseCase signInUseCase;
   SignUpUseCase signUpUseCase;
@@ -55,6 +56,7 @@ class AuthViewModel extends ChangeNotifier {
     result.fold(
       (failure) {
         errorMessage = failure.message;
+        errorMessage = failure.message;
       },
       (_) {
         errorMessage = '';
@@ -63,6 +65,17 @@ class AuthViewModel extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return result;
+  }
+
+  Future<void> signOut() async {
+    isSignout = true;
+    notifyListeners();
+    await Future.delayed(Duration(seconds: 2), () async {
+      await signOutUseCase.call();
+      isSignout = false;
+    });
+
+    notifyListeners();
   }
 
   void reset() {

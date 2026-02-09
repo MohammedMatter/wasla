@@ -1,10 +1,9 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wasla/core/errors/exception.dart';
 import 'package:wasla/core/errors/failure.dart';
-import 'package:wasla/features/auth/data/models/user_model.dart';
+import 'package:wasla/core/common/models/user_model.dart';
 
 class AuthRemoteDataSource {
   FirebaseAuth auth = FirebaseAuth.instance;

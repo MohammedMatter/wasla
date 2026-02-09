@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
+import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
 
@@ -19,7 +21,7 @@ class RegisterSuccessBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex: 1),
-            SvgPicture.string(AppAssest.successRegister, fit: BoxFit.cover),
+            SvgPicture.string(AppAssest.doctorImage, fit: BoxFit.cover),
             SizedBox(height: layout.lg),
             Text(
               ' تم انشاء حسابك بنجاح ',
@@ -35,8 +37,13 @@ class RegisterSuccessBody extends StatelessWidget {
                 layout,
               ).copyWith(fontSize: layout.fontLarge),
             ),
-            SizedBox(height: layout.md),
-            CustomElevatedButtonWidget(onPressed: () {}, title: 'ابدا الان'),
+            SizedBox(height: layout.xl),
+            CustomElevatedButtonWidget(
+              onPressed: () {
+                GoRouter.of(context).pushNamed(AppRouter.homeView);
+              },
+              title: 'ابدا الان',
+            ),
             Spacer(flex: 2),
           ],
         ),

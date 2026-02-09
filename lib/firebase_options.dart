@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '865405146271',
     projectId: 'wasla-25109',
     storageBucket: 'wasla-25109.firebasestorage.app',
+    androidClientId: '865405146271-0ljancesohmtadrn838sksvovdirk4m3.apps.googleusercontent.com',
+    iosClientId: '865405146271-6p2fokfv4ij5mg08en6bs81qmfim9ccb.apps.googleusercontent.com',
     iosBundleId: 'com.example.wasla',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '865405146271',
     projectId: 'wasla-25109',
     storageBucket: 'wasla-25109.firebasestorage.app',
+    androidClientId: '865405146271-0ljancesohmtadrn838sksvovdirk4m3.apps.googleusercontent.com',
+    iosClientId: '865405146271-6p2fokfv4ij5mg08en6bs81qmfim9ccb.apps.googleusercontent.com',
     iosBundleId: 'com.example.wasla',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'wasla-25109.firebasestorage.app',
     measurementId: 'G-EHEVZYYC1L',
   );
+
 }

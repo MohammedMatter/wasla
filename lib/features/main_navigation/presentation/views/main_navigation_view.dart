@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/layout/app_layout.dart';
+import 'package:wasla/features/main_navigation/presentation/widgets/bottom_navigation_bar_widget.dart';
+
+// ignore: must_be_immutable
+class MainNavigationView extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
+  const MainNavigationView({super.key, required this.navigationShell});
+
+  @override
+  Widget build(BuildContext context) {
+    final AppLayout layout = context.read<AppLayout>();
+
+    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:
+          isKeyboardVisible
+              ? null
+              : FloatingActionButton(
+                elevation: 5,
+                onPressed: () {},
+                backgroundColor: const Color(0xffAAAAAA),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(layout.rlg * 1.2),
+                  child: Image.asset(AppAssest.docIcon),
+                ),
+              ),
+
+      bottomNavigationBar: BottomNabigationBarWidget(
+        navigationShell: navigationShell,
+      ),
+
+      body: navigationShell,
+    );
+  }
+}
