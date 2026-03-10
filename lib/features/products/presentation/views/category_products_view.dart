@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
-import 'package:wasla/core/widgets/product_grid_item.dart';
 import 'package:wasla/features/home/presentation/widgets/search_home.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
+import 'package:wasla/features/products/presentation/widgets/product_item.dart';
 import 'package:wasla/features/search/presentation/view_models/search_view_model.dart';
 
 class CategoryProductsView extends StatelessWidget {
@@ -33,20 +33,55 @@ class CategoryProductsView extends StatelessWidget {
                 ),
               ],
             ),
-            body: Column(
-              children: [
-                SearchHome(
-                  canRequestFocus: true,
-                  layout: layout,
-                  hintText: 'ابحث عن المنتج الذي تريده',
-                ),
-                Consumer<ProductViewModel>(
-                  builder:
-                      (context, productViewModel, child) =>
-                          Expanded(child: ProductGridItem()),
-                ),
-              ],
-            ),
+            body:
+                productViewModel.selectedProductsList.isNotEmpty
+                    ? Column(
+                      children: [
+                        SearchHome(
+                          canRequestFocus: true,
+                          layout: layout,
+                          hintText: 'ابحث عن المنتج الذي تريده',
+                        ),
+                        Consumer2<ProductViewModel, SearchViewModel>(
+                          builder:
+                              (
+                                context,
+                                productViewModel,
+                                searchViewModel,
+                                child,
+                              ) => Expanded(
+                                child: ListView.builder(
+                                  itemCount:
+                                      searchViewModel
+                                          .getSearchAndFilteredProducts(
+                                            searchViewModel.searchQueryProduct,
+                                            productViewModel
+                                                .selectedProductsList,
+                                          )
+                                          .length,
+                                  itemBuilder:
+                                      (context, index) => ProductItem(
+                                        layout: layout,
+                                        index: index,
+                                        products: searchViewModel
+                                            .getSearchAndFilteredProducts(
+                                              searchViewModel
+                                                  .searchQueryProduct,
+                                              productViewModel
+                                                  .selectedProductsList,
+                                            ),
+                                      ),
+                                ),
+                              ),
+                        ),
+                      ],
+                    )
+                    : Center(
+                      child: Text(
+                        'لا يوجد عناصر متاحة',
+                        style: AppTextStyle.lightSubtitle(layout),
+                      ),
+                    ),
           ),
     );
   }

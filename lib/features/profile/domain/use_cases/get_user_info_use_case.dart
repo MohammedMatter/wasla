@@ -4,7 +4,7 @@ import 'package:wasla/features/profile/domain/repositories/profile_repository.da
 class GetUserInfoUseCase {
   ProfileRepository repository;
   GetUserInfoUseCase({required this.repository});
-  Future<User> call() async {
+  Future<User?> call() async {
     return repository.getUserInfo();
   }
 }

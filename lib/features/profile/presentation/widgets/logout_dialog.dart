@@ -9,7 +9,6 @@ import 'package:wasla/features/auth/presentation/view_models/auth_view_model.dar
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key, required this.layout});
-
   final AppLayout layout;
 
   @override
@@ -97,6 +96,7 @@ class LogoutDialog extends StatelessWidget {
                                       ? null
                                       : () async {
                                         await authViewModel.signOut();
+                                        authViewModel.reset();
                                         GoRouter.of(context).pop();
                                         if (context.mounted) {
                                           GoRouter.of(

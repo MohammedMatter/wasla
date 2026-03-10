@@ -6,7 +6,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRemoteDataSource remoteDataSource;
   ProfileRepositoryImpl({required this.remoteDataSource});
   @override
-  Future<User> getUserInfo() {
+  Future<User?> getUserInfo() {
     return remoteDataSource.getUserInfo();
   }
 }

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:wasla/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:wasla/features/auth/data/repositories_impl/auth_repository_impl.dart';
 import 'package:wasla/features/auth/domain/repositories/auth_repository.dart';
+import 'package:wasla/features/auth/domain/use_cases/send_otp_use_case.dart';
 import 'package:wasla/features/auth/domain/use_cases/sign_in_use_case.dart';
 import 'package:wasla/features/auth/domain/use_cases/sign_out_use_case.dart';
 import 'package:wasla/features/auth/domain/use_cases/sign_up_use_case.dart';
@@ -34,7 +35,7 @@ import 'package:wasla/features/profile/domain/repositories/profile_repository.da
 import 'package:wasla/features/profile/domain/use_cases/get_user_info_use_case.dart';
 import 'package:wasla/features/profile/presentation/view_models/profile_view_model.dart';
 
-final sl = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => OnboardingLocalDataSource());
@@ -49,6 +50,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton(() => SignInUseCase(authRepository: sl()));
   sl.registerLazySingleton(() => SignUpUseCase(authRepository: sl()));
   sl.registerLazySingleton(() => SignOutUseCase(repository: sl()));
+  sl.registerLazySingleton(() => SendOtpUseCase(repository: sl()));
 
   sl.registerLazySingleton(() => ProfileRemoteDataSource());
   sl.registerLazySingleton<ProfileRepository>(
@@ -90,6 +92,7 @@ Future<void> setupServiceLocator() async {
       signInUseCase: sl(),
       signUpUseCase: sl(),
       signOutUseCase: sl(),
+      sendOtpUseCase: sl(),
     ),
   );
   sl.registerFactory(() => OnboardingViewModel(getOnboardingDataUseCase: sl()));

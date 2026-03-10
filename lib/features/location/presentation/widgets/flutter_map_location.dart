@@ -30,15 +30,15 @@ class FlutterMapLocation extends StatelessWidget {
           (context, locationViewModel, child) => FlutterMap(
             mapController: mapController,
             options: MapOptions(
-              onMapReady: () {
-                mapController.move(
-                  LatLng(
-                    locationViewModel.locationResult!.position!.latitude,
-                    locationViewModel.locationResult!.position!.longitude,
-                  ),
-                  13,
-                );
-              },
+              // onMapReady: () {
+              //   mapController.move(
+              //     LatLng(
+              //       locationViewModel.locationResult!.position!.latitude,
+              //       locationViewModel.locationResult!.position!.longitude,
+              //     ),
+              //     13,
+              //   );
+              // },
               initialCenter: LatLng(
                 position.latitude.toDouble(),
                 position.longitude.toDouble(),

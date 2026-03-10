@@ -5,8 +5,12 @@ import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
+import 'package:wasla/core/utils/screen_size.dart';
+import 'package:wasla/features/home/presentation/widgets/pharmacy_item.dart';
 import 'package:wasla/features/home/presentation/widgets/search_home.dart';
+import 'package:wasla/features/pharmacies/domain/entities/pharmacy.dart';
 import 'package:wasla/features/pharmacies/presentation/view_models/pharmacy_view_model.dart';
+import 'package:wasla/features/search/presentation/view_models/search_view_model.dart';
 
 class PharmaciesView extends StatelessWidget {
   const PharmaciesView({super.key});
@@ -24,15 +28,24 @@ class PharmaciesView extends StatelessWidget {
               Icons.arrow_circle_right_outlined,
               color: AppColors.lightPrimaryColor,
             ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              GoRouter.of(context).pop();
+              context.read<SearchViewModel>().reset();
+            },
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SearchHome(layout: layout, hintText: 'ابحث عن اي صيدلية'),
-          PharmaciesContent(layout: layout),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SearchHome(
+              layout: layout,
+              hintText: 'ابحث عن اي صيدلية',
+              canRequestFocus: true,
+            ),
+            PharmaciesContent(layout: layout),
+          ],
+        ),
       ),
     );
   }
@@ -47,54 +60,216 @@ class PharmaciesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PharmacyViewModel>(
       builder:
-          (context, pharmacyViewModel, child) => Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: layout.md),
-              child: GridView.builder(
-                itemCount: pharmacyViewModel.pharmacies.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.8,
-                  mainAxisSpacing: layout.sm,
-                  crossAxisSpacing: layout.md,
-                  crossAxisCount: 2,
-                ),
-                itemBuilder:
-                    (context, index) => GestureDetector(
-                      onTap: () {
-                        GoRouter.of(
-                          context,
-                        ).goNamed(AppRouter.availableProductsView);
-                      },
-
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.network(
-                              pharmacyViewModel.pharmacies[index].image,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(layout.sm * 0.8),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: AppColors.lightPrimaryColor,
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(layout.md),
-                              ),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              pharmacyViewModel.pharmacies[index].name,
-                              style: AppTextStyle.lightBody(layout).copyWith(
-                                color: Colors.white,
-                                fontSize: layout.fontMedium * 1.2,
-                              ),
-                            ),
-                          ),
-                        ],
+          (context, pharmacyViewModel, child) => Directionality(
+            textDirection: TextDirection.rtl,
+            child: Column(
+              textDirection: TextDirection.rtl,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: layout.xl),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: layout.md),
+                        child: Text(
+                          'الأعلى تقييم',
+                          style: AppTextStyle.lightHeading1(layout),
+                        ),
                       ),
-                    ),
-              ),
+                      SizedBox(height: layout.lg),
+                      SizedBox(
+                        height: ScreenSize.h(context) * 0.195,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                            pharmacyViewModel.topRatingPharmacies.length,
+                            (index) => Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: layout.sm * 0.9,
+                                ),
+                                child: PharmacyItem(
+                                  index: index,
+                                  pharmacies:
+                                      pharmacyViewModel.topRatingPharmacies,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: layout.lg),
+                      Padding(
+                        padding: EdgeInsets.only(right: layout.md),
+                        child: Text(
+                          'الصيدليات',
+                          style: AppTextStyle.lightHeading1(layout),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: layout.md),
+                Consumer<SearchViewModel>(
+                  builder: (context, searchViewModel, child) {
+                    List<Pharmacy> filtrdList = pharmacyViewModel
+                        .getFilteredPharmacies(
+                          query: searchViewModel.searchQueryPharmacy,
+                        );
+                    if (filtrdList.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: layout.xl),
+                          child: Text(
+                            'لا توجد نتائج تطابق بحثك.',
+                            style: AppTextStyle.lightSubtitle(
+                              layout,
+                            ).copyWith(fontSize: layout.fontMedium),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder:
+                            (context, index) => Padding(
+                              padding: EdgeInsets.only(
+                                right: layout.md,
+                                left: layout.md,
+                                bottom: layout.md,
+                              ),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    layout.rmd,
+                                  ),
+                                  border: Border.all(
+                                    color: AppColors.lightPrimaryColor,
+                                    width: 1.2,
+                                  ),
+                                  color: Color(0xffeef4f4),
+                                ),
+
+                                child: Row(
+                                  textDirection: TextDirection.rtl,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        height: layout.fontXLarge * 2.5,
+                                        margin: EdgeInsets.all(layout.sm),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.contain,
+                                            image: NetworkImage(
+                                              filtrdList[index].image,
+                                            ),
+                                          ),
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        textDirection: TextDirection.rtl,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            filtrdList[index].name,
+                                            style: AppTextStyle.lightHeading2(
+                                              layout,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${filtrdList[index].rating}',
+                                                style: AppTextStyle.lightBody(
+                                                  layout,
+                                                ).copyWith(
+                                                  color: Color(0xffff9900),
+                                                  fontSize:
+                                                      layout.fontMedium * 1.1,
+                                                ),
+                                              ),
+
+                                              Transform.translate(
+                                                offset: Offset(0, -0.5),
+                                                child: Icon(
+                                                  size: layout.fontLarge,
+                                                  Icons
+                                                      .star_border_purple500_rounded,
+                                                  color: Color(0xffff9900),
+                                                ),
+                                              ),
+                                              SizedBox(width: layout.sm),
+                                              Text(
+                                                '${filtrdList[index].distance}km',
+                                                style:
+                                                    AppTextStyle.lightSubtitle(
+                                                      layout,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: layout.sm),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              layout.rlg,
+                                            ),
+                                          ),
+                                          backgroundColor:
+                                              AppColors.lightPrimaryColor,
+                                          foregroundColor: Colors.white,
+                                        ),
+                                        onPressed: () async {
+                                          searchViewModel
+                                              .updateProductSearchQuery('');
+                                          pharmacyViewModel.selectPharmacy(
+                                            pharmacy: filtrdList[index],
+                                          );
+
+                                          await pharmacyViewModel
+                                              .fetchProductsByPharmacyId(
+                                                pharmacyId:
+                                                    filtrdList[index]
+                                                        .pharmacyId,
+                                              );
+
+                                          GoRouter.of(context).pushNamed(
+                                            AppRouter.availableProductsView,
+                                          );
+                                        },
+                                        child: Text(
+                                          'عرض',
+                                          style: AppTextStyle.lightBody(
+                                            layout,
+                                          ).copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        itemCount: filtrdList.length,
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
     );

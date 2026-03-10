@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
+import 'package:wasla/core/router/app_router.dart';
+import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/features/main_navigation/presentation/widgets/bottom_navigation_bar_widget.dart';
 
 // ignore: must_be_immutable
@@ -23,11 +25,25 @@ class MainNavigationView extends StatelessWidget {
               ? null
               : FloatingActionButton(
                 elevation: 5,
-                onPressed: () {},
-                backgroundColor: const Color(0xffAAAAAA),
+                onPressed:
+                    GoRouter.of(context).state.path == 'productDetailView'
+                        ? () {
+                          GoRouter.of(
+                            context,
+                          ).goNamed(AppRouter.barcodeScannerView);
+                        }
+                        : null,
+                backgroundColor:
+                    GoRouter.of(context).state.path == 'productDetailView'
+                        ? AppColors.lightPrimaryColor
+                        : const Color(0xffAAAAAA),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(layout.rlg * 1.2),
-                  child: Image.asset(AppAssest.docIcon),
+                  child: Image.asset(
+                    GoRouter.of(context).state.path == 'productDetailView'
+                        ? AppAssest.docIconFilled
+                        : AppAssest.docIcon,
+                  ),
                 ),
               ),
 

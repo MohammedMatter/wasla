@@ -116,7 +116,10 @@ class PaymentThroughBopView extends StatelessWidget {
                       );
                       mainNavigationViewModel.reset();
                       GoRouter.of(context).goNamed(AppRouter.homeView);
-                      vm.reset();
+
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        vm.reset();
+                      });
                     },
                     title: 'الانتقال للصفحة الرئيسية',
                   ),

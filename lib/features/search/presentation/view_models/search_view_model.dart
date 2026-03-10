@@ -3,14 +3,20 @@ import 'package:wasla/features/products/domain/entities/product.dart';
 
 class SearchViewModel extends ChangeNotifier {
   int selectedIndex = 0;
-  String searchQuery = '';
+  String searchQueryPharmacy = '';
+  String searchQueryProduct = '';
   void toogleIndex({required int index}) {
     selectedIndex = index;
     notifyListeners();
   }
 
-  void updateSearchQuery(String query) {
-    searchQuery = query;
+  void updatePharmacySearchQuery(String query) {
+    searchQueryPharmacy = query;
+    notifyListeners();
+  }
+
+  void updateProductSearchQuery(String query) {
+    searchQueryProduct = query;
     notifyListeners();
   }
 
@@ -28,7 +34,10 @@ class SearchViewModel extends ChangeNotifier {
 
   void reset() {
     selectedIndex = 0;
-    searchQuery = '';
+    searchQueryProduct = '';
+    searchQueryPharmacy = '';
     notifyListeners();
   }
+
+  void updateSearchQuery(String value) {}
 }

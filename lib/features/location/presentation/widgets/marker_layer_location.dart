@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
-import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/features/location/domain/entities/location_result.dart';
 import 'package:wasla/features/location/presentation/view_models/location_view_model.dart';
 import 'package:wasla/features/pharmacies/presentation/view_models/pharmacy_view_model.dart';
-import 'package:wasla/features/pharmacies/presentation/views/pharmacies_view.dart';
 
 class MarkerLayerLocation extends StatelessWidget {
   const MarkerLayerLocation({

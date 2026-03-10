@@ -3,13 +3,9 @@ import 'package:wasla/features/cart/domain/cart_item.dart';
 import 'package:wasla/features/products/domain/entities/product.dart';
 
 class CartViewModel extends ChangeNotifier {
-  // مخزن السلة: المفتاح هو الـ ID والـ Value هي الـ CartItem
   final Map<String, CartItem> _items = {};
-
-  // للوصول للسلة من الـ UI بدون التعديل عليها مباشرة
   Map<String, CartItem> get items => {..._items};
   bool isLoading = false;
-  // 1. إضافة منتج للسلة
   Future<void> addToCart(Product product) async {
     isLoading = true;
     notifyListeners();
@@ -22,7 +18,6 @@ class CartViewModel extends ChangeNotifier {
         ),
       );
     } else {
-      // إذا مش موجود، ضيفه كعنصر جديد
       _items.putIfAbsent(
         product.name,
         () => CartItem(product: product, quantity: 1),
@@ -58,7 +53,6 @@ class CartViewModel extends ChangeNotifier {
 
   int get itemCount => _items.length;
 
-  // 5. حساب السعر الإجمالي
   double get totalAmount {
     double total = 0.0;
     _items.forEach((key, cartItem) {
@@ -69,7 +63,6 @@ class CartViewModel extends ChangeNotifier {
     return total;
   }
 
-  // 6. مسح السلة بعد إتمام الطلب
   void clearCart() {
     _items.clear();
     notifyListeners();

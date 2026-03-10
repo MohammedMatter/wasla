@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/features/cart/presentation/view_models/cart_view_model.dart';
 import 'package:wasla/features/cart/presentation/widgets/cart_item_widget.dart';

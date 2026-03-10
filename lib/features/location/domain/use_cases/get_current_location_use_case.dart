@@ -1,4 +1,3 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:wasla/features/location/domain/entities/location_result.dart';
 import 'package:wasla/features/location/domain/repositories/location_repository.dart';
 

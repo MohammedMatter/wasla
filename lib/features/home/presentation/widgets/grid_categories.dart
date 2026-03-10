@@ -6,19 +6,16 @@ import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
+import 'package:wasla/features/search/presentation/view_models/search_view_model.dart';
 
 class GridCategories extends StatelessWidget {
-  const GridCategories({
-    super.key,
-    required this.layout,
-    required this.categories,
-  });
+  const GridCategories({super.key, required this.categories});
 
-  final AppLayout layout;
   final List<String> categories;
 
   @override
   Widget build(BuildContext context) {
+    final AppLayout layout = context.read<AppLayout>();
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -31,9 +28,9 @@ class GridCategories extends StatelessWidget {
       ),
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        return Consumer<ProductViewModel>(
+        return Consumer2<ProductViewModel, SearchViewModel>(
           builder:
-              (context, productViewModel, child) => Material(
+              (context, productViewModel, searchViewModel, child) => Material(
                 color: AppColors.lightPrimaryColor,
                 borderRadius: BorderRadius.circular(layout.md),
                 child: InkWell(
@@ -48,6 +45,7 @@ class GridCategories extends StatelessWidget {
                     productViewModel.selectProductCategory(
                       productCategory: categories[index],
                     );
+                    searchViewModel.reset();
                     GoRouter.of(
                       context,
                     ).goNamed(AppRouter.categoryProductsView);

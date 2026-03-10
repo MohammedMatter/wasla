@@ -26,7 +26,7 @@ class WelcomeView extends StatelessWidget {
                 flex: 5,
                 child: Center(
                   child: Image.asset(
-                    'assets/onboarding/first_onboarding.png',
+                    'assets/images/welcome.png',
                     fit: BoxFit.contain,
                   ),
                 ),

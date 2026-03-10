@@ -5,6 +5,7 @@ import 'package:wasla/features/products/domain/entities/product_filter_type.dart
 import 'package:wasla/features/products/domain/use_cases/get_all_products_use_case.dart';
 
 class ProductViewModel extends ChangeNotifier {
+  bool isFetching = false;
   List<Product> allProducts = [];
   List<Product> hairCareProducts = [];
   List<Product> skinCareProducts = [];
@@ -27,6 +28,7 @@ class ProductViewModel extends ChangeNotifier {
   ProductViewModel({required this.getAllProductsUseCase});
 
   Future<void> getAllProducts() async {
+    isFetching = true;
     allProducts = await getAllProductsUseCase.call();
     filteredProductsList = allProducts;
     hairCareProducts =
@@ -50,6 +52,8 @@ class ProductViewModel extends ChangeNotifier {
         allProducts
             .where((p) => double.parse(p.price.split(' ')[0]) < 25)
             .toList();
+
+    isFetching = false;
     notifyListeners();
   }
 
@@ -104,8 +108,10 @@ class ProductViewModel extends ChangeNotifier {
 
       favoritesProduct.removeWhere((p) => p.name == product.name);
     } else {
+      log(product.name);
       _favoriteIds.add(product.name);
       favoritesProduct.add(product);
+      log(_favoriteIds.toString());
     }
     notifyListeners();
   }

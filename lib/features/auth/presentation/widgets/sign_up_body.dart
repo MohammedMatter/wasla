@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -11,6 +15,7 @@ import 'package:wasla/features/auth/presentation/view_models/auth_view_model.dar
 import 'package:wasla/features/auth/presentation/widgets/auth_divider.dart';
 import 'package:wasla/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:wasla/features/auth/presentation/widgets/social_auth_button.dart';
+import 'package:wasla/features/profile/presentation/view_models/profile_view_model.dart';
 
 class SignUpBody extends StatefulWidget {
   const SignUpBody({super.key});
@@ -90,55 +95,78 @@ class _SignUpBodyState extends State<SignUpBody> {
                       ),
                       SizedBox(height: layout.xl * 1.3),
 
-                      Consumer<AuthViewModel>(
+                      Consumer2<AuthViewModel, ProfileViewModel>(
                         builder:
-                            (context, authViewModel, child) =>
-                                CustomElevatedButtonWidget(
-                                  title: 'انشاء حساب جديد',
-                                  onPressed: () async {
-                                    if (_key.currentState!.validate()) {
-                                      await authViewModel.signUp(
-                                        email: email.text,
-                                        password: password.text,
-                                        name: name.text,
-                                      );
-                                      GoRouter.of(context).pushReplacementNamed(
-                                        AppRouter.registerSuccessView,
-                                      );
-                                    }
+                            (
+                              context,
+                              authViewModel,
+                              profileViewModel,
+                              child,
+                            ) => CustomElevatedButtonWidget(
+                              title: 'انشاء حساب جديد',
+                              onPressed:
+                                  authViewModel.isLoading ||
+                                          authViewModel.errorMessage.isNotEmpty
+                                      ? () => null
+                                      : () async {
+                                        log('انشاء حساب');
+                                        if (_key.currentState!.validate()) {
+                                          await authViewModel.signUp(
+                                            email: email.text,
+                                            password: password.text,
+                                            name: name.text,
+                                          );
+                                          await profileViewModel.getUserInfo();
 
-                                    if (authViewModel.errorMessage.isNotEmpty) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Colors.red,
-                                          content: Text(
-                                            authViewModel.errorMessage,
-                                            style: AppTextStyle.lightBody(
-                                              layout,
-                                            ).copyWith(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ),
+                                          GoRouter.of(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                          ).pushReplacementNamed(
+                                            AppRouter.registerSuccessView,
+                                          );
+                                        } else if (authViewModel
+                                            .errorMessage
+                                            .isNotEmpty) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  content: Text(
+                                                    authViewModel.errorMessage,
+                                                    style:
+                                                        AppTextStyle.lightBody(
+                                                          layout,
+                                                        ).copyWith(
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                ),
+                                              )
+                                              .closed
+                                              .then((value) {
+                                                authViewModel.reset();
+                                              });
+                                        }
+                                      },
+                            ),
                       ),
 
                       SizedBox(height: layout.xl),
                       BuildDivider(),
                       SizedBox(height: layout.lg),
                       SocialAuthButton(
-                        color: Colors.red,
-                        iconPath: Icons.g_mobiledata,
                         label: 'Google',
+                        icon: SvgPicture.string(AppAssest.google),
+                        color: Colors.red,
                       ),
-
                       SizedBox(height: layout.md),
                       SocialAuthButton(
                         label: 'Facebook',
-                        iconPath: Icons.facebook,
+                        icon: Icon(
+                          Icons.facebook,
+                          color: Colors.blue,
+                          size: layout.fontXLarge,
+                        ),
                         color: Colors.blue[800]!,
                       ),
                       SizedBox(height: layout.md),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -21,7 +19,7 @@ class RegisterSuccessBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex: 1),
-            SvgPicture.string(AppAssest.doctorImage, fit: BoxFit.cover),
+            Image.asset('assets/images/success_register.png'),
             SizedBox(height: layout.lg),
             Text(
               ' تم انشاء حسابك بنجاح ',

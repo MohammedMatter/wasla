@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:go_router/go_router.dart';
+// ignore: depend_on_referenced_packages
 import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:wasla/features/location/domain/entities/location_result.dart';
@@ -38,6 +38,14 @@ class LocationViewModel extends ChangeNotifier {
     }
     zoom -= 0.15;
     log(zoom.toString());
+    notifyListeners();
+  }
+
+  void reset() {
+    zoom = 14.6;
+    selectedPharmacyLocation = null;
+    locationResult = null;
+
     notifyListeners();
   }
 }

@@ -22,6 +22,7 @@ import 'package:wasla/features/products/presentation/views/available_products_vi
 import 'package:wasla/features/products/presentation/views/category_products_view.dart';
 import 'package:wasla/features/products/presentation/views/product_details_view.dart';
 import 'package:wasla/features/profile/presentation/views/profile_view.dart';
+import 'package:wasla/features/scanner/views/barcode_scanner_view.dart';
 import 'package:wasla/features/search/presentation/views/search_view.dart';
 import 'package:wasla/features/splash/presentation/views/splash_view.dart';
 
@@ -49,6 +50,7 @@ class AppRouter {
   static final String profileView = 'Profile View';
   static final String locationView = 'Location View';
   static final String favoritesView = 'Favorites View';
+  static final String barcodeScannerView = 'Barcode Scanner View';
   static final String passwordChangedSuccessView =
       'Password ChangedSuccess View';
   final GoRouter routers = GoRouter(
@@ -102,6 +104,16 @@ class AppRouter {
               ),
             ],
           ),
+
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/locationView',
+                builder: (context, state) => LocationView(),
+                name: locationView,
+              ),
+            ],
+          ),
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -121,9 +133,9 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/locationView',
-                builder: (context, state) => LocationView(),
-                name: locationView,
+                path: '/barcodeScannerView',
+                builder: (context, state) => BarcodeScannerView(),
+                name: barcodeScannerView,
               ),
             ],
           ),
@@ -225,7 +237,28 @@ class AppRouter {
       ),
       GoRoute(
         path: '/verificationCodeView',
-        builder: (context, state) => VerificationCodeView(),
+        pageBuilder: (context, state) {
+          final String otpCode = state.extra!.toString();
+
+          return CustomTransitionPage(
+            transitionDuration: const Duration(milliseconds: 600),
+            child: VerificationCodeView(otpCode: otpCode),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                      position: Tween(
+                        begin: Offset(-1, 0),
+                        end: Offset.zero,
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOutQuart,
+                        ),
+                      ),
+                      child: child,
+                    ),
+          );
+        },
         name: verificationCodeView,
       ),
       GoRoute(

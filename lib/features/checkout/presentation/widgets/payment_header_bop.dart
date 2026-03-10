@@ -23,7 +23,7 @@ class PaymentHeaderBop extends StatelessWidget {
 
             child: SvgPicture.string(
               width: double.infinity,
-              AppAssest.jawwal_pay,
+              AppAssest.bankOfPalestine,
               fit: BoxFit.fill,
             ),
           ),

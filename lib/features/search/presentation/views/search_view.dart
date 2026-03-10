@@ -11,7 +11,7 @@ import 'package:wasla/features/search/presentation/view_models/search_view_model
 
 // ignore: must_be_immutable
 class SearchView extends StatelessWidget {
-  SearchView({super.key});
+  const SearchView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,8 @@ class SearchView extends StatelessWidget {
             hintText: 'ابحث عن المنتج الذي تريده',
             canRequestFocus: true,
           ),
+          SizedBox(height: layout.md),
+
           Consumer2<SearchViewModel, ProductViewModel>(
             builder:
                 (
@@ -66,7 +68,8 @@ class SearchView extends StatelessWidget {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: layout.md,
+                              horizontal: layout.md * 1.3,
+                              vertical: layout.sm * 0.5,
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(layout.rmd),
@@ -96,31 +99,46 @@ class SearchView extends StatelessWidget {
                   ),
                 ),
           ),
-          SizedBox(height: layout.md),
+          SizedBox(height: layout.lg),
           Consumer2<ProductViewModel, SearchViewModel>(
             builder:
-                (context, productViewModel, searchViewModel, child) => Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder:
-                        (context, index) => ProductItem(
-                          layout: layout,
-                          index: index,
-                          products: searchViewModel
-                              .getSearchAndFilteredProducts(
-                                searchViewModel.searchQuery,
-                                productViewModel.filteredProductsList,
-                              ),
-                        ),
-                    itemCount:
-                        searchViewModel
+                (context, productViewModel, searchViewModel, child) =>
+                    searchViewModel
                             .getSearchAndFilteredProducts(
-                              searchViewModel.searchQuery,
+                              searchViewModel.searchQueryProduct,
                               productViewModel.filteredProductsList,
                             )
-                            .length,
-                  ),
-                ),
+                            .isEmpty
+                        ? Padding(
+                          padding: EdgeInsets.all(layout.xl),
+                          child: Text(
+                            'عذراً، لم نتمكن من العثور على هذا المنتج حاليا',
+                            style: AppTextStyle.lightBody(layout),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                        : Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemBuilder:
+                                (context, index) => ProductItem(
+                                  layout: layout,
+                                  index: index,
+                                  products: searchViewModel
+                                      .getSearchAndFilteredProducts(
+                                        searchViewModel.searchQueryProduct,
+                                        productViewModel.filteredProductsList,
+                                      ),
+                                ),
+                            itemCount:
+                                searchViewModel
+                                    .getSearchAndFilteredProducts(
+                                      searchViewModel.searchQueryProduct,
+                                      productViewModel.filteredProductsList,
+                                    )
+                                    .length,
+                          ),
+                        ),
           ),
         ],
       ),

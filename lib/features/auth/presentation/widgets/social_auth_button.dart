@@ -7,11 +7,11 @@ import 'package:wasla/core/theme/app_text_style.dart';
 class SocialAuthButton extends StatelessWidget {
   final String label;
   final Color color;
-  final IconData iconPath;
+  final Widget icon;
   const SocialAuthButton({
     super.key,
     required this.color,
-    required this.iconPath,
+    required this.icon,
     required this.label,
   });
 
@@ -26,6 +26,7 @@ class SocialAuthButton extends StatelessWidget {
         border: Border.all(color: AppColors.lightGrey),
       ),
       child: Row(
+        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
@@ -35,10 +36,9 @@ class SocialAuthButton extends StatelessWidget {
             ).copyWith(fontSize: layout.fontLarge),
           ),
           SizedBox(width: layout.sm),
-          Icon(iconPath, color: color, size: layout.fontXLarge),
+          icon,
         ],
       ),
     );
-    ;
   }
 }

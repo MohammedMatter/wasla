@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
-import 'package:wasla/core/widgets/product_grid_item.dart';
-import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
+import 'package:wasla/features/favorites/presentation/widgets/favorites_body.dart';
 import 'package:wasla/features/profile/presentation/view_models/profile_view_model.dart';
 
 class FavoritesView extends StatelessWidget {
@@ -31,24 +30,7 @@ class FavoritesView extends StatelessWidget {
                   Text('المفضلة', style: AppTextStyle.lightHeading1(layout)),
         ),
       ),
-      body: Consumer<ProductViewModel>(
-        builder:
-            (context, productViewModel, child) =>
-                productViewModel.favoritesProduct.isEmpty
-                    ? Center(
-                      child: Text(
-                        'No favorite items found.',
-                        style: AppTextStyle.lightBody(layout),
-                      ),
-                    )
-                    : Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: layout.md,
-                        vertical: layout.lg,
-                      ),
-                      child: ProductGridItem(isFavoritesTab: true),
-                    ),
-      ),
+      body: FavoritesBody(),
     );
   }
 }

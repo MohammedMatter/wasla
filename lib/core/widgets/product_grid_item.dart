@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
@@ -20,13 +17,11 @@ class ProductGridItem extends StatelessWidget {
     final layout = context.read<AppLayout>();
     return Consumer2<ProductViewModel, SearchViewModel>(
       builder: (context, productViewModel, searchViewModel, child) {
-        log(isFavoritesTab.toString());
-        log('ads');
         final List filteredList =
             isFavoritesTab
                 ? productViewModel.favoritesProduct
                 : productViewModel.getFilteredProductsByCategory(
-                  query: searchViewModel.searchQuery,
+                  query: searchViewModel.searchQueryProduct,
                 );
 
         return Padding(
@@ -36,8 +31,8 @@ class ProductGridItem extends StatelessWidget {
             child: GridView.builder(
               itemCount: filteredList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 0.72,
-                mainAxisSpacing: layout.sm,
+                childAspectRatio: 0.77,
+                mainAxisSpacing: layout.md,
                 crossAxisSpacing: layout.md,
                 crossAxisCount: 2,
               ),
@@ -47,7 +42,7 @@ class ProductGridItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.lightPrimaryColor,
-                        width: 1.4,
+                        width: 1.6,
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -58,19 +53,19 @@ class ProductGridItem extends StatelessWidget {
                         ),
                       ],
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(layout.md),
+                      borderRadius: BorderRadius.circular(layout.rlg * 1.8),
                     ),
                     child: Column(
                       textDirection: TextDirection.rtl,
                       crossAxisAlignment: CrossAxisAlignment.start,
+
                       children: [
                         Expanded(
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               return Center(
                                 child: SizedBox(
-                                  height: constraints.maxHeight * 0.85,
-                                  width: constraints.maxWidth * 0.9,
+                                  height: constraints.maxHeight * 0.95,
                                   child: Image.network(
                                     filteredList[index].image,
                                   ),
@@ -79,7 +74,6 @@ class ProductGridItem extends StatelessWidget {
                             },
                           ),
                         ),
-
                         Expanded(
                           flex: 1,
                           child: Column(
@@ -88,12 +82,14 @@ class ProductGridItem extends StatelessWidget {
                             children: [
                               Text(
                                 filteredList[index].name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: AppTextStyle.lightBody(layout).copyWith(
                                   color: Colors.black,
                                   fontSize: layout.fontMedium * 1.1,
                                 ),
                               ),
-
+                              SizedBox(height: layout.sm),
                               Text(
                                 filteredList[index].price,
                                 style: AppTextStyle.lightBody(layout).copyWith(
@@ -101,6 +97,7 @@ class ProductGridItem extends StatelessWidget {
                                   fontSize: layout.fontMedium,
                                 ),
                               ),
+                              SizedBox(height: layout.sm),
                               Text(
                                 filteredList[index].description,
                                 style: AppTextStyle.lightSubtitle(
@@ -159,10 +156,10 @@ class ProductGridItem extends StatelessWidget {
                                       productViewModel.isFavorite(
                                             filteredList[index].name,
                                           )
-                                          ? FontAwesomeIcons.heartCircleMinus
+                                          ? Icons.favorite
                                           : Icons.favorite_border,
                                       color: Colors.red,
-                                      size: layout.fontLarge,
+                                      size: layout.fontLarge * 1.3,
                                     ),
                                     onPressed: () {
                                       productViewModel.toggleFavorite(

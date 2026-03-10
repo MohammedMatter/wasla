@@ -38,10 +38,7 @@ class SearchHome extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(layout.sm),
-                  border: Border.all(
-                    color: AppColors.lightPrimaryColor,
-                    width: 1.4,
-                  ),
+                  border: Border.all(color: Color(0xffAAAAAA), width: 1.4),
                 ),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -51,15 +48,23 @@ class SearchHome extends StatelessWidget {
                     enabled: true,
 
                     onTap: () {
+                      context.read<SearchViewModel>().reset();
+
                       !canRequestFocus
                           ? GoRouter.of(context).goNamed(AppRouter.searchView)
                           : null;
                     },
                     onChanged: (value) {
-                      context.read<SearchViewModel>().updateSearchQuery(value);
-                      log(
-                        'Search query updated to: ${context.read<SearchViewModel>().searchQuery}',
-                      );
+                      if (GoRouter.of(context).state.path == 'pharmaciesView') {
+                        log('نعم نحن في صفحة الصيدلية ');
+                        context
+                            .read<SearchViewModel>()
+                            .updatePharmacySearchQuery(value);
+                      } else {
+                        context
+                            .read<SearchViewModel>()
+                            .updateProductSearchQuery(value);
+                      }
                     },
                     cursorColor: AppColors.lightPrimaryColor,
                     cursorOpacityAnimates: true,

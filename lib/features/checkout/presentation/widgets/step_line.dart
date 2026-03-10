@@ -8,7 +8,7 @@ class StepLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final layout = context.read<AppLayout>();
+    context.read<AppLayout>();
     return Container(
       width: 60,
       height: 1.5,

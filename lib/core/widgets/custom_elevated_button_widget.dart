@@ -8,7 +8,7 @@ import 'package:wasla/core/theme/app_text_style.dart';
 class CustomElevatedButtonWidget extends StatelessWidget {
   String title;
   bool isFilled;
-  Function onPressed;
+  Function()? onPressed;
   CustomElevatedButtonWidget({
     super.key,
     required this.onPressed,
@@ -22,10 +22,10 @@ class CustomElevatedButtonWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => onPressed(),
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(layout.md),
-
+          disabledBackgroundColor: Colors.white,
           backgroundColor:
               isFilled
                   ? AppColors.lightPrimaryColor

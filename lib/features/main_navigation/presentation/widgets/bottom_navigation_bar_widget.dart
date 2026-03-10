@@ -32,8 +32,8 @@ class BottomNabigationBarWidget extends StatelessWidget {
             currentIndex == 1
                 ? Icons.shopping_cart
                 : Icons.shopping_cart_outlined,
-            currentIndex == 2 ? Icons.person : Icons.person_outline,
-            currentIndex == 3 ? Icons.location_on : Icons.location_on_outlined,
+            currentIndex == 2 ? Icons.location_on : Icons.location_on_outlined,
+            currentIndex == 3 ? Icons.person : Icons.person_outline,
           ],
           activeIndex: currentIndex, // يقرأ من الـ Shell
           gapLocation: GapLocation.center,

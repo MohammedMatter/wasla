@@ -14,7 +14,7 @@ class RelatedProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
-    final cardWidth = ScreenSize.w(context) * 0.4;
+    final cardWidth = ScreenSize.w(context) * 0.3;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       textDirection: TextDirection.rtl,
@@ -30,8 +30,8 @@ class RelatedProductCard extends StatelessWidget {
         SizedBox(height: layout.sm),
         Consumer<ProductViewModel>(
           builder:
-              (context, productViewModel, child) => AspectRatio(
-                aspectRatio: 2.1,
+              (context, productViewModel, child) => SizedBox(
+                height: ScreenSize.h(context) * 0.16,
                 child: ListView.builder(
                   reverse: true,
                   shrinkWrap: true,
@@ -48,14 +48,18 @@ class RelatedProductCard extends StatelessWidget {
                         },
                         child: Container(
                           width: cardWidth,
-                          margin: EdgeInsets.only(left: layout.sm),
-                          padding: EdgeInsets.all(layout.sm),
+                          margin: EdgeInsets.only(left: layout.md * 0.8),
+                          padding: EdgeInsets.symmetric(
+                            vertical: layout.sm,
+                            horizontal: layout.md,
+                          ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(layout.rmd),
+                            borderRadius: BorderRadius.circular(
+                              layout.rlg * 1.7,
+                            ),
                             border: Border.all(
-                              color: AppColors.lightPrimaryColor.withOpacity(
-                                0.3,
-                              ),
+                              color: AppColors.lightPrimaryColor,
+                              width: 1.4,
                             ),
                           ),
                           child: Column(
@@ -63,6 +67,11 @@ class RelatedProductCard extends StatelessWidget {
                               Expanded(
                                 child: Image.network(
                                   productViewModel.relatedProducts[index].image,
+                                  errorBuilder:
+                                      (context, error, stackTrace) => Icon(
+                                        Icons.broken_image,
+                                        color: Colors.amber,
+                                      ),
                                 ),
                               ),
                               Text(
@@ -73,27 +82,10 @@ class RelatedProductCard extends StatelessWidget {
                               ),
                               SizedBox(height: layout.sm),
                               Row(
+                                textDirection: TextDirection.rtl,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    productViewModel
-                                        .relatedProducts[index]
-                                        .rating
-                                        .toString(),
-                                    style: AppTextStyle.lightBody(
-                                      layout,
-                                    ).copyWith(
-                                      color: Colors.orange,
-                                      fontSize: AppFontSize.fontSmall,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: layout.fontSmall,
-                                  ),
-                                  const Spacer(),
                                   Text(
                                     productViewModel
                                         .relatedProducts[index]
@@ -105,6 +97,24 @@ class RelatedProductCard extends StatelessWidget {
                                       color: AppColors.lightPrimaryColor,
                                       fontSize: AppFontSize.fontSmall,
                                     ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    productViewModel
+                                        .relatedProducts[index]
+                                        .rating
+                                        .toString(),
+                                    style: AppTextStyle.lightBody(
+                                      layout,
+                                    ).copyWith(
+                                      color: Color(0xffff9900),
+                                      fontSize: layout.fontMedium * 1.1,
+                                    ),
+                                  ),
+                                  Icon(
+                                    size: layout.fontLarge,
+                                    Icons.star_border_purple500_rounded,
+                                    color: Color(0xffff9900),
                                   ),
                                 ],
                               ),

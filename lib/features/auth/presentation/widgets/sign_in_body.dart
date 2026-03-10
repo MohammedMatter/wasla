@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -8,6 +10,7 @@ import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
 import 'package:wasla/features/auth/presentation/view_models/auth_view_model.dart';
 import 'package:wasla/features/auth/presentation/widgets/auth_divider.dart';
+import 'package:wasla/features/profile/presentation/view_models/profile_view_model.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/social_auth_button.dart';
 
@@ -86,9 +89,9 @@ class _LoginBodyState extends State<SignInBody> {
 
                     SizedBox(height: layout.lg),
 
-                    Consumer<AuthViewModel>(
+                    Consumer2<AuthViewModel, ProfileViewModel>(
                       builder:
-                          (context, authViewModel, child) =>
+                          (context, authViewModel, profileViewModel, child) =>
                               CustomElevatedButtonWidget(
                                 title: 'تسجيل دخول',
                                 onPressed: () async {
@@ -96,19 +99,26 @@ class _LoginBodyState extends State<SignInBody> {
                                     email: email.text,
                                     password: password.text,
                                   );
+
                                   if (authViewModel.errorMessage.isNotEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Colors.red,
-                                        content: Text(
-                                          authViewModel.errorMessage,
-                                          style: AppTextStyle.lightBody(
-                                            layout,
-                                          ).copyWith(color: Colors.white),
-                                        ),
-                                      ),
-                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text(
+                                              authViewModel.errorMessage,
+                                              style: AppTextStyle.lightBody(
+                                                layout,
+                                              ).copyWith(color: Colors.white),
+                                            ),
+                                          ),
+                                        )
+                                        .closed
+                                        .then((value) {
+                                          authViewModel.reset();
+                                        });
                                   } else {
+                                    await profileViewModel.getUserInfo();
                                     GoRouter.of(
                                       context,
                                     ).goNamed(AppRouter.homeView);
@@ -122,13 +132,17 @@ class _LoginBodyState extends State<SignInBody> {
                     SizedBox(height: layout.lg),
                     SocialAuthButton(
                       label: 'Google',
-                      iconPath: Icons.g_mobiledata,
+                      icon: SvgPicture.string(AppAssest.google),
                       color: Colors.red,
                     ),
                     SizedBox(height: layout.md),
                     SocialAuthButton(
                       label: 'Facebook',
-                      iconPath: Icons.facebook,
+                      icon: Icon(
+                        Icons.facebook,
+                        color: Colors.blue,
+                        size: layout.fontXLarge,
+                      ),
                       color: Colors.blue[800]!,
                     ),
 

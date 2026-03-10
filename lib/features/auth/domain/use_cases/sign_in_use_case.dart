@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:wasla/core/errors/exception.dart';
 import 'package:wasla/core/errors/failure.dart';
 import 'package:wasla/features/auth/domain/repositories/auth_repository.dart';
 
@@ -11,11 +10,6 @@ class SignInUseCase {
     required String email,
     required String password,
   }) async {
-    try {
-      await authRepository.signIn(email: email, password: password);
-      return right(unit);
-    } on AuthException catch (code) {
-      return left(AuthFailure(message: code.message));
-    }
+    return authRepository.signIn(email: email, password: password);
   }
 }

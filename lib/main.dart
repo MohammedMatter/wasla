@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/di/service_locator.dart';
 import 'package:wasla/core/layout/app_layout.dart';
@@ -26,7 +27,7 @@ void main() async {
   await setupServiceLocator();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   appRouter = AppRouter();
-
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -81,8 +82,7 @@ class MyApp extends StatelessWidget {
               ),
               scaffoldBackgroundColor: AppColors.lightBackgroundColor,
             ),
-
-            debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: true,
             routerConfig: appRouter.routers,
           ),
         );

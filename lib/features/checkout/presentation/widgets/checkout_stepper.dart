@@ -5,7 +5,7 @@ import 'package:wasla/features/checkout/presentation/widgets/step_circle.dart';
 import 'package:wasla/features/checkout/presentation/widgets/step_line.dart';
 
 class CheckoutStepper extends StatelessWidget {
-  CheckoutStepper({super.key});
+  const CheckoutStepper({super.key});
 
   @override
   Widget build(BuildContext context) {

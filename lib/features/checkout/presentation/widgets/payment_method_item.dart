@@ -1,13 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:wasla/core/constants/app_assest.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/utils/screen_size.dart';
 
+// ignore: must_be_immutable
 class PaymentMethodItem extends StatelessWidget {
   PaymentMethodItem({
     super.key,
@@ -21,7 +18,7 @@ class PaymentMethodItem extends StatelessWidget {
   final AppLayout layout;
   String title;
   String imagePath;
-  final bool isSelected; // حالة العنصر
+  final bool isSelected;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {

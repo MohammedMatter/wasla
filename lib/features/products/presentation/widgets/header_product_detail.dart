@@ -30,6 +30,9 @@ class HeaderProductDetail extends StatelessWidget {
                     child: Center(
                       child: Image.network(
                         productViewModel.selectedProduct!.image,
+                        errorBuilder:
+                            (context, error, stackTrace) =>
+                                Icon(Icons.broken_image, color: Colors.amber),
                       ),
                     ),
                   ),
@@ -73,17 +76,21 @@ class HeaderProductDetail extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(left: layout.md),
+                    child: Text(
+                      productViewModel.selectedProduct!.price,
+                      textDirection: TextDirection.rtl,
+                      style: AppTextStyle.lightSubtitle(layout).copyWith(
+                        color: AppColors.lightPrimaryColor,
+                        fontSize: layout.fontMedium * 1.2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              Text(
-                productViewModel.selectedProduct!.price,
-                textDirection: TextDirection.rtl,
-                style: AppTextStyle.lightSubtitle(layout).copyWith(
-                  color: AppColors.lightPrimaryColor,
-                  fontSize: layout.fontMedium * 1.2,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+
               SizedBox(height: layout.xs),
               Text(
                 productViewModel.selectedProduct!.type,

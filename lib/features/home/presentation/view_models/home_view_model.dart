@@ -14,9 +14,4 @@ class HomeViewModel extends ChangeNotifier {
     showAllFeaturedProducts = !showAllFeaturedProducts;
     notifyListeners();
   }
-
-  void toogleShowAllPharmacies() {
-    showAllPharmacies = !showAllPharmacies;
-    notifyListeners();
-  }
 }

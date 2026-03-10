@@ -33,7 +33,7 @@ class Offers extends StatelessWidget {
             color: AppColors.lightPrimaryColor.withOpacity(0.1),
             borderRadius: BorderRadius.circular(layout.md),
           ),
-          height: ScreenSize.w(context) * 0.27,
+          height: ScreenSize.h(context) * 0.12,
           margin: EdgeInsets.symmetric(horizontal: layout.md),
           child: Consumer<HomeViewModel>(
             builder:

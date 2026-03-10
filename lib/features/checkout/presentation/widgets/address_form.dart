@@ -4,7 +4,7 @@ import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/features/auth/presentation/widgets/custom_text_field.dart';
 
 class AddressForm extends StatefulWidget {
-  AddressForm({super.key});
+  const AddressForm({super.key});
 
   @override
   State<AddressForm> createState() => _AddressFormState();

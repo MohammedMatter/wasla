@@ -33,7 +33,10 @@ class ActionDetailButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(layout.rmd * 1.3),
-          border: Border.all(color: AppColors.lightPrimaryColor, width: 1.2),
+          border: Border.all(
+            color: isBordered ? Color(0xffAAAAAA) : Colors.transparent,
+            width: 1.45,
+          ),
         ),
         child: Center(
           child: Text(
@@ -45,6 +48,5 @@ class ActionDetailButton extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

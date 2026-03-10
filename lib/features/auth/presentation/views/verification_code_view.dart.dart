@@ -4,8 +4,10 @@ import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/auth/presentation/widgets/verification_code_body.dart';
 
+// ignore: must_be_immutable
 class VerificationCodeView extends StatelessWidget {
-  const VerificationCodeView({super.key});
+  String otpCode;
+  VerificationCodeView({super.key, required this.otpCode});
 
   @override
   Widget build(BuildContext context) {
