@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
                   ),
                   scaffoldBackgroundColor: AppColors.lightBackgroundColor,
                 ),
-                debugShowCheckedModeBanner: true,
+                debugShowCheckedModeBanner: false,
                 routerConfig: appRouter.routers,
               ),
             );
