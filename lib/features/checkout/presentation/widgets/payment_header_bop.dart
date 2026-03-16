@@ -20,7 +20,6 @@ class PaymentHeaderBop extends StatelessWidget {
 
           child: FractionallySizedBox(
             widthFactor: 0.4,
-
             child: SvgPicture.string(
               width: double.infinity,
               AppAssest.bankOfPalestine,
@@ -50,7 +49,7 @@ class PaymentHeaderBop extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: AppTextStyle.lightSubtitle(
                             layout,
-                          ).copyWith(fontSize: layout.fontLarge),
+                          ).copyWith(fontSize: layout.fontMedium),
                         ),
                       ),
         ),

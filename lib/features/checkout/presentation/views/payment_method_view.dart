@@ -22,6 +22,7 @@ class PaymentMethodView extends StatelessWidget {
                   icon: Icon(
                     Icons.arrow_circle_right_outlined,
                     color: AppColors.lightPrimaryColor,
+                    size: layout.fontXLarge.clamp(24.0, 32.0),
                   ),
                   onPressed: () {
                     paymentViewModel.setStepperIndex(index: 0);
@@ -30,7 +31,13 @@ class PaymentMethodView extends StatelessWidget {
                 ),
           ),
         ],
-        title: Text('طريقة الدفع', style: AppTextStyle.lightHeading1(layout)),
+        title: Text(
+          'طريقة الدفع',
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: PaymentMethodBody(),

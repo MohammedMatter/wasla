@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
-import 'package:wasla/core/utils/screen_size.dart';
 import 'package:wasla/features/home/presentation/view_models/home_view_model.dart';
 import 'package:wasla/features/home/presentation/widgets/pharmacy_item.dart';
 import 'package:wasla/features/pharmacies/presentation/view_models/pharmacy_view_model.dart';
@@ -34,7 +33,7 @@ class PharmaciesSection extends StatelessWidget {
                           'الصيدليات',
                           style: AppTextStyle.lightHeading2(
                             layout,
-                          ).copyWith(fontSize: layout.fontMedium * 1.5),
+                          ).copyWith(fontSize: layout.fontMedium),
                         ),
                         Column(
                           children: [
@@ -46,12 +45,7 @@ class PharmaciesSection extends StatelessWidget {
                                       highlightColor: Color(0xffeef4f4),
                                       alignment: Alignment.center,
 
-                                      icon: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: layout.sm,
-                                        ),
-                                        child: Icon(Icons.arrow_back_ios),
-                                      ),
+                                      icon: Icon(Icons.arrow_back_ios),
                                       onPressed: () {
                                         GoRouter.of(
                                           context,
@@ -77,18 +71,19 @@ class PharmaciesSection extends StatelessWidget {
                               ) => Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: SizedBox(
-                                  height: ScreenSize.h(context) * 0.195,
+                                  height: (MediaQuery.of(context).size.height *
+                                          0.25)
+                                      .clamp(180.0, 260.0),
                                   child: GridView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
                                     itemCount:
                                         pharmacyViewModel.pharmacies.length,
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
-                                          childAspectRatio: 1.4,
                                           crossAxisCount: 1,
-                                          mainAxisSpacing: 10,
-                                          crossAxisSpacing: 10,
+                                          childAspectRatio: 1.5.clamp(1.5, 5),
+                                          mainAxisSpacing: layout.sm,
                                         ),
                                     itemBuilder:
                                         (context, index) => PharmacyItem(

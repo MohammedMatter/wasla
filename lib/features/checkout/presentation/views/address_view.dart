@@ -23,6 +23,7 @@ class AddressView extends StatelessWidget {
                   icon: Icon(
                     Icons.arrow_circle_right_outlined,
                     color: AppColors.lightPrimaryColor,
+                    size: layout.fontXLarge.clamp(24.0, 32.0),
                   ),
                   onPressed: () {
                     Navigator.pop(context);

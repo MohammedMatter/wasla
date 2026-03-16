@@ -19,11 +19,11 @@ class GridCategories extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: layout.xl),
+      padding: EdgeInsets.symmetric(horizontal: layout.md),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: layout.sm,
-        mainAxisSpacing: layout.md,
+        mainAxisSpacing: layout.sm,
         childAspectRatio: 2.5,
       ),
       itemCount: categories.length,
@@ -32,9 +32,9 @@ class GridCategories extends StatelessWidget {
           builder:
               (context, productViewModel, searchViewModel, child) => Material(
                 color: AppColors.lightPrimaryColor,
-                borderRadius: BorderRadius.circular(layout.md),
+                borderRadius: BorderRadius.circular(layout.rmd),
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(layout.md),
+                  borderRadius: BorderRadius.circular(layout.rmd),
                   splashColor: const Color.fromARGB(
                     255,
                     19,
@@ -58,7 +58,7 @@ class GridCategories extends StatelessWidget {
                       style: AppTextStyle.lightSubtitle(layout).copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
-                        fontSize: layout.fontMedium * 1.1,
+                        fontSize: layout.fontSmall * 1.1,
                       ),
                     ),
                   ),

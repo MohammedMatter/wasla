@@ -47,6 +47,7 @@ class ResetPasswordBody extends StatelessWidget {
                 icon: Icons.lock_outline,
                 textFieldType: TextFieldType.password,
               ),
+              SizedBox(height: layout.sm),
               CustomTextField(
                 passwordController: _passwordController,
                 controller: _confirmPasswordController,
@@ -54,7 +55,7 @@ class ResetPasswordBody extends StatelessWidget {
                 icon: Icons.lock_outline,
                 textFieldType: TextFieldType.confirmPassword,
               ),
-              SizedBox(height: layout.xl * 1.5),
+              SizedBox(height: layout.xl),
               CustomElevatedButtonWidget(
                 isFilled: true,
                 onPressed: () {

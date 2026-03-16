@@ -14,68 +14,108 @@ class CartSummerySheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
+
     return Consumer<CartViewModel>(
       builder:
           (context, cartViewModel, child) => Container(
-            padding: EdgeInsets.all(layout.md),
+            padding: EdgeInsets.fromLTRB(
+              layout.md,
+              layout.sm,
+              layout.md,
+              layout.lg,
+            ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(layout.rmd),
-                topRight: Radius.circular(layout.rmd),
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(layout.rmd),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -5),
+                ),
+              ],
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "اجمالي المنتجات",
-                      style: AppTextStyle.lightBody(
-                        layout,
-                      ).copyWith(fontSize: layout.fontMedium * 1.2),
-                    ),
-                    Text(
-                      "${cartViewModel.totalAmount} شيكل",
-                      style: AppTextStyle.lightBody(
-                        layout,
-                      ).copyWith(fontSize: layout.fontMedium * 1.2),
-                    ),
-                  ],
+                Container(
+                  width: layout.xl,
+                  height: 4,
+                  margin: EdgeInsets.only(bottom: layout.md),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(layout.rsm),
+                  ),
+                ),
+                _buildPriceRow(
+                  label: "إجمالي المنتجات",
+                  value: "${cartViewModel.totalAmount} شيكل",
+                  layout: layout,
+                ),
+                SizedBox(height: layout.xs),
+                _buildPriceRow(
+                  label: "رسوم التوصيل",
+                  value: "5 شيكل",
+                  layout: layout,
+                  color: Colors.grey[600],
+                ),
+                Divider(height: layout.lg, thickness: 0.5),
+                _buildPriceRow(
+                  label: "الإجمالي الكلي",
+                  value: "${cartViewModel.totalAmount + 5} شيكل",
+                  layout: layout,
+                  isBold: true,
+                  color: AppColors.lightPrimaryColor,
+                  fontSize: layout.fontMedium,
+                ),
+                SizedBox(height: layout.md),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomElevatedButtonWidget(
+                    onPressed: () {
+                      context.pushNamed(AppRouter.addressView);
+                    },
+                    title: 'تأكيد الطلب',
+                  ),
                 ),
                 SizedBox(height: layout.sm),
-                Row(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "الإجمالي الكلي",
-                      style: AppTextStyle.lightBody(
-                        layout,
-                      ).copyWith(color: AppColors.lightPrimaryColor),
-                    ),
-                    Text(
-                      "${cartViewModel.totalAmount + 5} شيكل",
-                      style: AppTextStyle.lightSubtitle(layout).copyWith(
-                        color: AppColors.lightPrimaryColor,
-                        fontSize: layout.fontLarge,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: layout.xl),
-                CustomElevatedButtonWidget(
-                  onPressed: () {
-                    GoRouter.of(context).pushNamed(AppRouter.addressView);
-                  },
-                  title: 'تاكيد الطلب',
-                ),
-                SizedBox(height: layout.xl * 2.5),
               ],
             ),
           ),
+    );
+  }
+
+  Widget _buildPriceRow({
+    required String label,
+    required String value,
+    required AppLayout layout,
+    bool isBold = false,
+    Color? color,
+    double? fontSize,
+  }) {
+    return Row(
+      textDirection: TextDirection.rtl,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: AppTextStyle.lightBody(layout).copyWith(
+            color: color ?? Colors.black,
+            fontSize: fontSize ?? layout.fontSmall,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+        Text(
+          value,
+          style: AppTextStyle.lightBody(layout).copyWith(
+            color: color ?? Colors.black,
+            fontSize: fontSize ?? layout.fontSmall,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ],
     );
   }
 }

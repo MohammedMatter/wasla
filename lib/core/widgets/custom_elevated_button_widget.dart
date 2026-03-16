@@ -24,7 +24,7 @@ class CustomElevatedButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(layout.md),
+          padding: EdgeInsets.all(layout.sm * 1.3),
           disabledBackgroundColor: Colors.white,
           backgroundColor:
               isFilled
@@ -36,13 +36,13 @@ class CustomElevatedButtonWidget extends StatelessWidget {
                   !isFilled ? AppColors.lightPrimaryColor : Colors.transparent,
               width: 1.2,
             ),
-            borderRadius: BorderRadius.circular(layout.rlg),
+            borderRadius: BorderRadius.circular(layout.rmd),
           ),
         ),
         child: Text(
           title,
           style: AppTextStyle.lightBody(layout).copyWith(
-            fontSize: layout.fontMedium * 1.40,
+            fontSize: layout.fontMedium,
             fontWeight: FontWeight.bold,
             color: isFilled ? Colors.white : AppColors.lightPrimaryColor,
           ),

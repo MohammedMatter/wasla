@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
+import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/cart/domain/cart_item.dart';
 import 'package:wasla/features/cart/presentation/view_models/cart_view_model.dart';
 
@@ -12,15 +13,14 @@ class CartItemWidget extends StatelessWidget {
   final Function() onAdd;
   final Function() onRemove;
   final Function() onRemoveItem;
+
   const CartItemWidget({
     super.key,
     required this.onRemoveItem,
     required this.onAdd,
     required this.onRemove,
     required this.quantity,
-
     required this.item,
-
     this.isSelected = false,
   });
 
@@ -30,96 +30,140 @@ class CartItemWidget extends StatelessWidget {
     return Consumer<CartViewModel>(
       builder:
           (context, cartViewModel, child) => Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(8),
+            margin: EdgeInsets.only(bottom: layout.sm),
+            padding: EdgeInsets.all(layout.xs),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(layout.rmd),
               border: Border.all(
-                color: AppColors.lightPrimaryColor,
+                color: AppColors.lightPrimaryColor.withOpacity(0.5),
                 width: 1.2,
               ),
-              color: Color(0xffeef4f4),
+              color: const Color(0xffeef4f4),
             ),
             child: Row(
               children: [
-                // زر الحذف X
                 IconButton(
-                  icon: Icon(Icons.close, size: 20),
-                  color: Colors.red,
-                  onPressed: () => onRemoveItem(),
+                  constraints: const BoxConstraints(),
+                  padding: EdgeInsets.all(layout.xs),
+                  icon: Icon(Icons.close, size: layout.md),
+                  color: Colors.redAccent,
+                  onPressed: onRemoveItem,
                 ),
-                const SizedBox(width: 10),
-                // التحكم في الكمية +-
+
+                SizedBox(width: layout.xs),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(layout.rsm),
                   ),
                   child: Row(
                     children: [
-                      InkWell(
-                        onTap: () => onRemove(),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: Text("-", style: TextStyle(fontSize: 20)),
-                        ),
+                      _buildQuantityBtn(
+                        text: "-",
+                        onTap: onRemove,
+                        layout: layout,
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: layout.sm),
                         decoration: BoxDecoration(
                           border: Border.symmetric(
                             vertical: BorderSide(color: Colors.grey.shade300),
                           ),
                         ),
-                        child: Text(item.quantity.toString()),
-                      ),
-                      InkWell(
-                        onTap: () => onAdd(),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: Text("+", style: TextStyle(fontSize: 20)),
+                        child: Text(
+                          item.quantity.toString(),
+                          style: TextStyle(
+                            fontSize: layout.fontSmall,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      ),
+                      _buildQuantityBtn(
+                        text: "+",
+                        onTap: onAdd,
+                        layout: layout,
                       ),
                     ],
                   ),
                 ),
-                const Spacer(),
-                // تفاصيل المنتج
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      item.product.name,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: layout.sm),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          item.product.name,
+                          style: AppTextStyle.lightBody(layout).copyWith(
+                            fontSize: layout.fontSmall,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          textAlign: TextAlign.right,
+                        ),
+                        SizedBox(height: layout.xs / 2),
+                        Text(
+                          item.product.price,
+                          style: TextStyle(
+                            color: AppColors.lightPrimaryColor,
+                            fontSize: layout.fontSmall,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textDirection: TextDirection.rtl,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      item.product.price,
-                      style: const TextStyle(color: Color(0xFF269A99)),
-                    ),
-                  ],
+                  ),
                 ),
-                const SizedBox(width: 12),
+
                 SizedBox(
-                  height: layout.xl * 2.5,
+                  height: layout.xl * 1.8,
+                  width: layout.xl * 1.8,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(layout.rsm),
                     child: Image.network(
                       item.product.image,
-                      color: Color(0xffeef4f4),
+                      fit: BoxFit.cover,
+
+                      color: const Color(0xffeef4f4),
                       colorBlendMode: BlendMode.multiply,
+                      errorBuilder:
+                          (context, _, __) =>
+                              Icon(Icons.medication, size: layout.lg),
                     ),
                   ),
                 ),
               ],
             ),
           ),
+    );
+  }
+
+  Widget _buildQuantityBtn({
+    required String text,
+    required VoidCallback onTap,
+    required AppLayout layout,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(layout.rsm),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: layout.sm,
+          vertical: layout.xs / 2,
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: layout.fontMedium,
+            fontWeight: FontWeight.w500,
+            color: AppColors.lightPrimaryColor,
+          ),
+        ),
+      ),
     );
   }
 }

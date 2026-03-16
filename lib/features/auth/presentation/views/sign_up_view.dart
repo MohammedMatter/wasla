@@ -15,7 +15,10 @@ class SignUpView extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(
           'انشاء حساب جديد',
-          style: AppTextStyle.lightHeading1(layout),
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SignUpBody(),

@@ -66,18 +66,18 @@ class HomeBody extends StatelessWidget {
       textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SearchHome(layout: layout, hintText: 'ابحث عن المنتج الذي تريده'),
+        SearchHome(hintText: 'ابحث عن المنتج الذي تريده'),
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 GridCategories(categories: categories),
-                SizedBox(height: layout.xl),
+                SizedBox(height: layout.lg),
                 const Offers(),
-                SizedBox(height: layout.md),
+                SizedBox(height: layout.sm),
                 const FeaturedProducts(),
-                SizedBox(height: layout.md),
+                SizedBox(height: layout.sm),
                 const PharmaciesSection(),
               ],
             ),

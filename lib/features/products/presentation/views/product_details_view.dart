@@ -17,7 +17,10 @@ class ProductDetailView extends StatelessWidget {
         title: Text('تفاصيل المنتج', style: AppTextStyle.lightHeading1(layout)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_circle_right_outlined),
+            icon: Icon(
+              Icons.arrow_circle_right_outlined,
+              size: layout.fontXLarge.clamp(24.0, 32.0),
+            ),
             onPressed: () {
               Navigator.pop(context);
             },

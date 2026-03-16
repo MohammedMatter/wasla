@@ -17,67 +17,62 @@ class AvailableProductsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<ProductViewModel, PharmacyViewModel>(
       builder:
-          (
-            context,
-            productViewModel,
-            pharmacyViewModel,
-            child,
-          ) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: Padding(
-              padding: EdgeInsets.only(top: layout.xl),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-
+          (context, productViewModel, pharmacyViewModel, child) =>
+              Directionality(
                 textDirection: TextDirection.rtl,
-                children: [
-                  Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                child: Padding(
+                  padding: EdgeInsets.only(top: layout.xl),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
-                    child: Column(
-                      children: [
-                        Row(
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      Container(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+
+                        child: Column(
                           children: [
-                            SizedBox(width: layout.md),
-                            CircleAvatar(
-                              radius: layout.fontXLarge * 2,
-                              foregroundImage: NetworkImage(
-                                pharmacyViewModel.selectedPharmacy!.image,
-                              ),
-                            ),
-                            SizedBox(width: layout.md),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Text(
-                                  pharmacyViewModel.selectedPharmacy!.name,
-                                  style: AppTextStyle.lightHeading1(
-                                    layout,
-                                  ).copyWith(fontSize: layout.fontLarge * 0.8),
+                                SizedBox(width: layout.md),
+                                CircleAvatar(
+                                  radius: layout.fontXLarge * 1.2,
+                                  foregroundImage: NetworkImage(
+                                    pharmacyViewModel.selectedPharmacy!.image,
+                                  ),
                                 ),
-                                SizedBox(height: layout.sm),
-                                Text(
-                                  '0595541004',
-                                  style: AppTextStyle.lightSubtitle(layout),
-                                ),
-                                SizedBox(height: layout.sm),
-                                Row(
-                                  textDirection: TextDirection.rtl,
+                                SizedBox(width: layout.md),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      size: layout.fontLarge,
-                                      Icons.location_on_outlined,
-                                      color: AppColors.lightPrimaryColor,
-                                    ),
-
                                     Text(
-                                      pharmacyViewModel
-                                              .selectedPharmacy
-                                              ?.address ??
-                                          '',
-                                      style: AppTextStyle.lightSubtitle(
-                                        layout,
-                                      ).copyWith(color: Colors.black),
+                                      pharmacyViewModel.selectedPharmacy!.name,
+                                      style: AppTextStyle.lightHeading1(layout),
+                                    ),
+                                    SizedBox(height: layout.sm),
+                                    Text(
+                                      '0595541004',
+                                      style: AppTextStyle.lightSubtitle(layout),
+                                    ),
+                                    SizedBox(height: layout.sm),
+                                    Row(
+                                      textDirection: TextDirection.rtl,
+                                      children: [
+                                        Icon(
+                                          size: layout.fontMedium,
+                                          Icons.location_on_outlined,
+                                          color: AppColors.lightPrimaryColor,
+                                        ),
+                                        Text(
+                                          pharmacyViewModel
+                                                  .selectedPharmacy
+                                                  ?.address ??
+                                              '',
+                                          style: AppTextStyle.lightSubtitle(
+                                            layout,
+                                          ).copyWith(color: Colors.black),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -85,41 +80,41 @@ class AvailableProductsBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  SearchHome(
-                    canRequestFocus: true,
-                    layout: layout,
-                    hintText: 'ابحث عن المنتج الذي تريده',
-                  ),
+                      SearchHome(
+                        canRequestFocus: true,
 
-                  Container(
-                    width: double.infinity,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: layout.xl),
-                          child: Text(
-                            'المنتجات المتوفرة',
-                            style: AppTextStyle.lightHeading1(layout),
-                          ),
+                        hintText: 'ابحث عن المنتج الذي تريده',
+                      ),
+
+                      Container(
+                        width: double.infinity,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: layout.xl,
+                              ),
+                              child: Text(
+                                'المنتجات المتوفرة',
+                                style: AppTextStyle.lightHeading1(layout),
+                              ),
+                            ),
+                            SizedBox(height: layout.md),
+                          ],
                         ),
-                        SizedBox(height: layout.md),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  productViewModel.filteredProductsList.isEmpty
-                      ? Text('لا توجد منتجات متوفرة')
-                      : AvailableProducts(),
-                ],
+                      productViewModel.filteredProductsList.isEmpty
+                          ? Text('لا توجد منتجات متوفرة')
+                          : AvailableProducts(),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
     );
   }
 }

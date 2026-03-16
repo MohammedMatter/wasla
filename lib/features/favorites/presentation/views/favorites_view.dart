@@ -20,14 +20,20 @@ class FavoritesView extends StatelessWidget {
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: AppColors.lightPrimaryColor,
+              size: layout.fontXLarge,
             ),
             onPressed: () => Navigator.pop(context),
           ),
         ],
         title: Consumer<ProfileViewModel>(
           builder:
-              (context, vm, child) =>
-                  Text('المفضلة', style: AppTextStyle.lightHeading1(layout)),
+              (context, vm, child) => Text(
+                'المفضلة',
+                style: AppTextStyle.lightHeading1(layout).copyWith(
+                  fontSize: layout.fontLarge.clamp(18.0, 24.0),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         ),
       ),
       body: FavoritesBody(),

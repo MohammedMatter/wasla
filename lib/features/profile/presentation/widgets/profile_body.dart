@@ -24,8 +24,8 @@ class ProfileBody extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: layout.lg,
-                    vertical: layout.xl,
+                    horizontal: layout.md,
+                    vertical: layout.md,
                   ),
                   child: Column(
                     children: [
@@ -33,7 +33,7 @@ class ProfileBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CircleAvatar(
-                            radius: layout.xl * 1.4,
+                            radius: layout.xl,
                             backgroundColor: AppColors.lightPrimaryColor,
                             backgroundImage: const NetworkImage(
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkliIuVgejvDwavQJbzUFo2z99ptt-UGB43w&s',
@@ -52,6 +52,7 @@ class ProfileBody extends StatelessWidget {
                                   ).copyWith(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
+                                    fontSize: layout.fontMedium,
                                   ),
                                 ),
                                 Text(
@@ -61,7 +62,7 @@ class ProfileBody extends StatelessWidget {
                                     layout,
                                   ).copyWith(
                                     color: Colors.grey,
-                                    fontSize: layout.fontMedium * 1.1,
+                                    fontSize: layout.fontSmall,
                                   ),
 
                                   textDirection: TextDirection.ltr,
@@ -69,16 +70,15 @@ class ProfileBody extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(width: layout.md),
+                          SizedBox(width: layout.sm),
                           Icon(
                             Icons.manage_accounts_outlined,
                             color: AppColors.lightPrimaryColor,
-                            size: layout.fontXLarge,
                           ),
                         ],
                       ),
 
-                      SizedBox(height: layout.xl),
+                      SizedBox(height: layout.md),
                       Consumer<ProductViewModel>(
                         builder:
                             (context, productViewModel, child) => MenuItem(

@@ -37,14 +37,19 @@ class _HomeViewState extends State<HomeView> {
           icon: Icon(
             Icons.location_on_outlined,
             color: AppColors.lightPrimaryColor,
-            size: layout.fontXLarge * 1.3,
+            size: layout.fontLarge.clamp(18, 24),
           ),
         ),
 
         title: Consumer<ProfileViewModel>(
           builder:
-              (context, vm, child) =>
-                  Text('وصلة', style: AppTextStyle.lightHeading1(layout)),
+              (context, vm, child) => Text(
+                'وصلة',
+                style: AppTextStyle.lightHeading1(layout).copyWith(
+                  fontSize: layout.fontLarge.clamp(18.0, 24.0),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         ),
       ),
       body: HomeBody(),

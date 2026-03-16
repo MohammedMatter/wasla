@@ -30,91 +30,88 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
-    return Padding(
-      padding: EdgeInsets.only(bottom: layout.sm),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Consumer<AuthViewModel>(
-          builder:
-              (context, authViewModel, child) => TextFormField(
-                validator: (value) {
-                  switch (textFieldType) {
-                    case TextFieldType.name:
-                      return SignUpValidation.nameErrorMessage(
-                        result: SignUpValidation.nameValidation(name: value!),
-                      );
-                    case TextFieldType.email:
-                      return SignUpValidation.emailErrorMessage(
-                        result: SignUpValidation.emailValidation(email: value!),
-                      );
-                    case TextFieldType.password:
-                      return SignUpValidation.passwordErrorMessage(
-                        result: SignUpValidation.passwordValidation(
-                          password: value!,
-                        ),
-                      );
-                    case TextFieldType.confirmPassword:
-                      return SignUpValidation.confirmPasswordErrorMessage(
-                        result: SignUpValidation.confirmPasswordValidation(
-                          confPass: value!,
-                          pass: passwordController?.text,
-                        ),
-                      );
-                    default:
-                      TextFieldType.none;
-                  }
-                  return null;
-                },
-                enabled: isEnabled,
-                controller: controller,
-                obscureText: isPassword && !authViewModel.isVisiblePass,
-                decoration: InputDecoration(
-                  hintText: label,
-                  hintStyle: TextStyle(color: Colors.grey[600]),
-                  labelStyle: TextStyle(color: AppColors.lightPrimaryColor),
-                  prefixIcon:
-                      icon != null ? Icon(icon, color: Colors.grey) : null,
-                  suffixIcon:
-                      isPassword
-                          ? InkWell(
-                            onTap: () {
-                              authViewModel.togglePasswordVisibility();
-                            },
-                            child:
-                                authViewModel.isVisiblePass
-                                    ? Icon(
-                                      Icons.visibility_outlined,
-                                      color: Colors.grey,
-                                    )
-                                    : Icon(
-                                      Icons.visibility_off_outlined,
-                                      color: Colors.grey,
-                                    ),
-                          )
-                          : null,
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: layout.md,
-                    vertical: layout.sm,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Consumer<AuthViewModel>(
+        builder:
+            (context, authViewModel, child) => TextFormField(
+              validator: (value) {
+                switch (textFieldType) {
+                  case TextFieldType.name:
+                    return SignUpValidation.nameErrorMessage(
+                      result: SignUpValidation.nameValidation(name: value!),
+                    );
+                  case TextFieldType.email:
+                    return SignUpValidation.emailErrorMessage(
+                      result: SignUpValidation.emailValidation(email: value!),
+                    );
+                  case TextFieldType.password:
+                    return SignUpValidation.passwordErrorMessage(
+                      result: SignUpValidation.passwordValidation(
+                        password: value!,
+                      ),
+                    );
+                  case TextFieldType.confirmPassword:
+                    return SignUpValidation.confirmPasswordErrorMessage(
+                      result: SignUpValidation.confirmPasswordValidation(
+                        confPass: value!,
+                        pass: passwordController?.text,
+                      ),
+                    );
+                  default:
+                    TextFieldType.none;
+                }
+                return null;
+              },
+              enabled: isEnabled,
+              controller: controller,
+              obscureText: isPassword && !authViewModel.isVisiblePass,
+              decoration: InputDecoration(
+                hintText: label,
+                hintStyle: TextStyle(color: Colors.grey[600]),
+                labelStyle: TextStyle(color: AppColors.lightPrimaryColor),
+                prefixIcon:
+                    icon != null ? Icon(icon, color: Colors.grey) : null,
+                suffixIcon:
+                    isPassword
+                        ? InkWell(
+                          onTap: () {
+                            authViewModel.togglePasswordVisibility();
+                          },
+                          child:
+                              authViewModel.isVisiblePass
+                                  ? Icon(
+                                    Icons.visibility_outlined,
+                                    color: Colors.grey,
+                                  )
+                                  : Icon(
+                                    Icons.visibility_off_outlined,
+                                    color: Colors.grey,
+                                  ),
+                        )
+                        : null,
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: layout.md,
+                  vertical: layout.sm,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(layout.rsm),
+                  borderSide: BorderSide(
+                    color: AppColors.lightPrimaryColor.withOpacity(0.35),
+                    width: 1.3,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(layout.rmd),
-                    borderSide: BorderSide(
-                      color: AppColors.lightPrimaryColor.withOpacity(0.35),
-                      width: 1.3,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(layout.rlg),
-                    borderSide: BorderSide(
-                      color: AppColors.lightPrimaryColor,
-                      width: 1.3,
-                    ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(layout.rmd * 1.5),
+                  borderSide: BorderSide(
+                    color: AppColors.lightPrimaryColor,
+                    width: 1.3,
                   ),
                 ),
               ),
-        ),
+            ),
       ),
     );
   }

@@ -22,7 +22,10 @@ class VerificationCodeView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_circle_right_outlined),
+            icon: Icon(
+              Icons.arrow_circle_right_outlined,
+              size: layout.fontXLarge,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ],

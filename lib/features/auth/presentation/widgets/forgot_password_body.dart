@@ -35,9 +35,10 @@ class ForgotPasswordBody extends StatelessWidget {
             Text(
               'أدخل بريدك الإلكتروني وهنبعتلك كود\n لإعادة تعيين كلمة المرور',
               textAlign: TextAlign.center,
-              style: AppTextStyle.lightBody(
-                layout,
-              ).copyWith(color: const Color(0xff7E7575)),
+              style: AppTextStyle.lightBody(layout).copyWith(
+                color: const Color(0xff7E7575),
+                fontSize: layout.fontMedium,
+              ),
             ),
             SizedBox(height: layout.xl),
             Directionality(
@@ -82,7 +83,6 @@ class ForgotPasswordBody extends StatelessWidget {
                           await authViewModel.sendOtp(email: email.text);
                           log(authViewModel.otpCode);
                           Navigator.pop(context);
-
                           if (authViewModel.errorMessage.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

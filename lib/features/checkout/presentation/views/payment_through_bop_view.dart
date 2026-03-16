@@ -36,6 +36,7 @@ class PaymentThroughBopView extends StatelessWidget {
                           icon: Icon(
                             Icons.arrow_circle_right_outlined,
                             color: AppColors.lightPrimaryColor,
+                            size: layout.fontXLarge.clamp(24.0, 32.0),
                           ),
                           onPressed: () {
                             paymentViewModel.setStepperIndex(index: 1);
@@ -59,11 +60,9 @@ class PaymentThroughBopView extends StatelessWidget {
               children: [
                 SizedBox(height: layout.md),
                 CheckoutStepper(),
-                SizedBox(height: layout.md),
                 const PaymentHeaderBop(),
-                SizedBox(height: layout.md),
                 _buildDynamicContent(context, vm, layout),
-                SizedBox(height: layout.md),
+                SizedBox(height: layout.sm),
                 _buildBottomAction(vm, layout),
               ],
             ),

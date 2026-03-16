@@ -21,12 +21,19 @@ class PharmaciesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('الصيدليات', style: AppTextStyle.lightHeading1(layout)),
+        title: Text(
+          'الصيدليات',
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: AppColors.lightPrimaryColor,
+              size: layout.fontXLarge,
             ),
             onPressed: () {
               GoRouter.of(context).pop();
@@ -38,11 +45,7 @@ class PharmaciesView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SearchHome(
-              layout: layout,
-              hintText: 'ابحث عن اي صيدلية',
-              canRequestFocus: true,
-            ),
+            SearchHome(hintText: 'ابحث عن اي صيدلية', canRequestFocus: true),
             PharmaciesContent(layout: layout),
           ],
         ),
@@ -67,7 +70,7 @@ class PharmaciesContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: layout.xl),
+                  padding: EdgeInsets.symmetric(horizontal: layout.sm),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -78,9 +81,9 @@ class PharmaciesContent extends StatelessWidget {
                           style: AppTextStyle.lightHeading1(layout),
                         ),
                       ),
-                      SizedBox(height: layout.lg),
+                      SizedBox(height: layout.md),
                       SizedBox(
-                        height: ScreenSize.h(context) * 0.195,
+                        height: ScreenSize.h(context) * 0.23,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: List.generate(
@@ -88,7 +91,7 @@ class PharmaciesContent extends StatelessWidget {
                             (index) => Expanded(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: layout.sm * 0.9,
+                                  horizontal: layout.xs * 0.9,
                                 ),
                                 child: PharmacyItem(
                                   index: index,
@@ -100,7 +103,7 @@ class PharmaciesContent extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: layout.lg),
+                      SizedBox(height: layout.md),
                       Padding(
                         padding: EdgeInsets.only(right: layout.md),
                         child: Text(
@@ -140,7 +143,7 @@ class PharmaciesContent extends StatelessWidget {
                               padding: EdgeInsets.only(
                                 right: layout.md,
                                 left: layout.md,
-                                bottom: layout.md,
+                                bottom: layout.sm,
                               ),
                               child: Ink(
                                 decoration: BoxDecoration(
@@ -160,7 +163,7 @@ class PharmaciesContent extends StatelessWidget {
                                     Expanded(
                                       flex: 1,
                                       child: Container(
-                                        height: layout.fontXLarge * 2.5,
+                                        height: layout.xl * 1.75,
                                         margin: EdgeInsets.all(layout.sm),
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
@@ -194,15 +197,12 @@ class PharmaciesContent extends StatelessWidget {
                                                   layout,
                                                 ).copyWith(
                                                   color: Color(0xffff9900),
-                                                  fontSize:
-                                                      layout.fontMedium * 1.1,
                                                 ),
                                               ),
 
                                               Transform.translate(
                                                 offset: Offset(0, -0.5),
                                                 child: Icon(
-                                                  size: layout.fontLarge,
                                                   Icons
                                                       .star_border_purple500_rounded,
                                                   color: Color(0xffff9900),
@@ -227,7 +227,7 @@ class PharmaciesContent extends StatelessWidget {
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(
-                                              layout.rlg,
+                                              layout.rmd,
                                             ),
                                           ),
                                           backgroundColor:

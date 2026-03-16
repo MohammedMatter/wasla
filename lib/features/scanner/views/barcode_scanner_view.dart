@@ -57,46 +57,6 @@ class _BarcodeScannerViewState extends State<BarcodeScannerView> {
           ),
         ],
       ),
-      // Stack(
-      //   children: [
-      //     // 1. شاشة الكاميرا الحقيقية
-      //     MobileScanner(
-      //       controller: controller,
-      //       onDetect: (capture) {
-      //         final List<Barcode> barcodes = capture.barcodes;
-      //         for (final barcode in barcodes) {
-      //           debugPrint('تم العثور على باركود: ${barcode.rawValue}');
-
-      //           // هون المنطق تبعك:
-      //           // 1. خذ الرقم (barcode.rawValue)
-      //           // 2. ابحث عنه في الـ ViewModel
-      //           // 3. انتقل لصفحة المنتج
-      //           _handleBarcode(barcode.rawValue);
-      //         }
-      //       },
-      //     ),
-
-      //     // 2. التصميم (المربع اللي بالصورة تبعتك)
-      //     _buildOverlay(context),
-      //   ],
-      // ),
-    );
-  }
-
-  void _handleBarcode(String? code) {
-    if (code != null) {
-      // توقف الكاميرا مؤقتاً عشان ما يكرر المسح
-      controller.stop();
-
-      // مثال: الانتقال لصفحة المنتج
-      // context.pushNamed(AppRouter.productDetails, extra: code);
-    }
-  }
-
-  Widget _buildOverlay(BuildContext context) {
-    return Container(
-      // هون بتصمم المربع الشفاف والزرار مثل الصورة اللي بعتتها
-      // استخدم Color.withOpacity(0.5) للخلفية
     );
   }
 }

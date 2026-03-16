@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -42,7 +40,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
 
   @override
   Widget build(BuildContext context) {
-    final layout = context.read<AppLayout>();
+    AppLayout layout = AppLayout();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -60,7 +58,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
                 ).copyWith(color: const Color(0xff7E7575)),
               ),
 
-              SizedBox(height: layout.xl),
+              SizedBox(height: layout.md),
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: Row(
@@ -71,7 +69,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
                   ),
                 ),
               ),
-              SizedBox(height: layout.xl),
+              SizedBox(height: layout.md),
               Consumer2<VervicationViewModel, AuthViewModel>(
                 builder:
                     (

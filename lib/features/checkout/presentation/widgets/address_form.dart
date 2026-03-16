@@ -51,24 +51,27 @@ class _AddressFormState extends State<AddressForm> {
     return Column(
       children: [
         CustomTextField(label: 'الاسم الاول', icon: null, controller: name),
+        SizedBox(height: layout.sm),
         CustomTextField(
           label: "الاسم الأخير",
           icon: null,
           controller: lastName,
         ),
+        SizedBox(height: layout.sm),
         CustomTextField(
           label: "رقم الهاتف",
           icon: null,
           controller: phone,
           keyboardType: TextInputType.phone,
         ),
+        SizedBox(height: layout.sm),
         CustomTextField(
           label: "البريد الإلكتروني",
           icon: null,
           controller: email,
           keyboardType: TextInputType.emailAddress,
         ),
-
+        SizedBox(height: layout.sm),
         Row(
           textDirection: TextDirection.rtl,
           children: [
@@ -88,6 +91,7 @@ class _AddressFormState extends State<AddressForm> {
             ),
           ],
         ),
+        SizedBox(height: layout.sm),
         CustomTextField(label: "تفاصيل العنوان", controller: addressDdetails),
       ],
     );

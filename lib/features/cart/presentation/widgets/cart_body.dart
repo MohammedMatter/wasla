@@ -12,7 +12,7 @@ class CartBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final layout = context.read<AppLayout>();
+    AppLayout layout = AppLayout();
     return Consumer<CartViewModel>(
       builder:
           (context, cartViewModel, child) => SafeArea(

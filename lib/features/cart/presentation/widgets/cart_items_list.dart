@@ -27,7 +27,7 @@ class CartItemsList extends StatelessWidget {
                 quantity: item.quantity,
                 onAdd: () {
                   cartViewModel.addToCart(item.product);
-                }, // // هان بنضيف الأكشنز عشان الـ + والـ - يشتغلو
+                },
                 onRemove:
                     () => cartViewModel.removeSingleItem(item.product.name),
                 onRemoveItem: () => cartViewModel.removeItem(item.product.name),

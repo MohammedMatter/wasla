@@ -31,7 +31,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         automaticallyImplyLeading: false,
         title: Text(
           'انشاء كلمة مرور جديدة ',
-          style: AppTextStyle.lightHeading1(layout),
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       backgroundColor: Colors.white,

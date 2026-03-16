@@ -21,7 +21,7 @@ class AdddressBody extends StatelessWidget {
             (context, paymentViewModel, child) => Column(
               children: [
                 CheckoutStepper(),
-                SizedBox(height: layout.lg),
+                SizedBox(height: layout.sm),
                 AddressForm(),
                 SizedBox(height: layout.xl),
                 CustomElevatedButtonWidget(

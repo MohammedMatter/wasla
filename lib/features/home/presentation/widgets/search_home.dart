@@ -12,26 +12,17 @@ import 'package:wasla/features/search/presentation/view_models/search_view_model
 
 // ignore: must_be_immutable
 class SearchHome extends StatelessWidget {
-  SearchHome({
-    super.key,
-    required this.layout,
-    required this.hintText,
-    this.canRequestFocus = false,
-  });
+  SearchHome({super.key, required this.hintText, this.canRequestFocus = false});
   String hintText;
-  final AppLayout layout;
+
   bool canRequestFocus;
   @override
   Widget build(BuildContext context) {
+    AppLayout layout = AppLayout();
     return Container(
       color: AppColors.lightBackgroundColor,
       child: Padding(
-        padding: EdgeInsets.only(
-          left: layout.xl,
-          right: layout.xl,
-          top: layout.lg,
-          bottom: layout.md,
-        ),
+        padding: EdgeInsets.all(layout.md),
         child: Consumer<MainNavigationViewModel>(
           builder:
               (context, vm, child) => Container(
@@ -75,12 +66,12 @@ class SearchHome extends StatelessWidget {
 
                       hintStyle: AppTextStyle.lightHeading1(layout).copyWith(
                         color: Colors.grey,
-                        fontSize: layout.fontMedium,
+                        fontSize: layout.fontSmall,
                       ),
                       border: InputBorder.none,
                       prefixIcon: const Icon(Icons.search, color: Colors.grey),
                       contentPadding: EdgeInsets.symmetric(
-                        vertical: layout.md,
+                        vertical: layout.md * 0.7,
                         horizontal: layout.sm,
                       ),
                     ),

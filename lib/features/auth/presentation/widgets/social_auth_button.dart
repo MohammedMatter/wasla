@@ -20,9 +20,9 @@ class SocialAuthButton extends StatelessWidget {
     final layout = context.read<AppLayout>();
     return Container(
       width: double.infinity,
-      height: layout.xl * 1.8,
+      height: layout.lg * 1.8,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(layout.rlg),
+        borderRadius: BorderRadius.circular(layout.rmd),
         border: Border.all(color: AppColors.lightGrey),
       ),
       child: Row(
@@ -33,8 +33,9 @@ class SocialAuthButton extends StatelessWidget {
             label,
             style: AppTextStyle.lightBody(
               layout,
-            ).copyWith(fontSize: layout.fontLarge),
+            ).copyWith(fontSize: layout.fontMedium),
           ),
+
           SizedBox(width: layout.sm),
           icon,
         ],

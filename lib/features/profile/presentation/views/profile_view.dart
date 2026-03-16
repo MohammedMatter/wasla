@@ -18,7 +18,10 @@ class ProfileView extends StatelessWidget {
           builder:
               (context, vm, child) => Text(
                 'الملف الشخصي',
-                style: AppTextStyle.lightHeading1(layout),
+                style: AppTextStyle.lightHeading1(layout).copyWith(
+                  fontSize: layout.fontLarge.clamp(18.0, 24.0),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
         ),
       ),

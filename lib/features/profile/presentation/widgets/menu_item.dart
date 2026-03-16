@@ -30,10 +30,9 @@ class MenuItem extends StatelessWidget {
           layout,
         ).copyWith(color: Colors.grey[700], fontWeight: FontWeight.w500),
       ),
-      leading: Icon(icon, color: iconColor, size: layout.fontXLarge * 0.84),
+      leading: Icon(icon, color: iconColor, size: layout.fontLarge),
       trailing: Icon(
         Icons.arrow_forward_ios_rounded,
-        size: layout.fontXLarge,
         color: AppColors.lightPrimaryColor,
       ),
     );

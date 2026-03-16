@@ -19,12 +19,21 @@ class SearchView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('البحث', style: AppTextStyle.lightHeading1(layout)),
+        title: Text(
+          'البحث',
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           Consumer<SearchViewModel>(
             builder:
                 (context, searchViewModel, child) => IconButton(
-                  icon: const Icon(Icons.arrow_circle_right_outlined),
+                  icon: Icon(
+                    Icons.arrow_circle_right_outlined,
+                    size: layout.fontXLarge.clamp(24.0, 32.0),
+                  ),
                   onPressed: () {
                     searchViewModel.reset();
                     Navigator.pop(context);
@@ -36,11 +45,10 @@ class SearchView extends StatelessWidget {
       body: Column(
         children: [
           SearchHome(
-            layout: layout,
             hintText: 'ابحث عن المنتج الذي تريده',
             canRequestFocus: true,
           ),
-          SizedBox(height: layout.md),
+          SizedBox(height: layout.sm),
 
           Consumer2<SearchViewModel, ProductViewModel>(
             builder:
@@ -52,7 +60,7 @@ class SearchView extends StatelessWidget {
                 ) => Container(
                   color: AppColors.lightBackgroundColor,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: layout.md),
+                    padding: EdgeInsets.symmetric(horizontal: layout.sm),
                     child: Wrap(
                       textDirection: TextDirection.rtl,
                       crossAxisAlignment: WrapCrossAlignment.end,
@@ -68,8 +76,8 @@ class SearchView extends StatelessWidget {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: layout.md * 1.3,
-                              vertical: layout.sm * 0.5,
+                              horizontal: layout.sm * 1.3,
+                              vertical: layout.sm * 0.8,
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(layout.rmd),
@@ -85,7 +93,6 @@ class SearchView extends StatelessWidget {
                             child: Text(
                               ProductFilterType.values[index].arabicName,
                               style: AppTextStyle.lightBody(layout).copyWith(
-                                fontSize: layout.md * 1.2,
                                 color:
                                     searchViewModel.selectedIndex == index
                                         ? Colors.white

@@ -9,122 +9,139 @@ import 'package:wasla/features/pharmacies/domain/entities/pharmacy.dart';
 import 'package:wasla/features/pharmacies/presentation/view_models/pharmacy_view_model.dart';
 
 class PharmacyItem extends StatelessWidget {
-  PharmacyItem({super.key, required this.index, required this.pharmacies});
-  List<Pharmacy> pharmacies;
+  const PharmacyItem({
+    super.key,
+    required this.index,
+    required this.pharmacies,
+  });
+
+  final List<Pharmacy> pharmacies;
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    final AppLayout layout = context.read<AppLayout>();
+    final layout = AppLayout();
+    final pharmacy = pharmacies[index];
+
     return Consumer<PharmacyViewModel>(
       builder:
           (context, pharmacyViewModel, child) => GestureDetector(
             onTap: () async {
-              pharmacyViewModel.selectPharmacy(pharmacy: pharmacies[index]);
+              pharmacyViewModel.selectPharmacy(pharmacy: pharmacy);
               await pharmacyViewModel.fetchProductsByPharmacyId(
-                pharmacyId: pharmacies[index].pharmacyId,
+                pharmacyId: pharmacy.pharmacyId,
               );
-              GoRouter.of(context).pushNamed(AppRouter.availableProductsView);
+              if (context.mounted) {
+                GoRouter.of(context).pushNamed(AppRouter.availableProductsView);
+              }
             },
             child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: layout.sm.clamp(4.0, 8.0),
+                horizontal: layout.xs,
+              ),
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
-                color: Color(0xffeef4f4),
-                border: Border.all(color: AppColors.lightPrimaryColor),
-                borderRadius: BorderRadius.circular(layout.rlg * 2),
+                color: const Color(0xffeef4f4),
+                border: Border.all(
+                  color: AppColors.lightPrimaryColor.withOpacity(0.5),
+                ),
+                borderRadius: BorderRadius.circular(layout.rlg * 1.5),
               ),
               child: Column(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 4,
                     child: Container(
-                      margin: EdgeInsets.all(layout.sm),
+                      margin: EdgeInsets.all(layout.xs),
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.contain,
-                          image: NetworkImage(pharmacies[index].image),
+                          image: NetworkImage(pharmacy.image),
                         ),
                         shape: BoxShape.circle,
                       ),
                     ),
                   ),
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(layout.rlg * 2),
-                      ),
-                      child: Container(
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: [
-                            Text(
-                              pharmacies[index].name,
-                              style: AppTextStyle.lightBody(
-                                layout,
-                              ).copyWith(fontSize: layout.fontMedium),
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                    flex: 5,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: layout.xs),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            pharmacy.name,
+                            style: AppTextStyle.lightBody(layout).copyWith(
+                              fontSize: layout.fontSmall.clamp(14.0, 18.0),
+                              fontWeight: FontWeight.bold,
                             ),
-                            Row(
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Spacer(),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
                               textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${pharmacies[index].distance}km',
+                                  '${pharmacy.distance}km',
                                   style: AppTextStyle.lightSubtitle(layout),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(width: layout.sm),
                                 Text(
-                                  '${pharmacies[index].rating}',
+                                  '${pharmacy.rating}',
                                   style: AppTextStyle.lightBody(
                                     layout,
-                                  ).copyWith(
-                                    color: Color(0xffff9900),
-                                    fontSize: layout.fontMedium * 1.1,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  ).copyWith(color: const Color(0xffff9900)),
                                 ),
-
-                                Transform.translate(
-                                  offset: Offset(0, -0.5),
-                                  child: Icon(
-                                    size: layout.fontLarge,
-                                    Icons.star_border_purple500_rounded,
-                                    color: Color(0xffff9900),
-                                  ),
+                                const Icon(
+                                  Icons.star_rounded,
+                                  color: Color(0xffff9900),
+                                  size: 20,
                                 ),
                               ],
                             ),
-
-                            Row(
+                          ),
+                          const Spacer(),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
                               textDirection: TextDirection.rtl,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  pharmacies[index].isOpen
-                                      ? 'مفتوحة الان'
-                                      : 'مغلقة الان',
-                                  style: AppTextStyle.lightSubtitle(layout),
+                                  pharmacy.isOpen
+                                      ? 'مفتوحة الآن'
+                                      : 'مغلقة الآن',
+                                  style: AppTextStyle.lightSubtitle(
+                                    layout,
+                                  ).copyWith(
+                                    color:
+                                        pharmacy.isOpen
+                                            ? Colors.green.shade700
+                                            : Colors.red.shade700,
+                                    fontSize: (layout.fontSmall * 0.9).clamp(
+                                      10.0,
+                                      13.0,
+                                    ),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                SizedBox(width: layout.sm * 0.4),
+                                SizedBox(width: layout.xs),
                                 Icon(
-                                  size: layout.fontLarge,
                                   Icons.timer_outlined,
                                   color: AppColors.lightPrimaryColor,
+                                  size: layout.fontMedium.clamp(16.0, 20.0),
                                 ),
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: layout.xs),
+                        ],
                       ),
                     ),
                   ),

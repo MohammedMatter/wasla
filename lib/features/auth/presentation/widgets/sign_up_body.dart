@@ -46,7 +46,7 @@ class _SignUpBodyState extends State<SignUpBody> {
     return Form(
       key: _key,
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: layout.xl),
+        padding: EdgeInsets.symmetric(horizontal: layout.md),
         child: Consumer<AuthViewModel>(
           builder:
               (context, authViewModel, child) => Stack(
@@ -59,7 +59,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         textAlign: TextAlign.center,
                         style: AppTextStyle.lightSubtitle(
                           layout,
-                        ).copyWith(fontSize: layout.fontMedium * 1.3),
+                        ).copyWith(fontSize: layout.fontMedium),
                       ),
                       SizedBox(height: layout.xl),
                       CustomTextField(
@@ -69,6 +69,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         controller: name,
                         textFieldType: TextFieldType.name,
                       ),
+                      SizedBox(height: layout.sm),
                       CustomTextField(
                         isEnabled: authViewModel.isLoading ? false : true,
                         controller: email,
@@ -76,6 +77,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         icon: Icons.email_outlined,
                         textFieldType: TextFieldType.email,
                       ),
+                      SizedBox(height: layout.sm),
                       CustomTextField(
                         isEnabled: authViewModel.isLoading ? false : true,
                         controller: password,
@@ -84,6 +86,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         icon: Icons.lock_outline,
                         textFieldType: TextFieldType.password,
                       ),
+                      SizedBox(height: layout.sm),
                       CustomTextField(
                         isEnabled: authViewModel.isLoading ? false : true,
                         controller: confirmPassword,
@@ -93,7 +96,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         passwordController: password,
                         textFieldType: TextFieldType.confirmPassword,
                       ),
-                      SizedBox(height: layout.xl * 1.3),
+                      SizedBox(height: layout.xl),
 
                       Consumer2<AuthViewModel, ProfileViewModel>(
                         builder:
@@ -156,16 +159,22 @@ class _SignUpBodyState extends State<SignUpBody> {
                       SizedBox(height: layout.lg),
                       SocialAuthButton(
                         label: 'Google',
-                        icon: SvgPicture.string(AppAssest.google),
+                        icon: SvgPicture.string(
+                          AppAssest.google,
+                          height: layout.fontXLarge * 1.3,
+                        ),
                         color: Colors.red,
                       ),
                       SizedBox(height: layout.md),
                       SocialAuthButton(
                         label: 'Facebook',
-                        icon: Icon(
-                          Icons.facebook,
-                          color: Colors.blue,
-                          size: layout.fontXLarge,
+                        icon: Padding(
+                          padding: EdgeInsets.only(left: layout.md),
+                          child: Icon(
+                            Icons.facebook,
+                            color: Colors.blue,
+                            size: layout.fontXLarge,
+                          ),
                         ),
                         color: Colors.blue[800]!,
                       ),

@@ -23,7 +23,7 @@ class WelcomeView extends StatelessWidget {
             children: [
               const Spacer(flex: 1),
               Expanded(
-                flex: 5,
+                flex: 3,
                 child: Center(
                   child: Image.asset(
                     'assets/images/welcome.png',
@@ -40,7 +40,7 @@ class WelcomeView extends StatelessWidget {
                     style: AppTextStyle.lightBody(layout).copyWith(
                       color: AppColors.lightPrimaryColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: layout.fontXLarge * 0.9,
+                      fontSize: layout.fontMedium,
                     ),
                   ),
                 ),
@@ -57,7 +57,7 @@ class WelcomeView extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: layout.md),
+                  SizedBox(height: layout.sm),
                   CustomElevatedButtonWidget(
                     isFilled: false,
                     onPressed: () {

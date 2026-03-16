@@ -27,13 +27,11 @@ class RegisterSuccessBody extends StatelessWidget {
             ),
             SizedBox(height: layout.md),
             Text(
-              ''' ! أهلاًبك 
-        يمكنك الأن استكشاف التطبيق 
-        والاستفادة من جميع خدماتنا ''',
+              '! أهلاً بك\nيمكنك الآن استكشاف التطبيق\nوالاستفادة من جميع خدماتنا',
               textAlign: TextAlign.center,
               style: AppTextStyle.lightSubtitle(
                 layout,
-              ).copyWith(fontSize: layout.fontLarge),
+              ).copyWith(fontSize: layout.fontMedium),
             ),
             SizedBox(height: layout.xl),
             CustomElevatedButtonWidget(

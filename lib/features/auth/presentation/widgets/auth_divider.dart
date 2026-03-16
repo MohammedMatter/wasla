@@ -8,9 +8,9 @@ class BuildDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final layout = context.read<AppLayout>();
+    AppLayout layout = AppLayout();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: layout.xl),
+      padding: EdgeInsets.symmetric(horizontal: layout.md),
       child: Row(
         children: [
           Expanded(

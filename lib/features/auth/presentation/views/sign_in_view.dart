@@ -13,7 +13,13 @@ class SignInView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('تسجيل الدخول', style: AppTextStyle.lightHeading1(layout)),
+        title: Text(
+          'تسجيل الدخول',
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         automaticallyImplyLeading: false,
       ),
       body: SignInBody(),

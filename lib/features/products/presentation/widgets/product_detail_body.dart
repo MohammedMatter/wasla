@@ -28,9 +28,9 @@ class ProductDetailBody extends StatelessWidget {
               children: [
                 SizedBox(height: layout.md),
                 HeaderProductDetail(),
-                SizedBox(height: layout.lg),
-                _productActionRow(layout, context),
-                SizedBox(height: layout.lg),
+                SizedBox(height: layout.md),
+                _productActionRow(context, layout),
+                SizedBox(height: layout.md),
                 RelatedProductCard(),
                 SizedBox(height: layout.md),
               ],
@@ -55,7 +55,7 @@ class ProductDetailBody extends StatelessWidget {
   }
 }
 
-Widget _productActionRow(AppLayout layout, BuildContext context) {
+Widget _productActionRow(BuildContext context, AppLayout layout) {
   return Consumer2<CartViewModel, ProductViewModel>(
     builder:
         (context, cartViewModel, productViewModel, child) => Padding(
@@ -90,7 +90,7 @@ Widget _productActionRow(AppLayout layout, BuildContext context) {
                   textColor: Colors.white,
                 ),
               ),
-              SizedBox(width: layout.xl),
+              SizedBox(width: layout.lg),
               Expanded(
                 child: ActionDetailButton(
                   onTap: () {

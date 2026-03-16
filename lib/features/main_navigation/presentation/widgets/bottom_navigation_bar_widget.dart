@@ -35,7 +35,7 @@ class BottomNabigationBarWidget extends StatelessWidget {
             currentIndex == 2 ? Icons.location_on : Icons.location_on_outlined,
             currentIndex == 3 ? Icons.person : Icons.person_outline,
           ],
-          activeIndex: currentIndex, // يقرأ من الـ Shell
+          activeIndex: currentIndex,
           gapLocation: GapLocation.center,
           inactiveColor: AppColors.lightPrimaryColor,
           notchSmoothness: NotchSmoothness.softEdge,

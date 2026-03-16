@@ -13,12 +13,19 @@ class AvailableProductsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('تصفح المنتجات', style: AppTextStyle.lightHeading1(layout)),
+        title: Text(
+          'تصفح المنتجات',
+          style: AppTextStyle.lightHeading1(layout).copyWith(
+            fontSize: layout.fontLarge.clamp(18.0, 24.0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: AppColors.lightPrimaryColor,
+              size: layout.fontXLarge,
             ),
             onPressed: () {
               Navigator.pop(context);

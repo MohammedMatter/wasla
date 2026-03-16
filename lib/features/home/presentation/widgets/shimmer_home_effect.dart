@@ -7,6 +7,7 @@ import 'package:wasla/core/utils/screen_size.dart';
 import 'package:wasla/features/home/presentation/view_models/home_view_model.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
 
+//******************************* */
 class ShimmerHomeEffect extends StatelessWidget {
   const ShimmerHomeEffect({super.key, required this.layout});
 

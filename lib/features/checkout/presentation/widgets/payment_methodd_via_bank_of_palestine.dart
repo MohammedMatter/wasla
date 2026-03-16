@@ -25,7 +25,7 @@ class PaymentMethodViaBankOfPalestine extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: layout.md),
+        margin: EdgeInsets.only(bottom: layout.sm),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(layout.rmd),
           border: Border.all(

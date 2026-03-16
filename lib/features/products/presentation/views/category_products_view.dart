@@ -24,10 +24,12 @@ class CategoryProductsView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_circle_right_outlined),
+                  icon: Icon(
+                    Icons.arrow_circle_right_outlined,
+                    size: layout.fontXLarge.clamp(24.0, 32.0),
+                  ),
                   onPressed: () {
                     searchViewModel.reset();
-
                     Navigator.pop(context);
                   },
                 ),
@@ -39,7 +41,7 @@ class CategoryProductsView extends StatelessWidget {
                       children: [
                         SearchHome(
                           canRequestFocus: true,
-                          layout: layout,
+
                           hintText: 'ابحث عن المنتج الذي تريده',
                         ),
                         Consumer2<ProductViewModel, SearchViewModel>(

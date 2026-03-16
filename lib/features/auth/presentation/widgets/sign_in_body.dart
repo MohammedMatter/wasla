@@ -39,7 +39,7 @@ class _LoginBodyState extends State<SignInBody> {
     final layout = context.read<AppLayout>();
 
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: layout.xl),
+      padding: EdgeInsets.symmetric(horizontal: layout.md),
       child: Consumer<AuthViewModel>(
         builder:
             (context, authViewModel, child) => Stack(
@@ -52,15 +52,16 @@ class _LoginBodyState extends State<SignInBody> {
                       textAlign: TextAlign.center,
                       style: AppTextStyle.lightSubtitle(
                         layout,
-                      ).copyWith(fontSize: layout.fontMedium * 1.3),
+                      ).copyWith(fontSize: layout.fontMedium),
                     ),
-                    SizedBox(height: layout.xl * 1.5),
+                    SizedBox(height: layout.xl),
                     CustomTextField(
                       isEnabled: authViewModel.isLoading ? false : true,
                       controller: email,
                       label: 'البريد الالكتروني',
                       icon: Icons.email_outlined,
                     ),
+                    SizedBox(height: layout.sm),
                     CustomTextField(
                       isEnabled: authViewModel.isLoading ? false : true,
                       controller: password,
@@ -81,13 +82,13 @@ class _LoginBodyState extends State<SignInBody> {
                           style: TextStyle(
                             color: AppColors.lightPrimaryColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: layout.fontSmall * 1.2,
+                            fontSize: layout.fontSmall,
                           ),
                         ),
                       ),
                     ),
 
-                    SizedBox(height: layout.lg),
+                    SizedBox(height: layout.sm),
 
                     Consumer2<AuthViewModel, ProfileViewModel>(
                       builder:
@@ -127,21 +128,27 @@ class _LoginBodyState extends State<SignInBody> {
                               ),
                     ),
 
-                    SizedBox(height: layout.xl),
+                    SizedBox(height: layout.lg),
                     BuildDivider(),
                     SizedBox(height: layout.lg),
                     SocialAuthButton(
                       label: 'Google',
-                      icon: SvgPicture.string(AppAssest.google),
+                      icon: SvgPicture.string(
+                        AppAssest.google,
+                        height: layout.fontXLarge * 1.3,
+                      ),
                       color: Colors.red,
                     ),
                     SizedBox(height: layout.md),
                     SocialAuthButton(
                       label: 'Facebook',
-                      icon: Icon(
-                        Icons.facebook,
-                        color: Colors.blue,
-                        size: layout.fontXLarge,
+                      icon: Padding(
+                        padding: EdgeInsets.only(left: layout.md),
+                        child: Icon(
+                          Icons.facebook,
+                          color: Colors.blue,
+                          size: layout.fontXLarge,
+                        ),
                       ),
                       color: Colors.blue[800]!,
                     ),

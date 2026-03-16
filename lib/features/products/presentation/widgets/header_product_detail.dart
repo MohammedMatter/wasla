@@ -52,7 +52,7 @@ class HeaderProductDetail extends StatelessWidget {
                                 )
                                 ? Colors.red
                                 : AppColors.lightPrimaryColor,
-                        size: layout.fontLarge * 1.5,
+                        size: layout.fontLarge,
                       ),
                       onPressed: () {
                         productViewModel.toggleFavorite(
@@ -71,19 +71,19 @@ class HeaderProductDetail extends StatelessWidget {
                 children: [
                   Text(
                     productViewModel.selectedProduct!.name,
-                    style: AppTextStyle.lightHeading2(layout).copyWith(
-                      fontSize: layout.fontLarge,
+                    style: AppTextStyle.lightHeading1(layout).copyWith(
+                      fontSize: layout.fontMedium,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: layout.md),
+                    padding: EdgeInsets.only(left: layout.sm),
                     child: Text(
                       productViewModel.selectedProduct!.price,
                       textDirection: TextDirection.rtl,
                       style: AppTextStyle.lightSubtitle(layout).copyWith(
                         color: AppColors.lightPrimaryColor,
-                        fontSize: layout.fontMedium * 1.2,
+                        fontSize: layout.fontMedium,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -100,14 +100,14 @@ class HeaderProductDetail extends StatelessWidget {
                 ).copyWith(color: Colors.grey),
               ),
 
-              SizedBox(height: layout.md),
+              SizedBox(height: layout.sm),
               Text(
                 productViewModel.selectedProduct!.description,
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.justify,
                 style: AppTextStyle.lightBody(
                   layout,
-                ).copyWith(height: 1.5, fontSize: layout.fontMedium),
+                ).copyWith(height: 1.5, fontSize: layout.fontSmall),
               ),
             ],
           ),

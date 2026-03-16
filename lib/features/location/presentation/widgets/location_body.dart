@@ -42,7 +42,9 @@ class LocationBody extends StatelessWidget {
           case LocationStatus.deniedForever:
             return LocationForeverDeniedCard(layout: layout);
           case LocationStatus.serviceDisabled:
-            return Center(child: Text('الخدمة معطلة'));
+            return Center(
+              child: Text('الخدمة معطلة , يرجى تفعييل الموقع من اعدادت الجهاز'),
+            );
         }
       },
     );

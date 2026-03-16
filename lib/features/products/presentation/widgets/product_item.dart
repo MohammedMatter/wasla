@@ -29,7 +29,7 @@ class ProductItem extends StatelessWidget {
           padding: EdgeInsets.only(
             right: layout.md,
             left: layout.md,
-            bottom: layout.md,
+            bottom: layout.sm,
           ),
           child: Ink(
             decoration: BoxDecoration(
@@ -49,7 +49,7 @@ class ProductItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(layout.rmd),
                       child: SizedBox(
-                        height: layout.fontXLarge * 3,
+                        height: layout.fontXLarge * 2,
                         child: Image.network(
                           products[index].image,
                           colorBlendMode: BlendMode.multiply,
@@ -73,9 +73,9 @@ class ProductItem extends StatelessWidget {
                           products[index].name,
                           style: AppTextStyle.lightBody(
                             layout,
-                          ).copyWith(fontSize: layout.fontMedium * 1.35),
+                          ).copyWith(fontSize: layout.fontSmall),
                         ),
-                        SizedBox(height: layout.sm),
+                        SizedBox(height: layout.xs),
                         Text(
                           textDirection: TextDirection.rtl,
                           products[index].price,
@@ -90,23 +90,21 @@ class ProductItem extends StatelessWidget {
                           children: [
                             Text(
                               products[index].rating.toString(),
-                              style: AppTextStyle.lightBody(layout).copyWith(
-                                color: Color(0xffff9900),
-                                fontSize: layout.fontMedium * 1.1,
-                              ),
+                              style: AppTextStyle.lightBody(
+                                layout,
+                              ).copyWith(color: Color(0xffff9900)),
                             ),
 
                             Transform.translate(
                               offset: Offset(0, -0.5),
                               child: Icon(
-                                size: layout.fontLarge,
                                 Icons.star_border_purple500_rounded,
                                 color: Color(0xffff9900),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: layout.sm),
+                        SizedBox(height: layout.xs),
                       ],
                     ),
                   ),
@@ -125,7 +123,7 @@ class ProductItem extends StatelessWidget {
                                   ? Icons.favorite
                                   : Icons.favorite_border,
                               color: Colors.red,
-                              size: layout.fontLarge,
+                              size: layout.fontMedium,
                             ),
                             onTap: () {
                               productViewModel.toggleFavorite(products[index]);

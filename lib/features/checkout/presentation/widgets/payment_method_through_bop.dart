@@ -15,7 +15,7 @@ class PaymentMethodThroughBop extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       textDirection: TextDirection.rtl,
       children: [
-        SizedBox(height: layout.xl * 1.6),
+        SizedBox(height: layout.lg),
         Text('اختر طريقة الدفع', style: AppTextStyle.lightHeading1(layout)),
         SizedBox(height: layout.md),
         Consumer<PaymentViewModel>(

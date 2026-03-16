@@ -106,7 +106,6 @@ class ProductGridItem extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 textDirection: TextDirection.rtl,
                               ),
-                              // SizedBox(height: layout.md),
                               Row(
                                 children: [
                                   Expanded(

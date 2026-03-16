@@ -30,7 +30,7 @@ class FeaturedProducts extends StatelessWidget {
                           'المنتجات المميزة ',
                           style: AppTextStyle.lightHeading2(
                             layout,
-                          ).copyWith(fontSize: layout.fontMedium * 1.5),
+                          ).copyWith(fontSize: layout.fontMedium),
                         ),
                         productViewModel.topRatedProducts.isNotEmpty
                             ? Consumer<HomeViewModel>(
@@ -42,10 +42,9 @@ class FeaturedProducts extends StatelessWidget {
                                         homeViewModel.showAllFeaturedProducts
                                             ? 'عرض اقل'
                                             : 'عرض المزيد',
-                                        style:
-                                            AppTextStyle.lightSubtitle(
-                                              layout,
-                                            ).copyWith(),
+                                        style: AppTextStyle.lightSubtitle(
+                                          layout,
+                                        ).copyWith(fontSize: layout.fontSmall),
                                       ),
                                       onPressed: () {
                                         homeViewModel
@@ -60,7 +59,7 @@ class FeaturedProducts extends StatelessWidget {
                   ],
                 ),
               ),
-
+              SizedBox(height: layout.xs),
               productViewModel.topRatedProducts.isNotEmpty
                   ? Consumer2<HomeViewModel, ProductViewModel>(
                     builder:
