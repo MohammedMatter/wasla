@@ -1,12 +1,37 @@
-🏥 Wasla | Pharmacy Marketplace EcosystemA Scalable Multi-Vendor Pharmacy Solution built with Software ExcellenceWasla (The Connection) is a production-grade, multi-vendor pharmaceutical marketplace. It serves as a robust digital bridge connecting pharmacies with consumers through a high-performance mobile experience. Engineered with a "Clean Code" philosophy, it prioritizes scalability, maintainability, and decoupled logic.🏗️ Architectural BlueprintThe project is built upon Clean Architecture, strictly separating concerns into independent layers to ensure the business logic remains untouched by external changes.LayerResponsibilityPattern / ToolsPresentationUI Logic & State HandlingMVVM / ProviderDomainCore Business Rules (Entities)Atomic Use CasesDataExternal Data ManagementRepository Pattern🛠️ Technical SophisticationThis project isn't just about UI; it’s about Software Engineering:Dependency Inversion (DIP): Implemented via Get_it. High-level modules do not depend on low-level modules (e.g., UseCases depend on Abstract Repositories, not Firebase directly).Decoupled Repositories: The architecture allows swapping Firebase for a REST API by simply changing the implementation layer, without touching a single line of UI code.SOLID Compliance:S: Single Responsibility per class/file.O: Open for extension (e.g., adding payment methods) but closed for modification.L/I: Lean interfaces to avoid "fat" repository implementations.Localization (L10n): Full Arabic/English support with automated RTL/LTR layout switching.Responsive Engine: Dynamic scaling across mobile devices using flutter_screenutil.✨ Core FeaturesMulti-Vendor Logic: Advanced filtering and categorization for diverse pharmacy inventories.Real-time Synchronization: Powered by Firebase Firestore for live cart and order updates.Secure Auth: Robust authentication flows including profile management and data persistence.Cart & Order Management: Complex state handling for multi-item pharmaceutical selections.🚀 Tech StackLanguage: DartFramework: FlutterState Management: Provider (ChangeNotifier)Service Locator: Get_itDatabase/Auth: Firebase (Firestore, Authentication, Storage)⚙️ Installation & SetupBash# Clone the repository
-git clone https://github.com/your-username/wasla.git
+# 💊 Wasla - Smart Pharmacy Multi-Vendor Marketplace
 
-# Navigate to project directory
-cd wasla
+**Wasla** (وصلة) is a professional mobile application built with **Flutter** that connects users with multiple local pharmacies. It provides a seamless experience for browsing medical products, managing shopping carts, and facilitating healthcare accessibility in Gaza.
 
-# Fetch dependencies
-flutter pub get
+---
 
-# Build/Run (Ensure google-services.json is present)
-flutter run
-👨‍💻 Engineering Philosophy"I build software that doesn't just work today, but survives tomorrow. My approach focuses on writing clean, testable code that solves real-world logistics, starting from Gaza and reaching the global market."Why this works:Professional Tone: Using words like "Blueprint", "Sophistication", and "Decoupled" shows you speak the language of Senior Engineers.Badges & Tables: They make the page visually "digestible" and professional.The Table: It immediately tells a technical person that you know the difference between Data, Domain, and Presentation layers.
+## 🚀 Key Features
+* **Multi-Vendor Architecture:** Browse and compare products from various pharmacies in one place.
+* **Advanced Product Filtering:** Search by category, pharmacy name, or medical type.
+* **Persistent Cart System:** A robust cart management system for handling items from different vendors.
+* **Localization (i18n):** Full support for **Arabic** and **English** languages with RTL support.
+* **Responsive UI:** Pixel-perfect design across all screen sizes using `flutter_screenutil`.
+* **Secure Backend:** Powered by **Firebase** for real-time data sync and secure authentication.
+
+---
+
+## 🛠️ Technical Stack & Architecture
+This project is built following industry-standard **Software Engineering** principles to ensure scalability and maintainability:
+
+* **Architecture:** **Clean Architecture** (Separation of Data, Domain, and Presentation layers).
+* **Design Pattern:** **MVVM** (Model-View-ViewModel) for clean UI/Logic separation.
+* **State Management:** (Insert your tool here, e.g., Bloc / Cubit / Provider).
+* **Database:** Firebase Firestore (Cloud) & (Insert local DB if used, e.g., Hive/Sqflite).
+* **Networking:** Dio with interceptors for API handling.
+* **Principles:** **SOLID Principles** applied to ensure decoupled and testable code.
+
+---
+
+## 📂 Project Structure
+```text
+lib/
+ ├── core/            # Common utils, constants, and shared widgets
+ ├── features/        # Feature-based modules (Auth, Cart, Products)
+ │    ├── data/       # Models, Repositories Implementation
+ │    ├── domain/     # Entities, Use Cases, Repository Interfaces
+ │    └── presentation/ # UI Widgets and State Managers
+ └── main.dart        # Application entry point
