@@ -17,18 +17,15 @@ class AvailableProducts extends StatelessWidget {
           query: searchViewModel.searchQueryProduct,
         );
         return Expanded(
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: filteredList.length,
-              itemBuilder:
-                  (context, index) => ProductItem(
-                    layout: layout,
-                    index: index,
-                    products: filteredList,
-                  ),
-            ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: filteredList.length,
+            itemBuilder:
+                (context, index) => ProductItem(
+                  layout: layout,
+                  index: index,
+                  products: filteredList,
+                ),
           ),
         );
       },

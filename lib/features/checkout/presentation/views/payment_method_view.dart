@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -15,24 +17,27 @@ class PaymentMethodView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [
-          Consumer<PaymentViewModel>(
-            builder:
-                (context, paymentViewModel, child) => IconButton(
-                  icon: Icon(
-                    Icons.arrow_circle_right_outlined,
-                    color: AppColors.lightPrimaryColor,
-                    size: layout.fontXLarge.clamp(24.0, 32.0),
-                  ),
-                  onPressed: () {
-                    paymentViewModel.setStepperIndex(index: 0);
-                    Navigator.pop(context);
-                  },
+        leading: Consumer<PaymentViewModel>(
+          builder:
+              (context, paymentViewModel, child) => IconButton(
+                icon: Icon(
+                  context.locale.languageCode == Locale('ar').languageCode
+                      ? Icons.arrow_circle_right_outlined
+                      : Icons.arrow_circle_left_outlined,
+
+                  color: AppColors.lightPrimaryColor,
+
+                  size: layout.fontXLarge.clamp(24.0, 32.0),
                 ),
-          ),
-        ],
+                onPressed: () {
+                  paymentViewModel.setStepperIndex(index: 0);
+                  Navigator.pop(context);
+                },
+              ),
+        ),
+
         title: Text(
-          'طريقة الدفع',
+          LangKeys.paymentMethodTitle.tr(),
           style: AppTextStyle.lightHeading1(layout).copyWith(
             fontSize: layout.fontLarge.clamp(18.0, 24.0),
             fontWeight: FontWeight.bold,

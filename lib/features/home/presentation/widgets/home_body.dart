@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
+import 'package:wasla/features/home/domain/entities/category_entity.dart';
 import 'package:wasla/features/home/presentation/widgets/featured_products.dart';
 import 'package:wasla/features/home/presentation/widgets/grid_categories.dart';
 import 'package:wasla/features/home/presentation/widgets/offers.dart';
@@ -14,15 +17,22 @@ import 'package:wasla/features/products/presentation/view_models/product_view_mo
 
 class HomeBody extends StatelessWidget {
   HomeBody({super.key});
-  final List<String> categories = [
-    'العناية بالطفل',
-    'العناية بالأم',
-    'الفم والأسنان',
-    'العناية بالشعر',
-    'العناية بالبشرة',
-    'مستلزمات طبية',
+  static List<CategoryEntity> categories = [
+    CategoryEntity(id: 'baby', arName: 'العناية بالطفل', enName: 'Baby Care'),
+    CategoryEntity(
+      id: 'mother',
+      arName: 'العناية بالأم',
+      enName: 'Mother Care',
+    ),
+    CategoryEntity(id: 'oral', arName: 'الفم والأسنان', enName: 'Oral Care'),
+    CategoryEntity(id: 'hair', arName: 'العناية بالشعر', enName: 'Hair Care'),
+    CategoryEntity(id: 'skin', arName: 'العناية بالبشرة', enName: 'Skin Care'),
+    CategoryEntity(
+      id: 'medical',
+      arName: 'مستلزمات طبية',
+      enName: 'Medical Supplies',
+    ),
   ];
-
   @override
   Widget build(BuildContext context) {
     final AppLayout layout = context.read<AppLayout>();
@@ -63,10 +73,9 @@ class HomeBody extends StatelessWidget {
     }
 
     return Column(
-      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SearchHome(hintText: 'ابحث عن المنتج الذي تريده'),
+        SearchHome(hintText: LangKeys.searchProduct.tr()),
         Expanded(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/layout/app_layout.dart';
@@ -12,67 +13,65 @@ class HeaderOnboardingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
     return Consumer<OnboardingViewModel>(
-      builder:
-          (context, onboardingVm, child) => Column(
-            children: [
-              Expanded(
-                flex: 4,
-                child: Center(
-                  child: Image.asset(
-                    onboardingVm.onboardingData[onboardingVm.tabIndex].image,
-                    fit: BoxFit.contain,
+      builder: (context, onboardingVm, child) {
+        final currentData = onboardingVm.onboardingData[onboardingVm.tabIndex];
+
+        return Column(
+          children: [
+            Expanded(
+              flex: 4,
+              child: Center(
+                child: Image.asset(currentData.image, fit: BoxFit.contain),
+              ),
+            ),
+
+            SizedBox(height: layout.lg),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                onboardingVm.onboardingData.length,
+                (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  margin: EdgeInsets.symmetric(horizontal: layout.xs),
+                  height: layout.sm,
+                  width: onboardingVm.tabIndex == index ? layout.xl : layout.sm,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(layout.lg),
+                    color:
+                        onboardingVm.tabIndex == index
+                            ? AppColors.lightPrimaryColor
+                            : AppColors.lightPrimaryColor.withOpacity(0.2),
                   ),
                 ),
               ),
+            ),
 
-              SizedBox(height: layout.lg),
+            SizedBox(height: layout.xl),
 
-              Row(
-                textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  onboardingVm.onboardingData.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    margin: EdgeInsets.symmetric(horizontal: layout.xs),
-                    height: layout.sm,
-                    width:
-                        onboardingVm.tabIndex == index ? layout.xl : layout.sm,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(layout.lg),
-                      color:
-                          onboardingVm.tabIndex == index
-                              ? AppColors.lightPrimaryColor
-                              : AppColors.lightPrimaryColor.withOpacity(0.2),
-                    ),
-                  ),
+            Column(
+              children: [
+                Text(
+                  currentData.title.tr(),
+                  style: AppTextStyle.lightBody(
+                    layout,
+                  ).copyWith(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                SizedBox(height: layout.md),
+                Text(
+                  currentData.subtitle.tr(),
+                  style: AppTextStyle.lightSubtitle(
+                    layout,
+                  ).copyWith(fontSize: layout.fontMedium * 1.1),
 
-              SizedBox(height: layout.xl),
-
-              Column(
-                children: [
-                  Text(
-                    onboardingVm.onboardingData[onboardingVm.tabIndex].title,
-                    style: AppTextStyle.lightBody(
-                      layout,
-                    ).copyWith(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: layout.md),
-                  Text(
-                    onboardingVm.onboardingData[onboardingVm.tabIndex].subtitle,
-                    style: AppTextStyle.lightSubtitle(
-                      layout,
-                    ).copyWith(fontSize: layout.fontMedium * 1.1),
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

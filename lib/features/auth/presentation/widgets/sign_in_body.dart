@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -22,16 +24,21 @@ class SignInBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<SignInBody> {
-  late TextEditingController name;
   late TextEditingController email;
   late TextEditingController password;
 
   @override
   void initState() {
     super.initState();
-    name = TextEditingController();
     email = TextEditingController();
     password = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,7 +55,7 @@ class _LoginBodyState extends State<SignInBody> {
                   children: [
                     SizedBox(height: layout.xl),
                     Text(
-                      'أدخل بياناتك علشان تتابع أدويتك\nوتستمتع بخدماتنا بسهولة',
+                      LangKeys.loginSubtitle.tr(),
                       textAlign: TextAlign.center,
                       style: AppTextStyle.lightSubtitle(
                         layout,
@@ -56,16 +63,16 @@ class _LoginBodyState extends State<SignInBody> {
                     ),
                     SizedBox(height: layout.xl),
                     CustomTextField(
-                      isEnabled: authViewModel.isLoading ? false : true,
+                      isEnabled: !authViewModel.isLoading,
                       controller: email,
-                      label: 'البريد الالكتروني',
+                      label: LangKeys.emailLabel.tr(),
                       icon: Icons.email_outlined,
                     ),
                     SizedBox(height: layout.sm),
                     CustomTextField(
-                      isEnabled: authViewModel.isLoading ? false : true,
+                      isEnabled: !authViewModel.isLoading,
                       controller: password,
-                      label: 'كلمة المرور',
+                      label: LangKeys.passwordLabel.tr(),
                       icon: Icons.lock_outline,
                       isPassword: true,
                     ),
@@ -78,7 +85,7 @@ class _LoginBodyState extends State<SignInBody> {
                           ).pushNamed(AppRouter.forgotPasswordView);
                         },
                         child: Text(
-                          'نسيت كلمة المرور؟',
+                          LangKeys.forgotPassword.tr(),
                           style: TextStyle(
                             color: AppColors.lightPrimaryColor,
                             fontWeight: FontWeight.bold,
@@ -87,14 +94,12 @@ class _LoginBodyState extends State<SignInBody> {
                         ),
                       ),
                     ),
-
                     SizedBox(height: layout.sm),
-
                     Consumer2<AuthViewModel, ProfileViewModel>(
                       builder:
                           (context, authViewModel, profileViewModel, child) =>
                               CustomElevatedButtonWidget(
-                                title: 'تسجيل دخول',
+                                title: LangKeys.loginButton.tr(),
                                 onPressed: () async {
                                   await authViewModel.signIn(
                                     email: email.text,
@@ -120,19 +125,20 @@ class _LoginBodyState extends State<SignInBody> {
                                         });
                                   } else {
                                     await profileViewModel.getUserInfo();
-                                    GoRouter.of(
-                                      context,
-                                    ).goNamed(AppRouter.homeView);
+                                    if (context.mounted) {
+                                      GoRouter.of(
+                                        context,
+                                      ).goNamed(AppRouter.homeView);
+                                    }
                                   }
                                 },
                               ),
                     ),
-
                     SizedBox(height: layout.lg),
-                    BuildDivider(),
+                    const BuildDivider(),
                     SizedBox(height: layout.lg),
                     SocialAuthButton(
-                      label: 'Google',
+                      label: LangKeys.googleLogin.tr(),
                       icon: SvgPicture.string(
                         AppAssest.google,
                         height: layout.fontXLarge * 1.3,
@@ -141,7 +147,7 @@ class _LoginBodyState extends State<SignInBody> {
                     ),
                     SizedBox(height: layout.md),
                     SocialAuthButton(
-                      label: 'Facebook',
+                      label: LangKeys.facebookLogin.tr(),
                       icon: Padding(
                         padding: EdgeInsets.only(left: layout.md),
                         child: Icon(
@@ -152,49 +158,41 @@ class _LoginBodyState extends State<SignInBody> {
                       ),
                       color: Colors.blue[800]!,
                     ),
-
                     SizedBox(height: layout.xl),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text(' ${LangKeys.dontHaveAccount.tr()}'),
+                        SizedBox(width: layout.sm * 0.4),
                         GestureDetector(
                           onTap: () {
                             GoRouter.of(
                               context,
                             ).pushReplacementNamed(AppRouter.signUpView);
                           },
-                          child: const Text(
-                            'انشاء حساب جديد',
-                            style: TextStyle(
+                          child: Text(
+                            LangKeys.registerLink.tr(),
+                            style: const TextStyle(
                               color: AppColors.lightPrimaryColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        const Text(' ؟ ليس لديك حساب'),
                       ],
                     ),
-                    SizedBox(height: layout.lg),
                   ],
                 ),
-                Consumer<AuthViewModel>(
-                  builder:
-                      (context, authViewModel, child) => Positioned.fill(
-                        child:
-                            authViewModel.isLoading
-                                ? Center(
-                                  child: CircularProgressIndicator(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      23,
-                                      79,
-                                      82,
-                                    ),
-                                  ),
-                                )
-                                : SizedBox.shrink(),
+                if (authViewModel.isLoading)
+                  Positioned.fill(
+                    top: layout.lg * 5,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.lightPrimaryColor,
+                        backgroundColor: AppColors.lightPrimaryColor
+                            .withOpacity(0.1),
                       ),
-                ),
+                    ),
+                  ),
               ],
             ),
       ),

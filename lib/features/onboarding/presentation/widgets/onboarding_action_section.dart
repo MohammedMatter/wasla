@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
@@ -12,40 +14,45 @@ class OnboardingActionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
+
     return Consumer<OnboardingViewModel>(
-      builder:
-          (context, onboardingVm, child) => Row(
-            children: [
+      builder: (context, onboardingVm, child) {
+        final isLastPage =
+            onboardingVm.tabIndex == onboardingVm.onboardingData.length - 1;
+
+        return Row(
+          children: [
+            Expanded(
+              child: CustomElevatedButtonWidget(
+                onPressed: () {
+                  if (isLastPage) {
+                    GoRouter.of(context).pushNamed(AppRouter.welcomeView);
+                  } else {
+                    onboardingVm.toogleTab();
+                  }
+                },
+                title:
+                    isLastPage
+                        ? LangKeys.onboardingStart.tr()
+                        : LangKeys.onboardingNext.tr(),
+              ),
+            ),
+
+            if (!isLastPage) ...[
+              SizedBox(width: layout.md),
               Expanded(
                 child: CustomElevatedButtonWidget(
+                  isFilled: false,
                   onPressed: () {
-                    if (onboardingVm.tabIndex ==
-                        onboardingVm.onboardingData.length - 1) {
-                      GoRouter.of(context).pushNamed(AppRouter.welcomeView);
-                    }
-                    onboardingVm.toogleTab();
+                    GoRouter.of(context).pushNamed(AppRouter.signInView);
                   },
-                  title:
-                      onboardingVm.tabIndex ==
-                              onboardingVm.onboardingData.length - 1
-                          ? 'ابدأ الآن'
-                          : 'التالي',
+                  title: LangKeys.onboardingSkip.tr(),
                 ),
               ),
-              SizedBox(width: layout.md),
-              onboardingVm.tabIndex == onboardingVm.onboardingData.length - 1
-                  ? SizedBox.fromSize()
-                  : Expanded(
-                    child: CustomElevatedButtonWidget(
-                      isFilled: false,
-                      onPressed: () {
-                        GoRouter.of(context).pushNamed(AppRouter.signInView);
-                      },
-                      title: 'تخطي',
-                    ),
-                  ),
             ],
-          ),
+          ],
+        );
+      },
     );
   }
 }

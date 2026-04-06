@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/utils/screen_size.dart';
@@ -34,7 +36,7 @@ class PaymentHeaderBop extends StatelessWidget {
                   paymentViewModel.isRedirectedToBank &&
                           !paymentViewModel.paymentCompleted
                       ? Text(
-                        '''جاري التحويل ....''',
+                        LangKeys.loadingProcessing.tr(),
                         textAlign: TextAlign.center,
                         style: AppTextStyle.lightSubtitle(
                           layout,
@@ -45,7 +47,7 @@ class PaymentHeaderBop extends StatelessWidget {
                       : SizedBox(
                         width: double.infinity,
                         child: Text(
-                          '''سيتم تحويلك الى بوابة بنك فلسطين \nلاتمام عملية الدفع بشكل أمن''',
+                          '''${LangKeys.bopRedirectMessage.tr()}''',
                           textAlign: TextAlign.center,
                           style: AppTextStyle.lightSubtitle(
                             layout,

@@ -3,8 +3,8 @@ class Pharmacy {
   String image;
   double rating;
   String pharmacyId;
-  String address;
-  String name;
+  Map<String, dynamic> address;
+  Map<String, dynamic> name;
   double distance;
   bool isOpen;
   Map<String, dynamic> location;

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:wasla/features/pharmacies/domain/entities/pharmacy.dart';
 import 'package:wasla/features/pharmacies/domain/use_cases/fetch_productsBy_pharmacyId_use_case.dart';
@@ -44,12 +46,17 @@ class PharmacyViewModel extends ChangeNotifier {
     }
     filteredProductsList =
         availableProducts
-            .where((p) => p.name.toLowerCase().contains(query.toLowerCase()))
+            .where(
+              (p) => p.name['en'].toLowerCase().contains(query.toLowerCase()),
+            )
             .toList();
     return filteredProductsList;
   }
 
-  List<Pharmacy> getFilteredPharmacies({required String query}) {
+  List<Pharmacy> getFilteredPharmacies({
+    required String query,
+    required String langCode,
+  }) {
     final List<Pharmacy> filteredPharmaciesList;
     if (query.isEmpty) {
       filteredPharmaciesList = pharmacies;
@@ -57,17 +64,22 @@ class PharmacyViewModel extends ChangeNotifier {
     }
     filteredPharmaciesList =
         pharmacies
-            .where((p) => p.name.toLowerCase().contains(query.toLowerCase()))
+            .where(
+              (p) =>
+                  p.name[langCode]!.toLowerCase().contains(query.toLowerCase()),
+            )
             .toList();
 
     return filteredPharmaciesList;
   }
 
   Future<void> fetchProductsByPharmacyId({required String pharmacyId}) async {
+    log(pharmacyId.toString());
     if (_cachedProducts.containsKey(pharmacyId)) return;
     availableProducts = await fetchProductsbyPharmacyidUseCase.call(
       pharmacyId: pharmacyId,
     );
+    log(availableProducts.toString());
     _cachedProducts[pharmacyId] = availableProducts;
     notifyListeners();
   }

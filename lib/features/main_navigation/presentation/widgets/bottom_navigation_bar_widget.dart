@@ -22,31 +22,28 @@ class BottomNabigationBarWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: AnimatedBottomNavigationBar(
-          iconSize: 27,
-          elevation: 10,
-          icons: [
-            currentIndex == 0 ? Icons.home : Icons.home_outlined,
-            currentIndex == 1
-                ? Icons.shopping_cart
-                : Icons.shopping_cart_outlined,
-            currentIndex == 2 ? Icons.location_on : Icons.location_on_outlined,
-            currentIndex == 3 ? Icons.person : Icons.person_outline,
-          ],
-          activeIndex: currentIndex,
-          gapLocation: GapLocation.center,
-          inactiveColor: AppColors.lightPrimaryColor,
-          notchSmoothness: NotchSmoothness.softEdge,
-          activeColor: AppColors.lightPrimaryColor,
-          onTap: (index) {
-            navigationShell.goBranch(
-              index,
-              initialLocation: index == navigationShell.currentIndex,
-            );
-          },
-        ),
+      child: AnimatedBottomNavigationBar(
+        iconSize: 27,
+        elevation: 10,
+        icons: [
+          currentIndex == 0 ? Icons.home : Icons.home_outlined,
+          currentIndex == 1
+              ? Icons.shopping_cart
+              : Icons.shopping_cart_outlined,
+          currentIndex == 2 ? Icons.location_on : Icons.location_on_outlined,
+          currentIndex == 3 ? Icons.person : Icons.person_outline,
+        ],
+        activeIndex: currentIndex,
+        gapLocation: GapLocation.center,
+        inactiveColor: AppColors.lightPrimaryColor,
+        notchSmoothness: NotchSmoothness.softEdge,
+        activeColor: AppColors.lightPrimaryColor,
+        onTap: (index) {
+          navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          );
+        },
       ),
     );
   }

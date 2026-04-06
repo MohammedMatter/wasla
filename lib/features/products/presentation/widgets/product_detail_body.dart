@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -23,7 +25,6 @@ class ProductDetailBody extends StatelessWidget {
         child: Stack(
           children: [
             Column(
-              textDirection: TextDirection.rtl,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: layout.md),
@@ -75,7 +76,7 @@ Widget _productActionRow(BuildContext context, AppLayout layout) {
                       SnackBar(
                         backgroundColor: Colors.green,
                         content: Text(
-                          'تمت اضافة المنتج الى السلة بنجاح',
+                          LangKeys.productAddSuccess.tr(),
                           style: AppTextStyle.lightBody(
                             layout,
                           ).copyWith(color: Colors.white),
@@ -85,7 +86,7 @@ Widget _productActionRow(BuildContext context, AppLayout layout) {
 
                     null;
                   },
-                  text: 'أضف إلى السلة',
+                  text: LangKeys.addToCart.tr(),
                   color: AppColors.lightPrimaryColor,
                   textColor: Colors.white,
                 ),
@@ -96,7 +97,7 @@ Widget _productActionRow(BuildContext context, AppLayout layout) {
                   onTap: () {
                     GoRouter.of(context).pushNamed(AppRouter.addressView);
                   },
-                  text: 'اشتر الآن',
+                  text: LangKeys.buyNow.tr(),
                   color: Colors.white,
                   textColor: AppColors.lightPrimaryColor,
                   isBordered: true,

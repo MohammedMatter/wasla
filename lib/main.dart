@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ import 'package:wasla/firebase_options.dart';
 late final AppRouter appRouter;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await setupServiceLocator();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   appRouter = AppRouter();
@@ -37,82 +39,93 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return ScreenUtilInit(
-          designSize: const Size(360, 690),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (context, child) {
-            final layout = AppLayout();
-            return MultiProvider(
-              providers: [
-                Provider<AppLayout>.value(value: layout),
-                ChangeNotifierProvider(
-                  create: (context) => sl<AuthViewModel>(),
-                ),
-                ChangeNotifierProvider(create: (context) => ThemeProvider()),
-                ChangeNotifierProvider(
-                  create: (context) => VervicationViewModel(),
-                ),
-                ChangeNotifierProvider(create: (context) => HomeViewModel()),
-                ChangeNotifierProvider(create: (context) => SearchViewModel()),
-                ChangeNotifierProvider(create: (context) => CartViewModel()),
-                ChangeNotifierProvider(
-                  create: (context) => sl<ProfileViewModel>(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => sl<ProductViewModel>(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => sl<PaymentViewModel>(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => sl<LocationViewModel>(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => sl<PharmacyViewModel>(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => MainNavigationViewModel(),
-                ),
-                ChangeNotifierProvider(
-                  create: (context) => sl<OnboardingViewModel>(),
-                ),
-              ],
-              child: MaterialApp.router(
-                builder: (context, child) {
-                  return MediaQuery(
-                    data: MediaQuery.of(
-                      context,
-                    ).copyWith(textScaler: TextScaler.noScaling),
-                    child: child!,
-                  );
-                },
-                theme: ThemeData(
-                  floatingActionButtonTheme: FloatingActionButtonThemeData(),
-                  appBarTheme: AppBarTheme(
-                    actionsPadding: EdgeInsets.only(right: layout.md),
-                    actionsIconTheme: IconThemeData(
-                      color: AppColors.lightPrimaryColor,
-                      size: layout.fontXLarge * 1.25,
-                    ),
-                    elevation: 1.1,
-
-                    centerTitle: true,
-                    surfaceTintColor: Colors.transparent,
-                    shadowColor: Colors.black.withOpacity(0.4),
-                    backgroundColor: Colors.white,
+    return EasyLocalization(
+      supportedLocales: const [Locale('ar'), Locale('en')],
+      path: 'assets/translations',
+      // startLocale: Locale('en'),
+      fallbackLocale: Locale('en'),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              final layout = AppLayout();
+              return MultiProvider(
+                providers: [
+                  Provider<AppLayout>.value(value: layout),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<AuthViewModel>(),
                   ),
-                  scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+                  ChangeNotifierProvider(create: (context) => ThemeProvider()),
+                  ChangeNotifierProvider(
+                    create: (context) => VervicationViewModel(),
+                  ),
+                  ChangeNotifierProvider(create: (context) => HomeViewModel()),
+                  ChangeNotifierProvider(
+                    create: (context) => SearchViewModel(),
+                  ),
+                  ChangeNotifierProvider(create: (context) => CartViewModel()),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<ProfileViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<ProductViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<PaymentViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<LocationViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<PharmacyViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => MainNavigationViewModel(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (context) => sl<OnboardingViewModel>(),
+                  ),
+                ],
+                child: MaterialApp.router(
+                  localizationsDelegates: context.localizationDelegates,
+                  locale: context.locale,
+                  supportedLocales: context.supportedLocales,
+                  builder: (context, child) {
+                    return MediaQuery(
+                      data: MediaQuery.of(
+                        context,
+                      ).copyWith(textScaler: TextScaler.noScaling),
+                      child: child!,
+                    );
+                  },
+                  theme: ThemeData(
+                    floatingActionButtonTheme: FloatingActionButtonThemeData(),
+                    appBarTheme: AppBarTheme(
+                      actionsPadding: EdgeInsets.only(right: layout.md),
+                      actionsIconTheme: IconThemeData(
+                        color: AppColors.lightPrimaryColor,
+                        size: layout.fontXLarge * 1.25,
+                      ),
+                      elevation: 1.1,
+
+                      centerTitle: true,
+                      surfaceTintColor: Colors.transparent,
+                      shadowColor: Colors.black.withOpacity(0.4),
+                      backgroundColor: Colors.white,
+                    ),
+                    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+                  ),
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: appRouter.routers,
                 ),
-                debugShowCheckedModeBanner: false,
-                routerConfig: appRouter.routers,
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

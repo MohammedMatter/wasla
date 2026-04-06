@@ -95,7 +95,9 @@ class CartItemWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          item.product.name,
+                          item.product.name[Localizations.localeOf(
+                            context,
+                          ).languageCode],
                           style: AppTextStyle.lightBody(layout).copyWith(
                             fontSize: layout.fontSmall,
                             fontWeight: FontWeight.bold,
@@ -112,7 +114,6 @@ class CartItemWidget extends StatelessWidget {
                             fontSize: layout.fontSmall,
                             fontWeight: FontWeight.w600,
                           ),
-                          textDirection: TextDirection.rtl,
                         ),
                       ],
                     ),

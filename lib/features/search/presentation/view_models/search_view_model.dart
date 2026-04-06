@@ -28,7 +28,7 @@ class SearchViewModel extends ChangeNotifier {
       return filteredProductsList;
     }
     return filteredProductsList.where((product) {
-      return product.name.toLowerCase().contains(query.toLowerCase());
+      return product.name['en'].toLowerCase().contains(query.toLowerCase());
     }).toList();
   }
 

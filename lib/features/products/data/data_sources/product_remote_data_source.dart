@@ -12,6 +12,7 @@ class ProductRemoteDataSource {
         final peoductModel = ProductModel.fromMap(doc.data());
         products.add(peoductModel);
       }
+
       return products;
     } on Exception {
       return [];

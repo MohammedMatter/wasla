@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
@@ -16,6 +18,7 @@ class PaymentMethodBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
+
     return Consumer<PaymentViewModel>(
       builder:
           (context, paymentViewModel, child) => Padding(
@@ -23,13 +26,13 @@ class PaymentMethodBody extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: layout.md),
-                CheckoutStepper(),
+                const CheckoutStepper(),
                 SizedBox(height: layout.xl),
                 Column(
                   children: [
                     PaymentMethodItem(
                       layout: layout,
-                      title: 'بنك فلسطين',
+                      title: LangKeys.bankOfPalestine.tr(),
                       imagePath: 'assets/images/payment_method/palestine.png',
                       isSelected:
                           paymentViewModel.selectedPaymentMethodIndex == 0,
@@ -38,18 +41,18 @@ class PaymentMethodBody extends StatelessWidget {
                       },
                     ),
                     PaymentMethodItem(
+                      layout: layout,
+                      title: LangKeys.jawwalPay.tr(),
+                      imagePath: AppAssest.jawwalPay,
                       isSelected:
                           paymentViewModel.selectedPaymentMethodIndex == 1,
                       onTap: () {
                         paymentViewModel.selectPaymentMethod(1);
                       },
-                      layout: layout,
-                      title: 'Jawwal Pay',
-                      imagePath: AppAssest.jawwalPay,
                     ),
                     PaymentMethodItem(
                       layout: layout,
-                      title: 'الدفع عند الاستلام',
+                      title: LangKeys.cashOnDelivery.tr(),
                       imagePath:
                           'assets/images/payment_method/manual_receipt.png',
                       isSelected:
@@ -61,16 +64,16 @@ class PaymentMethodBody extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: layout.xl),
-                Spacer(flex: 1),
+                const Spacer(flex: 1),
                 CustomElevatedButtonWidget(
                   onPressed: () {
                     GoRouter.of(
                       context,
                     ).pushNamed(AppRouter.paymentThroughBopView);
                   },
-                  title: 'اتمام الدفع',
+                  title: LangKeys.completePayment.tr(),
                 ),
-                Spacer(flex: 3),
+                const Spacer(flex: 3),
               ],
             ),
           ),

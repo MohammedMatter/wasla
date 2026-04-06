@@ -1,0 +1,175 @@
+{
+    "app_name": "Wasla",
+    "onboarding": {
+        "next": "Next",
+        "skip": "Skip",
+        "start": "Get Started",
+        "screen1": {
+            "title": "Your Medication is Closer than You Imagine",
+            "body": "Order your medications easily..."
+        },
+        "screen2": {
+            "title": "Search and Order in Seconds",
+            "body": "Search by name or upload a prescription, and know the prices clearly and easily."
+        },
+        "screen3": {
+            "title": "Your Health is Our Priority",
+            "body": "All your medical needs in one app, ensuring your comfort and peace of mind."
+        }
+    },
+    "welcome": {
+        "title": "Welcome to Wasla",
+        "subtitle": "One platform for all your pharmaceutical and medical needs",
+        "login": "Login",
+        "register": "Create Account",
+        "guest": "Continue as Guest"
+    },
+    "auth": {
+        "login_title": "Login",
+        "login_subtitle": "Enter your details to track your medications and enjoy our services easily",
+        "forgot_password": "Forgot Password?",
+        "login_button": "Login",
+        "dont_have_account": "Don't have an account?",
+        "register_link": "Create New Account",
+        "loginWith": "Login with",
+        "google_login": "Google",
+        "facebook_login": "Facebook",
+        "register_title": "Create New Account",
+        "register_subtitle": "Start your journey with our app and register your details to track and order your medications easily",
+        "name_label": "Name",
+        "email_label": "Email Address",
+        "password_label": "Password",
+        "confirm_password_label": "Confirm Password",
+        "register_button": "Create New Account",
+        "social_divider": "Or sign up with",
+        "have_account": "Already have an account?",
+        "login_link": "Login",
+        "reset_password_title": "Reset Password",
+        "reset_password_subtitle": "Enter your email and we will send you a code to reset your password",
+        "send_code": "Send Code",
+        "remember_password": "Remember password?",
+        "verify_title": "Enter Verification Code",
+        "verify_subtitle": "We sent a 5-digit code to your email address",
+        "confirm_code": "Confirm Code",
+        "resend_code_prompt": "Didn't receive the code?",
+        "resend_link": "Resend",
+        "resend_timer": "You can resend the code in {} seconds",
+        "new_password_title": "Create New Password",
+        "new_password_subtitle": "Please create a strong password to protect your account",
+        "update_password": "Update Password",
+        "success_title": "Password Changed Successfully",
+        "success_subtitle": "You can now log in with your new password",
+        "back_to_login": "Login",
+        "error_wrong_code": "Wrong code, please check the code we sent you",
+        "error_general": "An error occurred, please try again later",
+        "code_sent_success": "Code sent successfully",
+        "error_email_required": "Email address is required first",
+        "success_code_sent": "Code sent successfully",
+        "forgot_password_subtitle": "Enter your email and we will send you a code to reset your password"
+    },
+    "cart": {
+        "title": "Cart",
+        "empty": "Cart is empty",
+        "total_products": "Total Products",
+        "delivery_fees": "Delivery Fees",
+        "total_amount": "Total Amount",
+        "confirm_order": "Confirm Order"
+    },
+    "home": {
+        "offers_title": "Offers and discounts",
+        "featured_products": "featured products",
+        "pharmacies_title": "pharmacies",
+        "show_more": "show more",
+        "show_less": "show less",
+        "search_title": "Search for the product you want",
+        "offer": {
+            "order_now": "Order Now",
+            "offer_subtitle_0": "Gentle care for oily skin",
+            "offer_description_0": "Effective cleaning without dryness",
+            "offer_limited_time_0": "Limited time discounts",
+            "offer_subtitle_1": "Special offer for mothers",
+            "offer_description_1": "100% natural products",
+            "offer_limited_time_1": "Valid until weekend",
+            "offer_subtitle_2": "Bright and Healthy Smile",
+            "offer_description_2": "Best Oral Care Products",
+            "offer_limited_time_2": "20% Off on All Brushes"
+        }
+    },
+    "pharmacies": {
+        "search_title": "Find the pharmacy you want",
+        "highest_rating": "highest rating",
+        "view_pharmacy": "view",
+        "no_results": "No results match your search.",
+        "open_now": "Open Now",
+        "closed_now": "Closed Now"
+    },
+    "browse_products": {
+        "available_products": "Available Products",
+        "add_success": "Product added to cart successfully"
+    },
+    "product_details": {
+        "product_details_title": "product details",
+        "buy_now": "Buy Now",
+        "add_to_cart": "add to cart",
+        "related_products": "related products"
+    },
+    "profile": {
+        "title": "Profile",
+        "favorites": "Favorites",
+        "contact_info": "Contact Info",
+        "settings": "Settings",
+        "logout": "Logout",
+        "logout_dialog": {
+            "title": "Logout",
+            "message": "Are you sure you want to leave the app?",
+            "confirm": "Logout",
+            "cancel": "Cancel"
+        }
+    },
+    "favorites": {
+        "title": "Favorites",
+        "empty": "No favorite products found"
+    },
+    "checkout": {
+        "address_title": "Address",
+        "payment_method_title": "Payment Method",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "phone_number": "Phone Number",
+        "email": "Email",
+        "province": "Province",
+        "city": "City",
+        "street": "Street",
+        "address_details": "Address Details",
+        "bank_of_palestine": "Bank of Palestine",
+        "jawwal_pay": "Jawwal Pay",
+        "cash_on_delivery": "Cash on Delivery",
+        "complete_payment": "Complete Payment",
+        "payment_success": "Payment successful",
+        "save": "Save",
+        "pay_button": "Proceed to Bank of Palestine",
+        "go_home": "Go to Home Page",
+        "stepper": {
+            "address": "Address",
+            "payment": "Payment",
+            "confirmation": "Confirmation"
+        },
+        "bop_gateway": {
+            "title": "Payment through Bank of Palestine",
+            "redirect_message": "You will be redirected to Bank of Palestine gateway to complete the payment securely",
+            "choose_payment_method": "Choose payment method",
+            "bank_account": "Bank Account",
+            "visa_card": "Visa Card"
+        },
+        "loading": {
+            "processing": "Processing redirect....",
+            "please_wait": "Please do not close the page!"
+        }
+    },
+    "Location": {
+        "pharmaciesOnMap": "Pharmacies on Map"
+    },
+    "Search": {
+        "search_title": "search"
+    }
+}

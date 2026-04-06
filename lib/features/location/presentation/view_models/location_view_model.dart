@@ -11,7 +11,6 @@ class LocationViewModel extends ChangeNotifier {
   LocationResult? locationResult;
   GetCurrentLocationUseCase getCurrentLocationUseCase;
   LocationViewModel({required this.getCurrentLocationUseCase});
-
   Future<void> getCurrentLocation() async {
     locationResult = null;
     notifyListeners();

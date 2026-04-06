@@ -1,10 +1,10 @@
-import 'dart:developer';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -29,6 +29,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   late TextEditingController email;
   late TextEditingController password;
   late TextEditingController confirmPassword;
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,7 +40,15 @@ class _SignUpBodyState extends State<SignUpBody> {
     confirmPassword = TextEditingController();
   }
 
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    password.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
@@ -55,7 +64,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                     children: [
                       SizedBox(height: layout.xl),
                       Text(
-                        'ابدأ رحلتك مع تطبيقنا وسجل بياناتك\nعشان تتابع أدويتك وتطلبها بسهولة',
+                        LangKeys.registerSubtitle.tr(),
                         textAlign: TextAlign.center,
                         style: AppTextStyle.lightSubtitle(
                           layout,
@@ -63,41 +72,40 @@ class _SignUpBodyState extends State<SignUpBody> {
                       ),
                       SizedBox(height: layout.xl),
                       CustomTextField(
-                        isEnabled: authViewModel.isLoading ? false : true,
-                        label: 'الاسم',
+                        isEnabled: !authViewModel.isLoading,
+                        label: LangKeys.nameLabel.tr(),
                         icon: Icons.person_outline,
                         controller: name,
                         textFieldType: TextFieldType.name,
                       ),
                       SizedBox(height: layout.sm),
                       CustomTextField(
-                        isEnabled: authViewModel.isLoading ? false : true,
+                        isEnabled: !authViewModel.isLoading,
                         controller: email,
-                        label: 'البريد الالكتروني',
+                        label: LangKeys.emailLabel.tr(),
                         icon: Icons.email_outlined,
                         textFieldType: TextFieldType.email,
                       ),
                       SizedBox(height: layout.sm),
                       CustomTextField(
-                        isEnabled: authViewModel.isLoading ? false : true,
+                        isEnabled: !authViewModel.isLoading,
                         controller: password,
                         isPassword: true,
-                        label: 'كلمة المرور',
+                        label: LangKeys.passwordLabel.tr(),
                         icon: Icons.lock_outline,
                         textFieldType: TextFieldType.password,
                       ),
                       SizedBox(height: layout.sm),
                       CustomTextField(
-                        isEnabled: authViewModel.isLoading ? false : true,
+                        isEnabled: !authViewModel.isLoading,
                         controller: confirmPassword,
                         isPassword: true,
-                        label: 'تأكيد كلمة المرور',
+                        label: LangKeys.confirmPasswordLabel.tr(),
                         icon: Icons.lock_outline,
                         passwordController: password,
                         textFieldType: TextFieldType.confirmPassword,
                       ),
                       SizedBox(height: layout.xl),
-
                       Consumer2<AuthViewModel, ProfileViewModel>(
                         builder:
                             (
@@ -106,59 +114,62 @@ class _SignUpBodyState extends State<SignUpBody> {
                               profileViewModel,
                               child,
                             ) => CustomElevatedButtonWidget(
-                              title: 'انشاء حساب جديد',
+                              title: LangKeys.registerButton.tr(),
                               onPressed:
-                                  authViewModel.isLoading ||
-                                          authViewModel.errorMessage.isNotEmpty
+                                  authViewModel.isLoading
                                       ? () => null
                                       : () async {
-                                        log('انشاء حساب');
                                         if (_key.currentState!.validate()) {
                                           await authViewModel.signUp(
                                             email: email.text,
                                             password: password.text,
                                             name: name.text,
                                           );
-                                          await profileViewModel.getUserInfo();
 
-                                          GoRouter.of(
-                                            // ignore: use_build_context_synchronously
-                                            context,
-                                          ).pushReplacementNamed(
-                                            AppRouter.registerSuccessView,
-                                          );
-                                        } else if (authViewModel
-                                            .errorMessage
-                                            .isNotEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                                SnackBar(
-                                                  backgroundColor: Colors.red,
-                                                  content: Text(
-                                                    authViewModel.errorMessage,
-                                                    style:
-                                                        AppTextStyle.lightBody(
-                                                          layout,
-                                                        ).copyWith(
-                                                          color: Colors.white,
-                                                        ),
+                                          if (authViewModel
+                                              .errorMessage
+                                              .isEmpty) {
+                                            await profileViewModel
+                                                .getUserInfo();
+                                            if (context.mounted) {
+                                              GoRouter.of(
+                                                context,
+                                              ).pushReplacementNamed(
+                                                AppRouter.registerSuccessView,
+                                              );
+                                            }
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                                  SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    content: Text(
+                                                      authViewModel
+                                                          .errorMessage,
+                                                      style:
+                                                          AppTextStyle.lightBody(
+                                                            layout,
+                                                          ).copyWith(
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                              .closed
-                                              .then((value) {
-                                                authViewModel.reset();
-                                              });
+                                                )
+                                                .closed
+                                                .then(
+                                                  (value) =>
+                                                      authViewModel.reset(),
+                                                );
+                                          }
                                         }
                                       },
                             ),
                       ),
-
                       SizedBox(height: layout.xl),
-                      BuildDivider(),
+                      const BuildDivider(),
                       SizedBox(height: layout.lg),
                       SocialAuthButton(
-                        label: 'Google',
+                        label: LangKeys.googleLogin.tr(),
                         icon: SvgPicture.string(
                           AppAssest.google,
                           height: layout.fontXLarge * 1.3,
@@ -167,7 +178,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                       ),
                       SizedBox(height: layout.md),
                       SocialAuthButton(
-                        label: 'Facebook',
+                        label: LangKeys.facebookLogin.tr(),
                         icon: Padding(
                           padding: EdgeInsets.only(left: layout.md),
                           child: Icon(
@@ -182,44 +193,36 @@ class _SignUpBodyState extends State<SignUpBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Text(' ${LangKeys.haveAccount.tr()}'),
+                          SizedBox(height: layout.sm * 0.6),
                           GestureDetector(
                             onTap: () {
                               GoRouter.of(
                                 context,
                               ).pushReplacementNamed(AppRouter.signInView);
                             },
-                            child: const Text(
-                              'تسجيل دخول',
-                              style: TextStyle(
+                            child: Text(
+                              LangKeys.loginLink.tr(),
+                              style: const TextStyle(
                                 color: AppColors.lightPrimaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          const Text(' ؟ لديك حساب بالفعل'),
                         ],
                       ),
-                      SizedBox(height: layout.lg),
                     ],
                   ),
-                  Consumer<AuthViewModel>(
-                    builder:
-                        (context, authViewModel, child) => Positioned.fill(
-                          child:
-                              authViewModel.isLoading
-                                  ? Center(
-                                    child: CircularProgressIndicator(
-                                      color: const Color.fromARGB(
-                                        255,
-                                        23,
-                                        79,
-                                        82,
-                                      ),
-                                    ),
-                                  )
-                                  : SizedBox.shrink(),
+                  if (authViewModel.isLoading)
+                    Positioned.fill(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.lightPrimaryColor,
+                          backgroundColor: AppColors.lightPrimaryColor
+                              .withOpacity(0.1),
                         ),
-                  ),
+                      ),
+                    ),
                 ],
               ),
         ),

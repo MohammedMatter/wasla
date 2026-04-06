@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:wasla/features/home/domain/entities/category_entity.dart';
 import 'package:wasla/features/products/domain/entities/product.dart';
 import 'package:wasla/features/products/domain/entities/product_filter_type.dart';
 import 'package:wasla/features/products/domain/use_cases/get_all_products_use_case.dart';
@@ -26,7 +27,6 @@ class ProductViewModel extends ChangeNotifier {
   Product? selectedProduct;
   GetAllProductsUseCase getAllProductsUseCase;
   ProductViewModel({required this.getAllProductsUseCase});
-
   Future<void> getAllProducts() async {
     isFetching = true;
     allProducts = await getAllProductsUseCase.call();
@@ -70,48 +70,49 @@ class ProductViewModel extends ChangeNotifier {
   List<Product> getFilteredProductsByCategory({required String query}) {
     filteredCategoryProductsList =
         selectedProductsList
-            .where((p) => p.name.toLowerCase().contains(query.toLowerCase()))
+            .where(
+              (p) => p.category.toLowerCase().contains(query.toLowerCase()),
+            )
             .toList();
     return filteredCategoryProductsList;
   }
 
-  void selectProductCategory({required String productCategory}) {
-    selectedCategory = productCategory;
-    switch (productCategory) {
-      case 'العناية بالأم':
+  void selectProductCategory({required CategoryEntity category}) {
+    selectedCategory = category.id;
+    switch (category.id) {
+      case 'mother':
         selectedProductsList = motherCareProducts;
-
-      case 'العناية بالشعر':
+        break;
+      case 'hair':
         selectedProductsList = hairCareProducts;
-
-      case 'العناية بالطفل':
+        break;
+      case 'baby':
         selectedProductsList = babyCareProducts;
-
-      case 'الفم والأسنان':
+        break;
+      case 'oral':
         selectedProductsList = oralAndDentalCareProducts;
-
-      case 'مستلزمات طبية':
+        break;
+      case 'medical':
         selectedProductsList = medicalSuppliesProducts;
-
-      case 'العناية بالبشرة':
+        break;
+      case 'skin':
         selectedProductsList = skinCareProducts;
-
-        filteredCategoryProductsList = selectedProductsList;
+        break;
+      default:
+        selectedProductsList = [];
     }
-
+    filteredCategoryProductsList = selectedProductsList;
     notifyListeners();
   }
 
   void toggleFavorite(Product product) {
-    if (_favoriteIds.contains(product.name)) {
-      _favoriteIds.remove(product.name);
+    if (_favoriteIds.contains(product.id)) {
+      _favoriteIds.remove(product.id);
 
-      favoritesProduct.removeWhere((p) => p.name == product.name);
+      favoritesProduct.removeWhere((p) => p.id == product.id);
     } else {
-      log(product.name);
-      _favoriteIds.add(product.name);
+      _favoriteIds.add(product.id);
       favoritesProduct.add(product);
-      log(_favoriteIds.toString());
     }
     notifyListeners();
   }
@@ -122,6 +123,7 @@ class ProductViewModel extends ChangeNotifier {
 
   void selectProduct({required Product product}) {
     selectedProduct = product;
+
     notifyListeners();
   }
 

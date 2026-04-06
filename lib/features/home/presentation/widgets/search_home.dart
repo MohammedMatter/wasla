@@ -31,49 +31,42 @@ class SearchHome extends StatelessWidget {
                   borderRadius: BorderRadius.circular(layout.sm),
                   border: Border.all(color: Color(0xffAAAAAA), width: 1.4),
                 ),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextField(
-                    textAlignVertical: TextAlignVertical.center,
-                    canRequestFocus: canRequestFocus,
-                    enabled: true,
+                child: TextField(
+                  textAlignVertical: TextAlignVertical.center,
+                  canRequestFocus: canRequestFocus,
+                  enabled: true,
 
-                    onTap: () {
-                      context.read<SearchViewModel>().reset();
+                  onTap: () {
+                    context.read<SearchViewModel>().reset();
 
-                      !canRequestFocus
-                          ? GoRouter.of(context).goNamed(AppRouter.searchView)
-                          : null;
-                    },
-                    onChanged: (value) {
-                      if (GoRouter.of(context).state.path == 'pharmaciesView') {
-                        log('نعم نحن في صفحة الصيدلية ');
-                        context
-                            .read<SearchViewModel>()
-                            .updatePharmacySearchQuery(value);
-                      } else {
-                        context
-                            .read<SearchViewModel>()
-                            .updateProductSearchQuery(value);
-                      }
-                    },
-                    cursorColor: AppColors.lightPrimaryColor,
-                    cursorOpacityAnimates: true,
-                    textAlign: TextAlign.right,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      hintText: hintText,
-
-                      hintStyle: AppTextStyle.lightHeading1(layout).copyWith(
-                        color: Colors.grey,
-                        fontSize: layout.fontSmall,
-                      ),
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: layout.md * 0.7,
-                        horizontal: layout.sm,
-                      ),
+                    !canRequestFocus
+                        ? GoRouter.of(context).goNamed(AppRouter.searchView)
+                        : null;
+                  },
+                  onChanged: (value) {
+                    if (GoRouter.of(context).state.path == 'pharmaciesView') {
+                      context.read<SearchViewModel>().updatePharmacySearchQuery(
+                        value,
+                      );
+                    } else {
+                      context.read<SearchViewModel>().updateProductSearchQuery(
+                        value,
+                      );
+                    }
+                  },
+                  cursorColor: AppColors.lightPrimaryColor,
+                  cursorOpacityAnimates: true,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: hintText,
+                    hintStyle: AppTextStyle.lightHeading1(
+                      layout,
+                    ).copyWith(color: Colors.grey, fontSize: layout.fontSmall),
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: layout.md * 0.7,
+                      horizontal: layout.sm,
                     ),
                   ),
                 ),

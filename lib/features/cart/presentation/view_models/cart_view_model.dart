@@ -6,12 +6,13 @@ class CartViewModel extends ChangeNotifier {
   final Map<String, CartItem> _items = {};
   Map<String, CartItem> get items => {..._items};
   bool isLoading = false;
+
   Future<void> addToCart(Product product) async {
     isLoading = true;
     notifyListeners();
-    if (_items.containsKey(product.name)) {
+    if (_items.containsKey(product.id)) {
       _items.update(
-        product.name,
+        product.id,
         (existingItem) => CartItem(
           product: existingItem.product,
           quantity: existingItem.quantity + 1,
@@ -19,7 +20,7 @@ class CartViewModel extends ChangeNotifier {
       );
     } else {
       _items.putIfAbsent(
-        product.name,
+        product.id,
         () => CartItem(product: product, quantity: 1),
       );
     }
@@ -29,24 +30,24 @@ class CartViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(String productName) {
-    _items.remove(productName);
+  void removeItem(Product product) {
+    _items.remove(product.id);
     notifyListeners();
   }
 
-  void removeSingleItem(String productName) {
-    if (!_items.containsKey(productName)) return;
+  void removeSingleItem(Product product) {
+    if (!_items.containsKey(product.id)) return;
 
-    if (_items[productName]!.quantity > 1) {
+    if (_items[product.id]!.quantity > 1) {
       _items.update(
-        productName,
+        product.id,
         (existing) => CartItem(
           product: existing.product,
           quantity: existing.quantity - 1,
         ),
       );
     } else {
-      _items.remove(productName);
+      _items.remove(product.id);
     }
     notifyListeners();
   }

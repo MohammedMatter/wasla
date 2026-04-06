@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -19,7 +21,7 @@ class PharmaciesSection extends StatelessWidget {
       builder:
           (context, pharmacyViewModel, productViewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            textDirection: TextDirection.rtl,
+
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: layout.md),
@@ -27,10 +29,10 @@ class PharmaciesSection extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
+
                       children: [
                         Text(
-                          'الصيدليات',
+                          LangKeys.pharmaciesTitle.tr(),
                           style: AppTextStyle.lightHeading2(
                             layout,
                           ).copyWith(fontSize: layout.fontMedium),
@@ -45,7 +47,7 @@ class PharmaciesSection extends StatelessWidget {
                                       highlightColor: Color(0xffeef4f4),
                                       alignment: Alignment.center,
 
-                                      icon: Icon(Icons.arrow_back_ios),
+                                      icon: const Icon(Icons.arrow_forward_ios),
                                       onPressed: () {
                                         GoRouter.of(
                                           context,
@@ -68,30 +70,27 @@ class PharmaciesSection extends StatelessWidget {
                                 pharmacyViewModel,
                                 homeViewModel,
                                 child,
-                              ) => Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: SizedBox(
-                                  height: (MediaQuery.of(context).size.height *
-                                          0.25)
-                                      .clamp(180.0, 260.0),
-                                  child: GridView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount:
-                                        pharmacyViewModel.pharmacies.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 1,
-                                          childAspectRatio: 1.5.clamp(1.5, 5),
-                                          mainAxisSpacing: layout.sm,
-                                        ),
-                                    itemBuilder:
-                                        (context, index) => PharmacyItem(
-                                          index: index,
-                                          pharmacies:
-                                              pharmacyViewModel.pharmacies,
-                                        ),
-                                  ),
+                              ) => SizedBox(
+                                height: (MediaQuery.of(context).size.height *
+                                        0.25)
+                                    .clamp(180.0, 260.0),
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount:
+                                      pharmacyViewModel.pharmacies.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        childAspectRatio: 1.5.clamp(1.5, 5),
+                                        mainAxisSpacing: layout.sm,
+                                      ),
+                                  itemBuilder:
+                                      (context, index) => PharmacyItem(
+                                        index: index,
+                                        pharmacies:
+                                            pharmacyViewModel.pharmacies,
+                                      ),
                                 ),
                               ),
                         )

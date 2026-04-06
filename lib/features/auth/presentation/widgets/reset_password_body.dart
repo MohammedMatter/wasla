@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -33,7 +35,7 @@ class ResetPasswordBody extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               Text(
-                'من فضلك أنشئ كلمة مرور قوية لحماية حسابك',
+                LangKeys.newPasswordSubtitle.tr(),
                 textAlign: TextAlign.center,
                 style: AppTextStyle.lightBody(layout).copyWith(
                   color: const Color(0xff7E7575),
@@ -43,7 +45,7 @@ class ResetPasswordBody extends StatelessWidget {
               SizedBox(height: layout.xl),
               CustomTextField(
                 controller: _passwordController,
-                label: ' كلمة المرور',
+                label: LangKeys.passwordLabel.tr(),
                 icon: Icons.lock_outline,
                 textFieldType: TextFieldType.password,
               ),
@@ -51,7 +53,7 @@ class ResetPasswordBody extends StatelessWidget {
               CustomTextField(
                 passwordController: _passwordController,
                 controller: _confirmPasswordController,
-                label: 'تأكيد كلمة المرور',
+                label: LangKeys.confirmPasswordLabel.tr(),
                 icon: Icons.lock_outline,
                 textFieldType: TextFieldType.confirmPassword,
               ),
@@ -65,7 +67,7 @@ class ResetPasswordBody extends StatelessWidget {
                     ).pushNamed(AppRouter.passwordChangedSuccessView);
                   }
                 },
-                title: 'تحديث كلمة المرور',
+                title: LangKeys.updatePassword.tr(),
               ),
               SizedBox(height: layout.lg),
               Row(
@@ -75,9 +77,8 @@ class ResetPasswordBody extends StatelessWidget {
                     onTap: () {
                       GoRouter.of(context).pushNamed(AppRouter.signInView);
                     },
-
                     child: Text(
-                      'تسجيل دخول',
+                      LangKeys.loginLink.tr(),
                       style: AppTextStyle.lightBody(layout).copyWith(
                         color: AppColors.lightPrimaryColor,
                         fontWeight: FontWeight.bold,
@@ -85,7 +86,7 @@ class ResetPasswordBody extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ' تذكرت كلمة المرور ؟ ',
+                    ' ${LangKeys.rememberPassword.tr()} ',
                     style: AppTextStyle.lightBody(
                       layout,
                     ).copyWith(color: const Color(0xff7E7575)),

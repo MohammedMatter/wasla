@@ -11,8 +11,9 @@ class MenuItem extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     required this.onTap,
+    this.showTrailing = true,
   });
-
+  bool showTrailing;
   String title;
   IconData icon;
   Color iconColor;
@@ -31,10 +32,13 @@ class MenuItem extends StatelessWidget {
         ).copyWith(color: Colors.grey[700], fontWeight: FontWeight.w500),
       ),
       leading: Icon(icon, color: iconColor, size: layout.fontLarge),
-      trailing: Icon(
-        Icons.arrow_forward_ios_rounded,
-        color: AppColors.lightPrimaryColor,
-      ),
+      trailing:
+          showTrailing
+              ? Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: AppColors.lightPrimaryColor,
+              )
+              : null,
     );
   }
 }

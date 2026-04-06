@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -40,14 +42,14 @@ class LogoutDialog extends StatelessWidget {
                       ),
                       SizedBox(height: layout.md),
                       Text(
-                        'تسجيل الخروج',
+                        LangKeys.logoutDialogTitle.tr(),
                         style: AppTextStyle.lightHeading2(
                           layout,
                         ).copyWith(color: Colors.black),
                       ),
                       SizedBox(height: layout.sm),
                       Text(
-                        'هل أنت متأكد أنك تريد مغادرة التطبيق؟',
+                        LangKeys.logoutDialogMessage.tr(),
                         textAlign: TextAlign.center,
                         style: AppTextStyle.lightBody(
                           layout,
@@ -73,7 +75,7 @@ class LogoutDialog extends StatelessWidget {
                                       ? null
                                       : () => Navigator.pop(context),
                               child: Text(
-                                'إلغاء',
+                                LangKeys.logoutDialogCancel.tr(),
                                 style: AppTextStyle.lightSubtitle(
                                   layout,
                                 ).copyWith(color: AppColors.lightPrimaryColor),
@@ -105,7 +107,7 @@ class LogoutDialog extends StatelessWidget {
                                         }
                                       },
                               child: Text(
-                                'خروج',
+                                LangKeys.logoutDialogConfirm.tr(),
                                 style: AppTextStyle.lightSubtitle(
                                   layout,
                                 ).copyWith(color: Colors.white),
@@ -116,7 +118,6 @@ class LogoutDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   authViewModel.isSignout
                       ? Positioned.fill(
                         child: Center(
@@ -125,7 +126,7 @@ class LogoutDialog extends StatelessWidget {
                           ),
                         ),
                       )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),

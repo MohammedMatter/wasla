@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -20,11 +22,10 @@ class CartBody extends StatelessWidget {
                 cartViewModel.items.isEmpty
                     ? Center(
                       child: Row(
-                        textDirection: TextDirection.rtl,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'السلة فارغة',
+                            LangKeys.cartEmpty.tr(),
                             style: AppTextStyle.lightHeading1(
                               layout,
                             ).copyWith(color: AppColors.lightPrimaryColor),

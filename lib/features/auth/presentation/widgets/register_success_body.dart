@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -18,16 +20,16 @@ class RegisterSuccessBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(flex: 1),
+            const Spacer(flex: 1),
             Image.asset('assets/images/success_register.png'),
             SizedBox(height: layout.lg),
             Text(
-              ' تم انشاء حسابك بنجاح ',
+              LangKeys.successTitle.tr(),
               style: AppTextStyle.lightHeading1(layout),
             ),
             SizedBox(height: layout.md),
             Text(
-              '! أهلاً بك\nيمكنك الآن استكشاف التطبيق\nوالاستفادة من جميع خدماتنا',
+              LangKeys.successSubtitle.tr(),
               textAlign: TextAlign.center,
               style: AppTextStyle.lightSubtitle(
                 layout,
@@ -38,9 +40,9 @@ class RegisterSuccessBody extends StatelessWidget {
               onPressed: () {
                 GoRouter.of(context).pushNamed(AppRouter.homeView);
               },
-              title: 'ابدا الان',
+              title: LangKeys.onboardingStart.tr(),
             ),
-            Spacer(flex: 2),
+            const Spacer(flex: 2),
           ],
         ),
       ),

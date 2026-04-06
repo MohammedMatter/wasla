@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/checkout/presentation/view_models/payment_view_model.dart';
@@ -13,17 +15,19 @@ class PaymentMethodThroughBop extends StatelessWidget {
     final layout = context.read<AppLayout>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: TextDirection.rtl,
       children: [
         SizedBox(height: layout.lg),
-        Text('اختر طريقة الدفع', style: AppTextStyle.lightHeading1(layout)),
+        Text(
+          LangKeys.bopChooseMethod.tr(),
+          style: AppTextStyle.lightHeading1(layout),
+        ),
         SizedBox(height: layout.md),
         Consumer<PaymentViewModel>(
           builder:
               (context, paymentViewModel, child) => Column(
                 children: [
                   PaymentMethodViaBankOfPalestine(
-                    title: 'حساب بنكي',
+                    title: LangKeys.bopBankAccount.tr(),
                     onTap: () {
                       paymentViewModel.selectPaymentViaBopMethod(0);
                     },
@@ -36,8 +40,7 @@ class PaymentMethodThroughBop extends StatelessWidget {
                     onTap: () {
                       paymentViewModel.selectPaymentViaBopMethod(1);
                     },
-
-                    title: 'بطاقة فيزا',
+                    title: LangKeys.bopVisaCard.tr(),
                   ),
                 ],
               ),

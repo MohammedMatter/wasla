@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
 import 'package:wasla/features/cart/presentation/view_models/cart_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartSummerySheet extends StatelessWidget {
   const CartSummerySheet({super.key});
@@ -50,21 +52,24 @@ class CartSummerySheet extends StatelessWidget {
                   ),
                 ),
                 _buildPriceRow(
-                  label: "إجمالي المنتجات",
-                  value: "${cartViewModel.totalAmount} شيكل",
+                  label: LangKeys.cartTotalProducts.tr(),
+                  value:
+                      "${cartViewModel.totalAmount} ${context.locale.languageCode == Locale('ar').languageCode ? 'شيكل' : 'NIS'}",
                   layout: layout,
                 ),
                 SizedBox(height: layout.xs),
                 _buildPriceRow(
-                  label: "رسوم التوصيل",
-                  value: "5 شيكل",
+                  label: LangKeys.cartDeliveryFees.tr(),
+                  value:
+                      "5 ${context.locale.languageCode == Locale('ar').languageCode ? 'شيكل' : 'NIS'}",
                   layout: layout,
                   color: Colors.grey[600],
                 ),
                 Divider(height: layout.lg, thickness: 0.5),
                 _buildPriceRow(
-                  label: "الإجمالي الكلي",
-                  value: "${cartViewModel.totalAmount + 5} شيكل",
+                  label: LangKeys.cartTotalAmount.tr(),
+                  value:
+                      "${cartViewModel.totalAmount + 5} ${context.locale.languageCode == Locale('ar').languageCode ? 'شيكل' : 'NIS'}",
                   layout: layout,
                   isBold: true,
                   color: AppColors.lightPrimaryColor,
@@ -77,7 +82,7 @@ class CartSummerySheet extends StatelessWidget {
                     onPressed: () {
                       context.pushNamed(AppRouter.addressView);
                     },
-                    title: 'تأكيد الطلب',
+                    title: LangKeys.cartConfirmOrder.tr(),
                   ),
                 ),
                 SizedBox(height: layout.sm),
@@ -96,7 +101,6 @@ class CartSummerySheet extends StatelessWidget {
     double? fontSize,
   }) {
     return Row(
-      textDirection: TextDirection.rtl,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(

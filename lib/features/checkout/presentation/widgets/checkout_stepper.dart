@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/features/checkout/presentation/view_models/payment_view_model.dart';
 import 'package:wasla/features/checkout/presentation/widgets/step_circle.dart';
 import 'package:wasla/features/checkout/presentation/widgets/step_line.dart';
@@ -12,22 +14,21 @@ class CheckoutStepper extends StatelessWidget {
     return Consumer<PaymentViewModel>(
       builder:
           (context, paymentViewModel, child) => Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               StepCircle(
-                title: "العنوان",
+                title: LangKeys.addressTitle.tr(),
                 isCompleted: paymentViewModel.steppterIndex >= 0,
               ),
               StepLine(),
 
               StepCircle(
-                title: "الدفع",
+                title: LangKeys.stepPayment.tr(),
                 isCompleted: paymentViewModel.steppterIndex >= 1,
               ),
               StepLine(),
               StepCircle(
-                title: "التأكيد",
+                title: LangKeys.stepConfirmation.tr(),
                 isCompleted: paymentViewModel.steppterIndex >= 2,
               ),
             ],

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
@@ -17,7 +19,7 @@ class FavoritesBody extends StatelessWidget {
               productViewModel.favoritesProduct.isEmpty
                   ? Center(
                     child: Text(
-                      'لا يوجد منتجات مفضلة',
+                      LangKeys.favoritesEmpty.tr(),
                       style: AppTextStyle.lightBody(layout),
                     ),
                   )

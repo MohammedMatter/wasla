@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:wasla/core/constants/app_assest.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -17,14 +19,14 @@ class Offers extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: TextDirection.rtl,
+
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: layout.md),
           child: Text(
-            'العروض و الخصومات',
+            LangKeys.offersTitle.tr(),
             style: AppTextStyle.lightHeading1(layout).copyWith(
-              fontSize: layout.fontMedium.clamp(16.0, 20.0),
+              fontSize: layout.fontMedium.clamp(14.0, 20.0),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -42,24 +44,22 @@ class Offers extends StatelessWidget {
             builder:
                 (context, homeViewModel, child) => PageView.builder(
                   itemCount: 3,
-                  reverse: true,
+
                   onPageChanged:
                       (value) => homeViewModel.toogleActiveIndex(value),
                   itemBuilder: (context, index) {
                     return Row(
-                      textDirection: TextDirection.rtl,
                       children: [
                         Expanded(
                           flex: 3,
                           child: Column(
-                            textDirection: TextDirection.rtl,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Flexible(
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    'عناية لطيفة ببشرتك الدهنية',
+                                    '${LangKeys.offerSubtitle}${index}'.tr(),
                                     style: AppTextStyle.lightBody(
                                       layout,
                                     ).copyWith(
@@ -74,7 +74,7 @@ class Offers extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    'تنظيف فعّال بدون جفاف،',
+                                    '${LangKeys.offerDescription}${index}'.tr(),
                                     style: AppTextStyle.lightBody(
                                       layout,
                                     ).copyWith(
@@ -88,7 +88,7 @@ class Offers extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    'و خصومات لفترة محدودة',
+                                    '${LangKeys.offerLimitedTime}${index}'.tr(),
                                     style: AppTextStyle.lightBody(
                                       layout,
                                     ).copyWith(
@@ -116,9 +116,9 @@ class Offers extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  child: const FittedBox(
+                                  child: FittedBox(
                                     child: Text(
-                                      'اطلب الآن',
+                                      LangKeys.offerOrderNow.tr(),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -147,7 +147,6 @@ class Offers extends StatelessWidget {
         ),
         SizedBox(height: layout.md),
         Row(
-          textDirection: TextDirection.rtl,
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
             3,

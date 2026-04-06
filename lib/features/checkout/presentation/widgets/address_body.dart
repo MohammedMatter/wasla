@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/widgets/custom_elevated_button_widget.dart';
@@ -29,7 +31,7 @@ class AdddressBody extends StatelessWidget {
                     paymentViewModel.setStepperIndex(index: 1);
                     GoRouter.of(context).pushNamed(AppRouter.paymentMethodView);
                   },
-                  title: 'حفظ',
+                  title: LangKeys.save.tr(),
                 ),
               ],
             ),

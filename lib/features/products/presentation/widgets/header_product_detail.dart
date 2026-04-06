@@ -15,7 +15,6 @@ class HeaderProductDetail extends StatelessWidget {
     return Consumer<ProductViewModel>(
       builder:
           (context, productViewModel, child) => Column(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
@@ -36,19 +35,19 @@ class HeaderProductDetail extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  PositionedDirectional(
                     top: layout.sm,
-                    left: layout.sm,
+                    end: layout.sm,
                     child: IconButton(
                       icon: Icon(
                         productViewModel.isFavorite(
-                              productViewModel.selectedProduct!.name,
+                              productViewModel.selectedProduct!.id,
                             )
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color:
                             productViewModel.isFavorite(
-                                  productViewModel.selectedProduct!.name,
+                                  productViewModel.selectedProduct!.id,
                                 )
                                 ? Colors.red
                                 : AppColors.lightPrimaryColor,
@@ -67,10 +66,12 @@ class HeaderProductDetail extends StatelessWidget {
               SizedBox(height: layout.md),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                textDirection: TextDirection.rtl,
+
                 children: [
                   Text(
-                    productViewModel.selectedProduct!.name,
+                    productViewModel
+                        .selectedProduct!
+                        .name[Localizations.localeOf(context).languageCode],
                     style: AppTextStyle.lightHeading1(layout).copyWith(
                       fontSize: layout.fontMedium,
                       fontWeight: FontWeight.bold,
@@ -79,8 +80,8 @@ class HeaderProductDetail extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: layout.sm),
                     child: Text(
-                      productViewModel.selectedProduct!.price,
-                      textDirection: TextDirection.rtl,
+                      "${productViewModel.selectedProduct!.price} ${Localizations.localeOf(context).languageCode == 'ar' ? 'شيكل' : 'NIS'}",
+
                       style: AppTextStyle.lightSubtitle(layout).copyWith(
                         color: AppColors.lightPrimaryColor,
                         fontSize: layout.fontMedium,
@@ -93,8 +94,10 @@ class HeaderProductDetail extends StatelessWidget {
 
               SizedBox(height: layout.xs),
               Text(
-                productViewModel.selectedProduct!.type,
-                textDirection: TextDirection.rtl,
+                productViewModel.selectedProduct!.type[Localizations.localeOf(
+                  context,
+                ).languageCode],
+
                 style: AppTextStyle.lightBody(
                   layout,
                 ).copyWith(color: Colors.grey),
@@ -102,8 +105,9 @@ class HeaderProductDetail extends StatelessWidget {
 
               SizedBox(height: layout.sm),
               Text(
-                productViewModel.selectedProduct!.description,
-                textDirection: TextDirection.rtl,
+                productViewModel
+                    .selectedProduct!
+                    .description[Localizations.localeOf(context).languageCode],
                 textAlign: TextAlign.justify,
                 style: AppTextStyle.lightBody(
                   layout,

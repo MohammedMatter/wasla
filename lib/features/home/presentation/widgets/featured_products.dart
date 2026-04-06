@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/home/presentation/view_models/home_view_model.dart';
@@ -16,7 +18,7 @@ class FeaturedProducts extends StatelessWidget {
       builder:
           (context, productViewModel, child) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            textDirection: TextDirection.rtl,
+
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: layout.md),
@@ -24,10 +26,10 @@ class FeaturedProducts extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      textDirection: TextDirection.rtl,
+
                       children: [
                         Text(
-                          'المنتجات المميزة ',
+                          LangKeys.featuredProducts.tr(),
                           style: AppTextStyle.lightHeading2(
                             layout,
                           ).copyWith(fontSize: layout.fontMedium),
@@ -40,8 +42,8 @@ class FeaturedProducts extends StatelessWidget {
                                     child: TextButton(
                                       child: Text(
                                         homeViewModel.showAllFeaturedProducts
-                                            ? 'عرض اقل'
-                                            : 'عرض المزيد',
+                                            ? LangKeys.showLess.tr()
+                                            : LangKeys.showMore.tr(),
                                         style: AppTextStyle.lightSubtitle(
                                           layout,
                                         ).copyWith(fontSize: layout.fontSmall),

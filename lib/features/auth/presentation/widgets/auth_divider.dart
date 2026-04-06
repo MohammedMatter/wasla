@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 
@@ -19,7 +20,7 @@ class BuildDivider extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: layout.lg),
             child: Text(
-              'سجل باستخدام',
+              LangKeys.loginWith.tr(),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

@@ -1,8 +1,9 @@
 import 'dart:developer';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -33,7 +34,7 @@ class ForgotPasswordBody extends StatelessWidget {
           children: [
             const Spacer(flex: 1),
             Text(
-              'أدخل بريدك الإلكتروني وهنبعتلك كود\n لإعادة تعيين كلمة المرور',
+              LangKeys.forgotPasswordSubtitle.tr(),
               textAlign: TextAlign.center,
               style: AppTextStyle.lightBody(layout).copyWith(
                 color: const Color(0xff7E7575),
@@ -41,14 +42,11 @@ class ForgotPasswordBody extends StatelessWidget {
               ),
             ),
             SizedBox(height: layout.xl),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: CustomTextField(
-                label: 'البريد الالكتروني',
-                icon: Icons.email_outlined,
-                controller: email,
-                textFieldType: TextFieldType.email,
-              ),
+            CustomTextField(
+              label: LangKeys.emailLabel.tr(),
+              icon: Icons.email_outlined,
+              controller: email,
+              textFieldType: TextFieldType.email,
             ),
             SizedBox(height: layout.xl),
             Consumer2<AuthViewModel, VervicationViewModel>(
@@ -60,7 +58,7 @@ class ForgotPasswordBody extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'يجب ادخال البريد الالكتروني اولا ',
+                                  LangKeys.errorEmailRequired.tr(),
                                   style: AppTextStyle.lightBody(
                                     layout,
                                   ).copyWith(color: Colors.white),
@@ -71,23 +69,29 @@ class ForgotPasswordBody extends StatelessWidget {
                           }
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder:
-                                (context) => Center(
+                                (context) => const Center(
                                   child: CircularProgressIndicator(
                                     color: AppColors.lightPrimaryColor,
                                   ),
                                 ),
                           );
+
                           vervicationViewModel.setUserEmail(email.text);
-                          await Future.delayed(Duration(seconds: 1));
+                          await Future.delayed(const Duration(seconds: 1));
                           await authViewModel.sendOtp(email: email.text);
+
                           log(authViewModel.otpCode);
+
+                          if (!context.mounted) return;
                           Navigator.pop(context);
+
                           if (authViewModel.errorMessage.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'تم ارسال الكود بنجاح',
+                                  LangKeys.successCodeSent.tr(),
                                   style: AppTextStyle.lightBody(
                                     layout,
                                   ).copyWith(color: AppColors.lightGrey),
@@ -111,7 +115,7 @@ class ForgotPasswordBody extends StatelessWidget {
                             );
                           }
                         },
-                        title: 'ارسال الكود',
+                        title: LangKeys.sendCode.tr(),
                       ),
             ),
             SizedBox(height: layout.xl),
@@ -121,14 +125,14 @@ class ForgotPasswordBody extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Text(
-                    ' تسجيل الدخول ',
+                    LangKeys.loginLink.tr(),
                     style: AppTextStyle.lightBody(
                       layout,
                     ).copyWith(color: AppColors.lightPrimaryColor),
                   ),
                 ),
                 Text(
-                  'تذكرت كلمة المرور ؟',
+                  ' ${LangKeys.rememberPassword.tr()} ',
                   style: AppTextStyle.lightBody(
                     layout,
                   ).copyWith(color: const Color(0xff7E7575)),

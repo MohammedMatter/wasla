@@ -1,14 +1,16 @@
 class Product {
   String category;
-  String name;
+  String id;
+  Map<String, dynamic> name;
   String image;
   String price;
   double rating;
-  String type;
-  String description;
+  Map<String, dynamic> type;
+  Map<String, dynamic> description;
   List pharmacyAvailable;
 
   Product({
+    required this.id,
     required this.category,
     required this.description,
     required this.image,

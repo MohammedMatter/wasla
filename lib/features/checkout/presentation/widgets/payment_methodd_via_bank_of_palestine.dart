@@ -36,7 +36,6 @@ class PaymentMethodViaBankOfPalestine extends StatelessWidget {
         height: ScreenSize.h(context) * 0.065,
         width: double.infinity,
         child: Row(
-          textDirection: TextDirection.rtl,
           children: [
             SizedBox(width: layout.md),
             Text(title, style: AppTextStyle.lightBody(layout)),

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -22,8 +24,8 @@ class PasswordChangedSuccessBody extends StatelessWidget {
             const Spacer(flex: 3),
             Container(
               padding: EdgeInsets.all(layout.lg),
-              decoration: BoxDecoration(
-                color: const Color(0xffE8F5E9),
+              decoration: const BoxDecoration(
+                color: Color(0xffE8F5E9),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -34,10 +36,9 @@ class PasswordChangedSuccessBody extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(height: layout.xl),
             Text(
-              'تم تغيير كلمة المرور بنجاح',
+              LangKeys.successTitle.tr(),
               textAlign: TextAlign.center,
               style: AppTextStyle.lightHeading1(
                 layout,
@@ -45,7 +46,7 @@ class PasswordChangedSuccessBody extends StatelessWidget {
             ),
             SizedBox(height: layout.md),
             Text(
-              'يمكنك الآن تسجيل الدخول باستخدام\n كلمة المرور الجديدة الخاصة بك',
+              LangKeys.successSubtitle.tr(),
               textAlign: TextAlign.center,
               style: AppTextStyle.lightSubtitle(layout),
             ),
@@ -55,7 +56,7 @@ class PasswordChangedSuccessBody extends StatelessWidget {
               onPressed: () {
                 GoRouter.of(context).pushNamed(AppRouter.signInView);
               },
-              title: 'تسجيل الدخول',
+              title: LangKeys.backToLogin.tr(),
             ),
             const Spacer(flex: 4),
           ],

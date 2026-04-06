@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -26,28 +28,31 @@ class PaymentThroughBopView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [
-          Consumer<PaymentViewModel>(
-            builder:
-                (context, paymentViewModel, child) =>
-                    paymentViewModel.paymentCompleted
-                        ? SizedBox.shrink()
-                        : IconButton(
-                          icon: Icon(
-                            Icons.arrow_circle_right_outlined,
-                            color: AppColors.lightPrimaryColor,
-                            size: layout.fontXLarge.clamp(24.0, 32.0),
-                          ),
-                          onPressed: () {
-                            paymentViewModel.setStepperIndex(index: 1);
-                            paymentViewModel.cancelPaymentProcess();
-                            Navigator.pop(context);
-                          },
+        leading: Consumer<PaymentViewModel>(
+          builder:
+              (context, paymentViewModel, child) =>
+                  paymentViewModel.paymentCompleted
+                      ? SizedBox.shrink()
+                      : IconButton(
+                        icon: Icon(
+                          context.locale.languageCode ==
+                                  Locale('ar').languageCode
+                              ? Icons.arrow_circle_right_outlined
+                              : Icons.arrow_circle_left_outlined,
+
+                          color: AppColors.lightPrimaryColor,
+                          size: layout.fontXLarge.clamp(24.0, 32.0),
                         ),
-          ),
-        ],
+                        onPressed: () {
+                          paymentViewModel.setStepperIndex(index: 1);
+                          paymentViewModel.cancelPaymentProcess();
+                          Navigator.pop(context);
+                        },
+                      ),
+        ),
+
         title: Text(
-          'الدفع من خلال بنك فلسطين',
+          LangKeys.bopTitle.tr(),
           style: AppTextStyle.lightHeading1(layout),
         ),
         centerTitle: true,
@@ -104,14 +109,14 @@ class PaymentThroughBopView extends StatelessWidget {
                   ),
                   SizedBox(height: layout.md),
                   Text(
-                    'تم الدفع بنجاح',
+                    LangKeys.paymentSuccess.tr(),
                     style: AppTextStyle.lightHeading1(layout),
                   ),
                   Spacer(flex: 1),
                   CustomElevatedButtonWidget(
                     onPressed: () {
                       cartViewModel.removeItem(
-                        productViewModel.selectedProduct!.name,
+                        productViewModel.selectedProduct!,
                       );
                       mainNavigationViewModel.reset();
                       GoRouter.of(context).goNamed(AppRouter.homeView);
@@ -120,7 +125,7 @@ class PaymentThroughBopView extends StatelessWidget {
                         vm.reset();
                       });
                     },
-                    title: 'الانتقال للصفحة الرئيسية',
+                    title: LangKeys.goHome.tr(),
                   ),
                   Spacer(flex: 4),
                 ],
@@ -142,7 +147,7 @@ class PaymentThroughBopView extends StatelessWidget {
   Widget _buildBottomAction(PaymentViewModel vm, AppLayout layout) {
     if (vm.isRedirectedToBank && !vm.paymentCompleted) {
       return Text(
-        '! يرجى عدم اغلاق الصفحة',
+        LangKeys.loadingPleaseWait.tr(),
         style: AppTextStyle.lightBody(layout),
       );
     }
@@ -153,7 +158,7 @@ class PaymentThroughBopView extends StatelessWidget {
       onPressed: () async {
         vm.startPaymentFlow();
       },
-      title: 'الانتقال الى بنك فلسطين',
+      title: LangKeys.bopPayButton.tr(),
     );
   }
 }

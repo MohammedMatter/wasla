@@ -5,67 +5,72 @@ import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
+import 'package:wasla/features/home/domain/entities/category_entity.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
 import 'package:wasla/features/search/presentation/view_models/search_view_model.dart';
 
 class GridCategories extends StatelessWidget {
   const GridCategories({super.key, required this.categories});
 
-  final List<String> categories;
+  final List<CategoryEntity> categories;
 
+  @override
   @override
   Widget build(BuildContext context) {
     final AppLayout layout = context.read<AppLayout>();
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: layout.md),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: layout.sm,
-        mainAxisSpacing: layout.sm,
-        childAspectRatio: 2.5,
+      child: Wrap(
+        spacing: layout.sm,
+        runSpacing: layout.sm,
+        children:
+            categories.map((category) {
+              return Consumer2<ProductViewModel, SearchViewModel>(
+                builder:
+                    (context, productViewModel, searchViewModel, child) =>
+                        IntrinsicWidth(
+                          child: Material(
+                            color: AppColors.lightPrimaryColor,
+                            borderRadius: BorderRadius.circular(layout.rmd),
+                            child: InkWell(
+                              onTap: () {
+                                productViewModel.selectProductCategory(
+                                  category: category,
+                                );
+
+                                searchViewModel.reset();
+
+                                GoRouter.of(
+                                  context,
+                                ).goNamed(AppRouter.categoryProductsView);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: layout.md,
+                                  vertical: layout.sm,
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  Localizations.localeOf(
+                                            context,
+                                          ).languageCode ==
+                                          'ar'
+                                      ? category.arName
+                                      : category.enName,
+                                  style: AppTextStyle.lightSubtitle(
+                                    layout,
+                                  ).copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+              );
+            }).toList(),
       ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return Consumer2<ProductViewModel, SearchViewModel>(
-          builder:
-              (context, productViewModel, searchViewModel, child) => Material(
-                color: AppColors.lightPrimaryColor,
-                borderRadius: BorderRadius.circular(layout.rmd),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(layout.rmd),
-                  splashColor: const Color.fromARGB(
-                    255,
-                    19,
-                    150,
-                    63,
-                  ).withOpacity(0.3),
-                  onTap: () {
-                    productViewModel.selectProductCategory(
-                      productCategory: categories[index],
-                    );
-                    searchViewModel.reset();
-                    GoRouter.of(
-                      context,
-                    ).goNamed(AppRouter.categoryProductsView);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: layout.sm),
-                    alignment: Alignment.center,
-                    child: Text(
-                      categories[index],
-                      style: AppTextStyle.lightSubtitle(layout).copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: layout.fontSmall * 1.1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-        );
-      },
     );
   }
 }

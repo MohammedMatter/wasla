@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
+import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/home/presentation/widgets/search_home.dart';
 import 'package:wasla/features/products/presentation/view_models/product_view_model.dart';
@@ -22,18 +25,22 @@ class CategoryProductsView extends StatelessWidget {
                 productViewModel.selectedCategory,
                 style: AppTextStyle.lightHeading1(layout),
               ),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_circle_right_outlined,
-                    size: layout.fontXLarge.clamp(24.0, 32.0),
-                  ),
-                  onPressed: () {
-                    searchViewModel.reset();
-                    Navigator.pop(context);
-                  },
+
+              leading: IconButton(
+                icon: Icon(
+                  context.locale.languageCode == Locale('ar').languageCode
+                      ? Icons.arrow_circle_right_outlined
+                      : Icons.arrow_circle_left_outlined,
+
+                  color: AppColors.lightPrimaryColor,
+
+                  size: layout.fontXLarge.clamp(24.0, 32.0),
                 ),
-              ],
+                onPressed: () {
+                  searchViewModel.reset();
+                  Navigator.pop(context);
+                },
+              ),
             ),
             body:
                 productViewModel.selectedProductsList.isNotEmpty
@@ -42,7 +49,7 @@ class CategoryProductsView extends StatelessWidget {
                         SearchHome(
                           canRequestFocus: true,
 
-                          hintText: 'ابحث عن المنتج الذي تريده',
+                          hintText: LangKeys.searchProduct.tr(),
                         ),
                         Consumer2<ProductViewModel, SearchViewModel>(
                           builder:
@@ -80,7 +87,9 @@ class CategoryProductsView extends StatelessWidget {
                     )
                     : Center(
                       child: Text(
-                        'لا يوجد عناصر متاحة',
+                        Localizations.localeOf(context).languageCode == 'ar'
+                            ? 'لا يوجد عناصر متاحة'
+                            : 'There are no items available',
                         style: AppTextStyle.lightSubtitle(layout),
                       ),
                     ),

@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_color.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
@@ -20,32 +22,36 @@ class SearchView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'البحث',
+          LangKeys.searchTitle.tr(),
           style: AppTextStyle.lightHeading1(layout).copyWith(
             fontSize: layout.fontLarge.clamp(18.0, 24.0),
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          Consumer<SearchViewModel>(
-            builder:
-                (context, searchViewModel, child) => IconButton(
-                  icon: Icon(
-                    Icons.arrow_circle_right_outlined,
-                    size: layout.fontXLarge.clamp(24.0, 32.0),
-                  ),
-                  onPressed: () {
-                    searchViewModel.reset();
-                    Navigator.pop(context);
-                  },
+
+        leading: Consumer<SearchViewModel>(
+          builder:
+              (context, searchVm, child) => IconButton(
+                icon: Icon(
+                  context.locale.languageCode == Locale('ar').languageCode
+                      ? Icons.arrow_circle_right_outlined
+                      : Icons.arrow_circle_left_outlined,
+
+                  color: AppColors.lightPrimaryColor,
+
+                  size: layout.fontXLarge.clamp(24.0, 32.0),
                 ),
-          ),
-        ],
+                onPressed: () {
+                  Navigator.pop(context);
+                  searchVm.reset();
+                },
+              ),
+        ),
       ),
       body: Column(
         children: [
           SearchHome(
-            hintText: 'ابحث عن المنتج الذي تريده',
+            hintText: LangKeys.searchProduct.tr(),
             canRequestFocus: true,
           ),
           SizedBox(height: layout.sm),
@@ -62,7 +68,6 @@ class SearchView extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: layout.sm),
                     child: Wrap(
-                      textDirection: TextDirection.rtl,
                       crossAxisAlignment: WrapCrossAlignment.end,
                       spacing: layout.sm,
                       children: List.generate(
@@ -119,7 +124,9 @@ class SearchView extends StatelessWidget {
                         ? Padding(
                           padding: EdgeInsets.all(layout.xl),
                           child: Text(
-                            'عذراً، لم نتمكن من العثور على هذا المنتج حاليا',
+                            Localizations.localeOf(context).languageCode == 'ar'
+                                ? 'عذراً، لم نتمكن من العثور على هذا المنتج حاليا'
+                                : 'Sorry, we are currently unable to find this product',
                             style: AppTextStyle.lightBody(layout),
                             textAlign: TextAlign.center,
                           ),

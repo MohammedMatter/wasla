@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/router/app_router.dart';
 import 'package:wasla/core/theme/app_color.dart';
@@ -71,7 +73,9 @@ class PharmacyItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            pharmacy.name,
+                            pharmacy.name[Localizations.localeOf(
+                              context,
+                            ).languageCode]!,
                             style: AppTextStyle.lightBody(layout).copyWith(
                               fontSize: layout.fontSmall.clamp(14.0, 18.0),
                               fontWeight: FontWeight.bold,
@@ -84,7 +88,6 @@ class PharmacyItem extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Row(
-                              textDirection: TextDirection.rtl,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
@@ -110,13 +113,12 @@ class PharmacyItem extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Row(
-                              textDirection: TextDirection.rtl,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   pharmacy.isOpen
-                                      ? 'مفتوحة الآن'
-                                      : 'مغلقة الآن',
+                                      ? LangKeys.pharmacyOpenNow.tr()
+                                      : LangKeys.pharmacyClosedNow.tr(),
                                   style: AppTextStyle.lightSubtitle(
                                     layout,
                                   ).copyWith(

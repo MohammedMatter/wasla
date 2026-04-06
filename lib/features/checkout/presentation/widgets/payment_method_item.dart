@@ -38,7 +38,6 @@ class PaymentMethodItem extends StatelessWidget {
         height: ScreenSize.h(context) * 0.065,
         width: double.infinity,
         child: Row(
-          textDirection: TextDirection.rtl,
           children: [
             SizedBox(width: layout.sm),
             SizedBox(

@@ -10,6 +10,7 @@ class ProductModel extends Product {
     required super.price,
     required super.rating,
     required super.type,
+    required super.id,
   });
 
   factory ProductModel.fromMap(Map json) {
@@ -18,10 +19,11 @@ class ProductModel extends Product {
       description: json['description'],
       image: json['image'],
       name: json['name'],
-      pharmacyAvailable: json['pharmacy_ids'],
+      pharmacyAvailable: json['pharmacyAvailable'],
       price: json['price'],
       rating: json['rating'],
       type: json['type'],
+      id: json['id'],
     );
   }
 }

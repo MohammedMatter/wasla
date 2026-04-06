@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,9 @@ class ProductItem extends StatelessWidget {
     return Consumer<ProductViewModel>(
       builder: (context, productViewModel, child) {
         return Padding(
-          padding: EdgeInsets.only(
-            right: layout.md,
-            left: layout.md,
+          padding: EdgeInsetsDirectional.only(
+            start: layout.md,
+            end: layout.md,
             bottom: layout.sm,
           ),
           child: Ink(
@@ -43,49 +44,60 @@ class ProductItem extends StatelessWidget {
 
             child: IntrinsicHeight(
               child: Row(
-                textDirection: TextDirection.rtl,
                 children: [
+                  SizedBox(width: layout.sm),
                   Expanded(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(layout.rmd),
                       child: SizedBox(
                         height: layout.fontXLarge * 2,
-                        child: Image.network(
-                          products[index].image,
+                        child: CachedNetworkImage(
+                          imageUrl: products[index].image,
                           colorBlendMode: BlendMode.multiply,
-                          color: Color(0xffeef4f4),
-                          errorBuilder:
-                              (context, error, stackTrace) =>
-                                  Icon(Icons.broken_image, color: Colors.amber),
+                          color: const Color(0xffeef4f4),
+                          placeholder:
+                              (context, url) => const Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+
+                          errorWidget:
+                              (context, url, error) => const Icon(
+                                Icons.broken_image,
+                                color: Colors.amber,
+                              ),
+                          memCacheHeight: 300,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
+                  SizedBox(width: layout.sm),
                   Expanded(
                     flex: 3,
                     child: Column(
-                      textDirection: TextDirection.rtl,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: layout.sm),
                         Text(
                           textDirection: TextDirection.rtl,
-                          products[index].name,
+                          products[index].name[Localizations.localeOf(
+                            context,
+                          ).languageCode],
                           style: AppTextStyle.lightBody(
                             layout,
                           ).copyWith(fontSize: layout.fontSmall),
                         ),
                         SizedBox(height: layout.xs),
                         Text(
-                          textDirection: TextDirection.rtl,
-                          products[index].price,
+                          "${products[index].price} ${Localizations.localeOf(context).languageCode == 'ar' ? 'شيكل' : 'NIS'}",
                           style: AppTextStyle.lightSubtitle(
                             layout,
                           ).copyWith(color: AppColors.lightPrimaryColor),
                         ),
 
                         Row(
-                          textDirection: TextDirection.rtl,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
@@ -110,7 +122,7 @@ class ProductItem extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.only(left: layout.sm),
+                    padding: EdgeInsetsDirectional.only(end: layout.sm),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
@@ -119,7 +131,7 @@ class ProductItem extends StatelessWidget {
                         children: [
                           GestureDetector(
                             child: Icon(
-                              productViewModel.isFavorite(products[index].name)
+                              productViewModel.isFavorite(products[index].id)
                                   ? Icons.favorite
                                   : Icons.favorite_border,
                               color: Colors.red,

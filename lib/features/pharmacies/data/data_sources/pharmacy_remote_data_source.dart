@@ -10,6 +10,7 @@ class PharmacyRemoteDataSource {
     for (var pharmacy in snapshot.docs) {
       pharmacies.add(PharmacyModel.fromMap(pharmacy.data()));
     }
+
     return pharmacies;
   }
 
@@ -19,7 +20,7 @@ class PharmacyRemoteDataSource {
     final snapshot =
         await firestore
             .collection('medicines')
-            .where('pharmacy_ids', arrayContains: pharmacyId)
+            .where('pharmacyAvailable', arrayContains: pharmacyId)
             .get();
 
     return snapshot.docs

@@ -22,6 +22,7 @@ import 'package:wasla/features/products/presentation/views/available_products_vi
 import 'package:wasla/features/products/presentation/views/category_products_view.dart';
 import 'package:wasla/features/products/presentation/views/product_details_view.dart';
 import 'package:wasla/features/profile/presentation/views/profile_view.dart';
+import 'package:wasla/features/profile/presentation/views/settings_view.dart';
 import 'package:wasla/features/scanner/views/barcode_scanner_view.dart';
 import 'package:wasla/features/search/presentation/views/search_view.dart';
 import 'package:wasla/features/splash/presentation/views/splash_view.dart';
@@ -51,6 +52,7 @@ class AppRouter {
   static final String locationView = 'Location View';
   static final String favoritesView = 'Favorites View';
   static final String barcodeScannerView = 'Barcode Scanner View';
+  static final String settingsView = 'settings View';
   static final String passwordChangedSuccessView =
       'Password ChangedSuccess View';
   final GoRouter routers = GoRouter(
@@ -125,6 +127,11 @@ class AppRouter {
                     path: 'favoritesView',
                     builder: (context, state) => FavoritesView(),
                     name: favoritesView,
+                  ),
+                  GoRoute(
+                    path: '/settingsView',
+                    builder: (context, state) => SettingsView(),
+                    name: settingsView,
                   ),
                 ],
               ),

@@ -1,0 +1,175 @@
+{
+    "app_name": "وصلة",
+    "onboarding": {
+        "next": "التالي",
+        "skip": "تخطي",
+        "start": "ابدأ الآن",
+        "screen1": {
+            "title": "دوائك أقرب مما تتخيل",
+            "body": "اطلب أدويتك بسهولة..."
+        },
+        "screen2": {
+            "title": "ابحث واطلب بثواني",
+            "body": "ابحث بالاسم او ارفع الروشتة وتعرف على الأسعار بكل وضوح وسهولة"
+        },
+        "screen3": {
+            "title": "صحتك أولويتنا",
+            "body": "كل احتياجاتك الطبية في تطبيق واحد بضمن راحتك واطمئنانك"
+        }
+    },
+    "welcome": {
+        "title": "مرحباً بك في وصلة",
+        "subtitle": "منصة واحدة لجميع احتياجاتك الصيدلانية والطبية",
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "guest": "الدخول كزائر"
+    },
+    "auth": {
+        "login_title": "تسجيل الدخول",
+        "login_subtitle": "أدخل بياناتك علشان تتابع أدويتك وتستمتع بخدماتنا بسهولة",
+        "forgot_password": "نسيت كلمة المرور؟",
+        "login_button": "تسجيل دخول",
+        "dont_have_account": "ليس لديك حساب ؟",
+        "register_link": "انشاء حساب جديد",
+        "google_login": "Google",
+        "facebook_login": "Facebook",
+        "loginWith": "سجل باستخدام",
+        "register_title": "انشاء حساب جديد",
+        "register_subtitle": "ابدأ رحلتك مع تطبيقنا وسجل بياناتك عشان تتابع أدويتك وتطلبها بسهولة",
+        "name_label": "الاسم",
+        "email_label": "البريد الالكتروني",
+        "password_label": "كلمة المرور",
+        "confirm_password_label": "تأكيد كلمة المرور",
+        "register_button": "انشاء حساب جديد",
+        "social_divider": "سجل باستخدام",
+        "have_account": "لديك حساب بالفعل ؟",
+        "login_link": "تسجيل دخول",
+        "reset_password_title": "إعادة تعيين كلمة المرور",
+        "reset_password_subtitle": "أدخل بريدك الإلكتروني وهنبعتلك كود لإعادة تعيين كلمة المرور",
+        "send_code": "ارسال الكود",
+        "remember_password": "تذكرت كلمة المرور ؟",
+        "verify_title": "ادخل رمز التحقق",
+        "verify_subtitle": "أرسلنا لك رمز مكون من 5 أرقام على بريدك الالكتروني",
+        "confirm_code": "تأكيد الرمز",
+        "resend_code_prompt": "لم يصلك الرمز ؟",
+        "resend_link": "إعادة الارسال",
+        "resend_timer": "يمكنك ارسال الرمز مرة اخرى بعد {} ثانية",
+        "new_password_title": "انشاء كلمة مرور جديدة",
+        "new_password_subtitle": "من فضلك أنشئ كلمة مرور قوية لحماية حسابك",
+        "update_password": "تحديث كلمة المرور",
+        "success_title": "تم تغيير كلمة المرور بنجاح",
+        "success_subtitle": "يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك",
+        "back_to_login": "تسجيل الدخول",
+        "error_wrong_code": "الكود خطا ، تاكد من الكود يلي بعتنالك ياه",
+        "error_general": "هنالك خطا ، نرجو المحاولة لاحقا",
+        "code_sent_success": "تم ارسال الكود بنجاح",
+        "error_email_required": "يجب ادخال البريد الالكتروني اولا",
+        "success_code_sent": "تم ارسال الكود بنجاح",
+        "forgot_password_subtitle": "أدخل بريدك الإلكتروني وهنبعتلك كود لإعادة تعيين كلمة المرور"
+    },
+    "cart": {
+        "title": "السلة",
+        "empty": "السلة فارغة",
+        "total_products": "إجمالي المنتجات",
+        "delivery_fees": "رسوم التوصيل",
+        "total_amount": "الإجمالي الكلي",
+        "confirm_order": "تأكيد الطلب"
+    },
+    "home": {
+        "offers_title": "العروض و الخصومات",
+        "featured_products": "المنتجات المميزة",
+        "pharmacies_title": "الصيدليات",
+        "show_more": "عرض المزيد",
+        "show_less": "عرض اقل",
+        "search_title": "ابحث عن المنتج الذي تريده",
+        "offer": {
+            "order_now": "اطلب الآن",
+            "offer_subtitle_0": "عناية لطيفة ببشرتك الدهنية",
+            "offer_description_0": "تنظيف فعّال بدون جفاف",
+            "offer_limited_time_0": "خصومات لفترة محدودة",
+            "offer_subtitle_1": "عرض خاص للأمهات",
+            "offer_description_1": "منتجات طبيعية 100%",
+            "offer_limited_time_1": "ساري حتى نهاية الأسبوع",
+            "offer_subtitle_2": "ابتسامة مشرقة وصحية",
+            "offer_description_2": "أفضل منتجات العناية بالفم",
+            "offer_limited_time_2": "خصم 20% على جميع الفرش"
+        }
+    },
+    "pharmacies": {
+        "search_title": "ابحث عن الصيدلية التي تريدها",
+        "highest_rating": "الاعلى تقييم",
+        "view_pharmacy": "عرض",
+        "no_results": "لا توجد نتائج تطابق بحثك.",
+        "open_now": "مفتوحة الآن",
+        "closed_now": "مغلقة الآن"
+    },
+    "browse_products": {
+        "available_products": "المنتجات المتوفرة",
+        "add_success": "تمت اضافة المنتج الى السلة بنجاح"
+    },
+    "product_details": {
+        "product_details_title": "تفاصيل المنتج",
+        "buy_now": "اشتر الآن",
+        "add_to_cart": "أضف الى السلة ",
+        "related_products": "منتجات ذات صلة"
+    },
+    "profile": {
+        "title": "الملف الشخصي",
+        "favorites": "المفضلة",
+        "contact_info": "بيانات الإتصال",
+        "settings": "الإعدادات",
+        "logout": "تسجيل خروج",
+        "logout_dialog": {
+            "title": "تسجيل الخروج",
+            "message": "هل أنت متأكد أنك تريد مغادرة التطبيق؟",
+            "confirm": "خروج",
+            "cancel": "إلغاء"
+        }
+    },
+    "favorites": {
+        "title": "المفضلة",
+        "empty": "لا يوجد منتجات مفضلة"
+    },
+    "checkout": {
+        "address_title": "العنوان",
+        "payment_method_title": "طريقة الدفع",
+        "first_name": "الاسم الأول",
+        "last_name": "الاسم الأخير",
+        "phone_number": "رقم الهاتف",
+        "email": "البريد الإلكتروني",
+        "province": "المحافظة",
+        "city": "المدينة",
+        "street": "الشارع",
+        "address_details": "تفاصيل العنوان",
+        "bank_of_palestine": "بنك فلسطين",
+        "jawwal_pay": "Jawwal Pay",
+        "cash_on_delivery": "الدفع عند الاستلام",
+        "complete_payment": "إتمام الدفع",
+        "payment_success": "تم الدفع بنجاح",
+        "save": "حفظ",
+        "pay_button": "الانتقال الى بنك فلسطين",
+        "go_home": "الانتقال للصفحة الرئيسية",
+        "stepper": {
+            "address": "العنوان",
+            "payment": "الدفع",
+            "confirmation": "التأكيد"
+        },
+        "bop_gateway": {
+            "title": "الدفع من خلال بنك فلسطين",
+            "redirect_message": "سيتم تحويلك إلى بوابة بنك فلسطين لإتمام عملية الدفع بشكل آمن",
+            "choose_payment_method": "اختر طريقة الدفع",
+            "bank_account": "حساب بنكي",
+            "visa_card": "بطاقة فيزا"
+        },
+        "loading": {
+            "processing": ".... جاري التحويل",
+            "please_wait": "! يرجى عدم اغلاق الصفحة"
+        }
+    },
+    "Location": {
+        "pharmaciesOnMap": "الصيدليات على الخريطة"
+    },
+    "Search": {
+        "search_title": "البحث"
+    }
+}

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
+import 'package:wasla/core/constants/lang_keys.dart';
 import 'package:wasla/core/layout/app_layout.dart';
 import 'package:wasla/core/theme/app_text_style.dart';
 import 'package:wasla/features/location/domain/entities/location_status.dart';
@@ -32,7 +34,7 @@ class _LocationViewState extends State<LocationView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "الصيدليات على الخريطة",
+          LangKeys.locationTitle.tr(),
           style: AppTextStyle.lightHeading1(layout),
         ),
       ),

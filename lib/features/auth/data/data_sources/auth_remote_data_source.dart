@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ import 'package:wasla/core/errors/failure.dart';
 class AuthRemoteDataSource {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   Future<Unit> signUp({
     required String name,
     required String email,
@@ -35,7 +37,8 @@ class AuthRemoteDataSource {
     try {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .timeout(Duration(seconds: 7));
+          .timeout(Duration(seconds: 30));
+      log('Signed');
       return unit;
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.code);
@@ -49,11 +52,11 @@ class AuthRemoteDataSource {
   }
 
   Future<Either<Failure, String>> sendOtp({required String email}) async {
-    String otpCode = (Random().nextInt(90000) + 10000).toString();
+    String otpCode = (math.Random().nextInt(90000) + 10000).toString();
 
     try {
       final userName = 'mohammedabomatter@gmail.com';
-      String password = 'wqiu cxux kwvc smpr';
+      String password = 'weoo xnri qtgh bbxq';
       final SmtpServer smtpServer = gmail(userName, password);
       final message =
           Message()
