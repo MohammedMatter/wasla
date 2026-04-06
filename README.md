@@ -1,52 +1,12 @@
-🚀 Wasla - Smart Pharmacy Marketplace
-Wasla is a production-ready, multi-vendor marketplace platform specifically designed for the pharmaceutical industry. Built with Flutter and Firebase, the project serves as a robust bridge between pharmacies and customers, prioritizing high performance, scalable architecture, and a seamless user experience.
+🏥 Wasla | Pharmacy Marketplace EcosystemA Scalable Multi-Vendor Pharmacy Solution built with Software ExcellenceWasla (The Connection) is a production-grade, multi-vendor pharmaceutical marketplace. It serves as a robust digital bridge connecting pharmacies with consumers through a high-performance mobile experience. Engineered with a "Clean Code" philosophy, it prioritizes scalability, maintainability, and decoupled logic.🏗️ Architectural BlueprintThe project is built upon Clean Architecture, strictly separating concerns into independent layers to ensure the business logic remains untouched by external changes.LayerResponsibilityPattern / ToolsPresentationUI Logic & State HandlingMVVM / ProviderDomainCore Business Rules (Entities)Atomic Use CasesDataExternal Data ManagementRepository Pattern🛠️ Technical SophisticationThis project isn't just about UI; it’s about Software Engineering:Dependency Inversion (DIP): Implemented via Get_it. High-level modules do not depend on low-level modules (e.g., UseCases depend on Abstract Repositories, not Firebase directly).Decoupled Repositories: The architecture allows swapping Firebase for a REST API by simply changing the implementation layer, without touching a single line of UI code.SOLID Compliance:S: Single Responsibility per class/file.O: Open for extension (e.g., adding payment methods) but closed for modification.L/I: Lean interfaces to avoid "fat" repository implementations.Localization (L10n): Full Arabic/English support with automated RTL/LTR layout switching.Responsive Engine: Dynamic scaling across mobile devices using flutter_screenutil.✨ Core FeaturesMulti-Vendor Logic: Advanced filtering and categorization for diverse pharmacy inventories.Real-time Synchronization: Powered by Firebase Firestore for live cart and order updates.Secure Auth: Robust authentication flows including profile management and data persistence.Cart & Order Management: Complex state handling for multi-item pharmaceutical selections.🚀 Tech StackLanguage: DartFramework: FlutterState Management: Provider (ChangeNotifier)Service Locator: Get_itDatabase/Auth: Firebase (Firestore, Authentication, Storage)⚙️ Installation & SetupBash# Clone the repository
+git clone https://github.com/your-username/wasla.git
 
-🏗️ Architecture & Core Principles
-The project is engineered with a deep focus on Software Engineering best practices, ensuring the codebase is maintainable and testable:
+# Navigate to project directory
+cd wasla
 
-Clean Architecture: Strict separation of concerns into Data, Domain, and Presentation layers.
+# Fetch dependencies
+flutter pub get
 
-MVVM Pattern: Using a reactive approach to decouple business logic from the UI.
-
-SOLID Principles: High adherence to Single Responsibility, Dependency Inversion (using Repositories & Use Cases), and Interface Segregation.
-
-Modular Features: Every feature (Auth, Cart, Products) is treated as a self-contained module.
-
-✨ Key Features
-Multi-Vendor Support: Scalable system for managing multiple pharmacies and product inventories.
-
-Localization (AR/EN): Full RTL/LTR support with high-quality translation files.
-
-Responsive Design: Optimized for various screen sizes using flutter_screenutil.
-
-State Management: Professional implementation using Provider/ChangeNotifier (or mention your tool like Bloc/GetX).
-
-Secure Authentication: Firebase-powered secure login and user management.
-
-Real-time Pharmacy Filtering: Advanced search and filtering logic for pharmacy products.
-
-🛠️ Tech Stack
-Framework: Flutter
-
-Backend: Firebase (Firestore, Auth, Storage)
-
-Dependency Injection: Get_it (Implementing DIP)
-
-Architecture: Clean Architecture + MVVM
-
-Language: Dart
-
-💡 Why Wasla?
-Unlike basic marketplace apps, Wasla is built to solve real-world pharmaceutical logistics. It implements advanced SQL Server concepts for inventory management (in academic versions) and follows a Clean Code philosophy that allows for easy scaling from Firebase to any custom REST API without breaking the core logic.
-
-🎨 How to use it?
-Clone the repo.
-
-Run flutter pub get.
-
-Configure your Firebase project in google-services.json.
-
-flutter run.
-
-📄 License
-This project is part of my Software Engineering journey in Gaza, aimed at building high-impact digital solutions.
+# Build/Run (Ensure google-services.json is present)
+flutter run
+👨‍💻 Engineering Philosophy"I build software that doesn't just work today, but survives tomorrow. My approach focuses on writing clean, testable code that solves real-world logistics, starting from Gaza and reaching the global market."Why this works:Professional Tone: Using words like "Blueprint", "Sophistication", and "Decoupled" shows you speak the language of Senior Engineers.Badges & Tables: They make the page visually "digestible" and professional.The Table: It immediately tells a technical person that you know the difference between Data, Domain, and Presentation layers.
