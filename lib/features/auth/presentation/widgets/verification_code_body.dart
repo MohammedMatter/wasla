@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +29,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final vm = context.read<VervicationViewModel>();
+      vm.toogleFilledColor(isFilledColor: false);
       vm.startTimer();
     });
     super.initState();
@@ -60,11 +61,14 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
               ).copyWith(color: const Color(0xff7E7575)),
             ),
             SizedBox(height: layout.md),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                5,
-                (index) => _buildOtpBox(context, index, layout),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  5,
+                  (index) => _buildOtpBox(context, index, layout),
+                ),
               ),
             ),
             SizedBox(height: layout.md),
@@ -208,20 +212,22 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
                   LengthLimitingTextInputFormatter(1),
                 ],
                 onChanged: (value) {
-                  if (index < _controllers.length - 1 && value.length == 1) {
-                    FocusScope.of(context).nextFocus();
-                    vervicationViewModel.toogleFilledColor(
-                      isFilledColor: false,
-                    );
-                  } else if (value.isEmpty && index > 0) {
-                    vervicationViewModel.toogleFilledColor(
-                      isFilledColor: false,
-                    );
-                    FocusScope.of(context).previousFocus();
-                  } else if (index == _controllers.length - 1) {
-                    vervicationViewModel.toogleFilledColor(isFilledColor: true);
-                    FocusScope.of(context).unfocus();
+                  if (value.length == 1) {
+                    if (index < _controllers.length - 1) {
+                      FocusScope.of(context).nextFocus();
+                    } else {
+                      FocusScope.of(context).unfocus();
+                    }
+                  } else if (value.isEmpty) {
+                    if (index > 0) {
+                      FocusScope.of(context).previousFocus();
+                    }
                   }
+
+                  bool allFilled = _controllers.every((c) => c.text.isNotEmpty);
+                  vervicationViewModel.toogleFilledColor(
+                    isFilledColor: allFilled,
+                  );
                 },
               ),
             ),

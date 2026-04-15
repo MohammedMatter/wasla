@@ -12,7 +12,6 @@ import 'package:wasla/features/search/presentation/view_models/search_view_model
 
 class CategoryProductsView extends StatelessWidget {
   const CategoryProductsView({super.key});
-
   @override
   Widget build(BuildContext context) {
     final layout = context.read<AppLayout>();
@@ -22,7 +21,9 @@ class CategoryProductsView extends StatelessWidget {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               title: Text(
-                productViewModel.selectedCategory,
+                Localizations.localeOf(context).languageCode == 'ar'
+                    ? productViewModel.selectedCategory!.arName
+                    : productViewModel.selectedCategory!.enName,
                 style: AppTextStyle.lightHeading1(layout),
               ),
 

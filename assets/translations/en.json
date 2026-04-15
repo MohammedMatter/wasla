@@ -59,6 +59,8 @@
         "update_password": "Update Password",
         "success_title": "Password Changed Successfully",
         "success_subtitle": "You can now log in with your new password",
+        "registration_success_title": "Account Created Successfully!",
+        "registration_success_subtitle": "Welcome to Wasla! Your gateway to all pharmacies is now ready. Start exploring now.",
         "back_to_login": "Login",
         "error_wrong_code": "Wrong code, please check the code we sent you",
         "error_general": "An error occurred, please try again later",
@@ -171,5 +173,23 @@
     },
     "Search": {
         "search_title": "search"
+    },
+    "settings": {
+        "title": "Settings",
+        "account_settings": "Account Settings",
+        "edit_profile": "Edit Profile",
+        "change_password": "Change Password",
+        "app_settings": "App Settings",
+        "language": "Language / اللغة",
+        "notifications": "Notifications",
+        "support": "Support",
+        "privacy_policy": "Privacy Policy",
+        "contact_us": "Contact Us"
+    },
+    "filter": {
+        "all": "All",
+        "best_sellers": "Best Sellers",
+        "popular": "Popular",
+        "top_rated": "Top Rated"
     }
 }

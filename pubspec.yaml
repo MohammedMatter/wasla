@@ -54,25 +54,26 @@ dependencies:
   mobile_scanner: ^7.2.0
   flutter_screenutil: ^5.9.3
   cached_network_image: ^3.4.0
-
   flutter_localizations:
     sdk: flutter
   easy_localization: ^3.0.8  
+  
 
 
 
   
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+  flutter_test:
+    sdk: flutter
   flutter_lints: ^5.0.0
+  test: ^1.30.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -81,7 +82,7 @@ dev_dependencies:
 
 
 flutter_native_splash:
-  color: "#FFFFFF"              # لون خلفية الشاشة (أبيض)
+  color: "#FFFFFF"            
   image: assets/images/logo/logo_wasla.png
   
   android_12:

@@ -96,7 +96,7 @@ class SearchView extends StatelessWidget {
                                       : Color(0xffeef4f4),
                             ),
                             child: Text(
-                              ProductFilterType.values[index].arabicName,
+                              ProductFilterType.values[index].name,
                               style: AppTextStyle.lightBody(layout).copyWith(
                                 color:
                                     searchViewModel.selectedIndex == index

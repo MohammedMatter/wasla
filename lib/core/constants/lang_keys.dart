@@ -60,6 +60,10 @@ class LangKeys {
   static const String successSubtitle = 'auth.success_subtitle';
   static const String backToLogin = 'auth.back_to_login';
   static const String forgotPasswordSubtitle = 'auth.forgot_password_subtitle';
+  static const String registrationSuccessTitle =
+      'auth.registration_success_title';
+  static const String registrationSuccessSubtitle =
+      'auth.registration_success_subtitle';
 
   // --- Auth Errors & Feedback ---
   static const String errorWrongCode = 'auth.error_wrong_code';
@@ -87,6 +91,18 @@ class LangKeys {
   static const String pharmaciesNoResults = 'pharmacies.no_results';
   static const String pharmacyOpenNow = 'pharmacies.open_now'; // أضف هذا
   static const String pharmacyClosedNow = 'pharmacies.closed_now';
+
+  // --- Settings ---
+  static const String settingsTitle = 'settings.title';
+  static const String accountSettings = 'settings.account_settings';
+  static const String editProfile = 'settings.edit_profile';
+  static const String changePassword = 'settings.change_password';
+  static const String appSettings = 'settings.app_settings';
+  static const String language = 'settings.language';
+  static const String notifications = 'settings.notifications';
+  static const String support = 'settings.support';
+  static const String privacyPolicy = 'settings.privacy_policy';
+  static const String contactUs = 'settings.contact_us';
 
   // --- Products & Details ---
 
@@ -165,4 +181,9 @@ class LangKeys {
   // --- Location & Global Search ---
   static const String locationTitle = 'Location.pharmaciesOnMap';
   static const String searchTitle = 'Search.search_title';
+
+  static const String filterAll = 'filter.all';
+  static const String filterBestSellers = 'filter.best_sellers';
+  static const String filterPopular = 'filter.popular';
+  static const String filterTopRated = 'filter.top_rated';
 }

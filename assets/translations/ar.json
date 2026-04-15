@@ -59,6 +59,8 @@
         "update_password": "تحديث كلمة المرور",
         "success_title": "تم تغيير كلمة المرور بنجاح",
         "success_subtitle": "يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك",
+        "registration_success_title": "تم إنشاء الحساب بنجاح!",
+        "registration_success_subtitle": "أهلاً بك في وصلة! بوابتك لكل الصيدليات أصبحت جاهزة الآن. ابدأ الاستكشاف الآن.",
         "back_to_login": "تسجيل الدخول",
         "error_wrong_code": "الكود خطا ، تاكد من الكود يلي بعتنالك ياه",
         "error_general": "هنالك خطا ، نرجو المحاولة لاحقا",
@@ -171,5 +173,23 @@
     },
     "Search": {
         "search_title": "البحث"
+    },
+    "settings": {
+        "title": "الإعدادات",
+        "account_settings": "إعدادات الحساب",
+        "edit_profile": "تعديل الملف الشخصي",
+        "change_password": "تغيير كلمة المرور",
+        "app_settings": "إعدادات التطبيق",
+        "language": "اللغة / Language",
+        "notifications": "الإشعارات",
+        "support": "الدعم الفني",
+        "privacy_policy": "سياسة الخصوصية",
+        "contact_us": "اتصل بنا"
+    },
+    "filter": {
+        "all": "الكل",
+        "best_sellers": "الأكثر مبيعاً",
+        "popular": "الأكثر شهرة",
+        "top_rated": "الأعلى تقييماً"
     }
 }

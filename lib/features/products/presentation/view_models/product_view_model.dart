@@ -23,7 +23,7 @@ class ProductViewModel extends ChangeNotifier {
   List<Product> topRatedProducts = [];
   List<Product> favoritesProduct = [];
   final Set<String> _favoriteIds = {};
-  String selectedCategory = '';
+  CategoryEntity? selectedCategory;
   Product? selectedProduct;
   GetAllProductsUseCase getAllProductsUseCase;
   ProductViewModel({required this.getAllProductsUseCase});
@@ -78,7 +78,7 @@ class ProductViewModel extends ChangeNotifier {
   }
 
   void selectProductCategory({required CategoryEntity category}) {
-    selectedCategory = category.id;
+    selectedCategory = category;
     switch (category.id) {
       case 'mother':
         selectedProductsList = motherCareProducts;

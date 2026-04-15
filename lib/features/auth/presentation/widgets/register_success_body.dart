@@ -24,12 +24,12 @@ class RegisterSuccessBody extends StatelessWidget {
             Image.asset('assets/images/success_register.png'),
             SizedBox(height: layout.lg),
             Text(
-              LangKeys.successTitle.tr(),
+              LangKeys.registrationSuccessTitle.tr(),
               style: AppTextStyle.lightHeading1(layout),
             ),
             SizedBox(height: layout.md),
             Text(
-              LangKeys.successSubtitle.tr(),
+              LangKeys.registrationSuccessSubtitle.tr(),
               textAlign: TextAlign.center,
               style: AppTextStyle.lightSubtitle(
                 layout,

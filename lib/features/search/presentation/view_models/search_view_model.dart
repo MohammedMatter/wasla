@@ -27,8 +27,14 @@ class SearchViewModel extends ChangeNotifier {
     if (query.isEmpty) {
       return filteredProductsList;
     }
+
+    final lowerQuery = query.toLowerCase();
+
     return filteredProductsList.where((product) {
-      return product.name['en'].toLowerCase().contains(query.toLowerCase());
+      final String nameEn = product.name['en']?.toLowerCase() ?? '';
+      final String nameAr = product.name['ar']?.toLowerCase() ?? '';
+
+      return nameEn.contains(lowerQuery) || nameAr.contains(lowerQuery);
     }).toList();
   }
 

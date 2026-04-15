@@ -32,7 +32,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          LangKeys.resetPasswordTitle.tr(), // استخدام مفتاح الترجمة
+          LangKeys.resetPasswordTitle.tr(),
           style: AppTextStyle.lightHeading1(layout).copyWith(
             fontSize: layout.fontLarge.clamp(18.0, 24.0),
             fontWeight: FontWeight.bold,

@@ -26,4 +26,18 @@ class ProductModel extends Product {
       id: json['id'],
     );
   }
+
+  Product toEntity() {
+    return Product(
+      category: category,
+      description: description,
+      image: image,
+      name: name,
+      pharmacyAvailable: pharmacyAvailable,
+      price: price,
+      rating: rating,
+      type: type,
+      id: id,
+    );
+  }
 }

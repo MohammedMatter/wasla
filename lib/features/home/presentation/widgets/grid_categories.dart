@@ -15,61 +15,59 @@ class GridCategories extends StatelessWidget {
   final List<CategoryEntity> categories;
 
   @override
-  @override
   Widget build(BuildContext context) {
     final AppLayout layout = context.read<AppLayout>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: layout.md),
-      child: Wrap(
-        spacing: layout.sm,
-        runSpacing: layout.sm,
-        children:
-            categories.map((category) {
-              return Consumer2<ProductViewModel, SearchViewModel>(
-                builder:
-                    (context, productViewModel, searchViewModel, child) =>
-                        IntrinsicWidth(
-                          child: Material(
-                            color: AppColors.lightPrimaryColor,
-                            borderRadius: BorderRadius.circular(layout.rmd),
-                            child: InkWell(
-                              onTap: () {
-                                productViewModel.selectProductCategory(
-                                  category: category,
-                                );
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: categories.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: layout.sm,
+          mainAxisSpacing: layout.sm,
+          childAspectRatio: 2.1,
+        ),
+        itemBuilder: (context, index) {
+          final category = categories[index];
 
-                                searchViewModel.reset();
-
-                                GoRouter.of(
-                                  context,
-                                ).goNamed(AppRouter.categoryProductsView);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: layout.md,
-                                  vertical: layout.sm,
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  Localizations.localeOf(
-                                            context,
-                                          ).languageCode ==
-                                          'ar'
-                                      ? category.arName
-                                      : category.enName,
-                                  style: AppTextStyle.lightSubtitle(
-                                    layout,
-                                  ).copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+          return Consumer2<ProductViewModel, SearchViewModel>(
+            builder:
+                (context, productViewModel, searchViewModel, child) => Material(
+                  color: AppColors.lightPrimaryColor,
+                  borderRadius: BorderRadius.circular(layout.rmd),
+                  child: InkWell(
+                    onTap: () {
+                      productViewModel.selectProductCategory(
+                        category: category,
+                      );
+                      searchViewModel.reset();
+                      GoRouter.of(
+                        context,
+                      ).goNamed(AppRouter.categoryProductsView);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: layout.xs),
+                      child: Text(
+                        Localizations.localeOf(context).languageCode == 'ar'
+                            ? category.arName
+                            : category.enName,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyle.lightSubtitle(layout).copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
                         ),
-              );
-            }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+          );
+        },
       ),
     );
   }
